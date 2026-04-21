@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxy Parfums | Alta Perfumaria Árabe</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        luxGold: '#D4AF37',
+                        luxGoldDark: '#C5A059',
+                        luxDark: '#1A1A1A',
+                        luxCreme: '#FDFBF7'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Ícones Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Estilos Customizados (Efeitos, Background, etc) -->
+    <style>
+        /* Background Image Luxuoso com overlay */
+        body {
+            background-color: #FDFBF7;
+            background-image: url('https://images.unsplash.com/photo-1596395819057-e37f55a8516d?auto=format&fit=crop&q=80&w=2000'); /* Textura sutil */
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Overlay para garantir leitura */
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(253, 251, 247, 0.85); /* Fundo creme translúcido */
+            z-index: -1;
+        }
+
+        .lux-shadow { box-shadow: 0 10px 40px -10px rgba(212, 175, 55, 0.2); }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Efeito de Brilho nos Botões (Shine/Glow) */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-20deg);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        /* Animação suave para as páginas */
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-900 selection:bg-luxGold selection:text-white antialiased">
+    <div class="bg-overlay"></div>
+
+    <!-- HEADER -->
+    <header class="fixed top-0 w-full z-40 bg-white/90 backdrop-blur-md border-b border-luxGold/20 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <div id="header-left" class="flex items-center flex-1 gap-4">
+                <!-- Preenchido via JS (Botão Voltar ou Busca) -->
+            </div>
+
+            <!-- Logo -->
+            <div onclick="goHome()" class="flex-shrink-0 flex flex-col items-center justify-center cursor-pointer group">
+                <div class="flex items-center text-luxGold mb-1 relative transform group-hover:scale-105 transition-transform">
+                    <i data-lucide="sparkles" class="absolute -left-4 top-1 w-3 h-3 opacity-70"></i>
+                    <i data-lucide="crown" class="w-7 h-7" stroke-width="1.5"></i>
+                </div>
+                <h1 class="font-serif text-2xl font-semibold text-luxGold tracking-wider leading-none">Luxy</h1>
+                <span class="text-[9px] tracking-[0.3em] text-gray-500 uppercase mt-1">Parfums</span>
+            </div>
+
+            <div class="flex items-center justify-end flex-1">
+                <button onclick="toggleCart(true)" class="relative p-2 text-gray-600 hover:text-luxGold transition-colors flex items-center gap-2 group">
+                    <span class="hidden md:block text-sm font-medium group-hover:text-luxGold uppercase tracking-wider">Sacola</span>
+                    <div class="relative">
+                        <i data-lucide="shopping-bag" class="w-6 h-6" stroke-width="1.5"></i>
+                        <span id="cart-badge" class="hidden absolute -top-1 -right-1 bg-luxGold text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">0</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTAINER PRINCIPAL DINÂMICO -->
+    <div id="app-root" class="min-h-screen pt-20 fade-in">
+        <!-- Conteúdo injetado via JS -->
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-luxDark text-white py-16 border-t border-luxGold/30 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center items-center text-luxGold mb-6">
+                <i data-lucide="crown" class="w-10 h-10" stroke-width="1"></i>
+            </div>
+            <h2 class="font-serif text-3xl mb-4">Luxy Parfums</h2>
+            <p class="text-gray-400 font-light text-sm mb-12 max-w-md mx-auto">Trazendo os mistérios, a opulência e as fragrâncias mais desejadas do Oriente Médio diretamente para você.</p>
+            <div class="text-xs text-gray-600 uppercase tracking-widest">
+                &copy; <span id="year"></span> Luxy Parfums. Exclusividade e Luxo.
+            </div>
+        </div>
+    </footer>
+
+    <!-- CARRINHO LATERAL (DRAWER) -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleCart(false)">
+        <div id="cart-drawer" class="absolute top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col" onclick="event.stopPropagation()">
+            
+            <div class="flex items-center justify-between p-6 border-b border-gray-100 bg-luxCreme">
+                <h2 class="font-serif text-2xl text-gray-900 flex items-center gap-3">
+                    Sua Sacola
+                    <span id="cart-count-header" class="bg-luxGold text-white text-xs font-sans px-2.5 py-1 rounded-full">0</span>
+                </h2>
+                <button onclick="toggleCart(false)" class="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-200 rounded-full transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-6">
+                <!-- Itens do carrinho via JS -->
+            </div>
+
+            <div id="cart-footer" class="hidden border-t border-gray-100 p-6 bg-luxCreme">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-gray-500 uppercase tracking-widest text-sm font-semibold">Subtotal</span>
+                    <span id="cart-total" class="font-serif text-2xl text-gray-900">R$ 0,00</span>
+                </div>
+                <p class="text-xs text-gray-500 mb-4 text-center font-light">Frete e forma de pagamento serão alinhados no WhatsApp.</p>
+                <button onclick="handleWhatsAppCheckout()" class="btn-shine w-full bg-[#25D366] hover:bg-[#20bd5a] text-white py-4 px-6 text-sm uppercase tracking-wider font-semibold transition-all flex items-center justify-center gap-2 shadow-lg shadow-green-500/20 rounded-md">
+                    Finalizar no WhatsApp
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT DA APLICAÇÃO -->
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // --- BANCO DE DADOS DOS PRODUTOS ---
+        const catalog = [
+            {
+                id: 7,
+                name: "Oud Majestueux",
+                brand: "Lattafa Pride",
+                description: "O verdadeiro ouro líquido. Uma explosão de Oud cambojano, especiarias e rosas de damasco.",
+                fullDescription: "Oud Majestueux é a joia da coroa da nossa coleção. Uma fragrância que captura a essência da realeza árabe. Com uma abertura marcante de açafrão e especiarias, evolui para um coração majestoso de rosa e finaliza com o mais puro Oud e âmbar.",
+                price: 550.00,
+                gender: "Unissex",
+                essence: "Amadeirado Oriental",
+                topNotes: "Açafrão, Noz-moscada, Canela",
+                heartNotes: "Rosa de Damasco, Madeira de Agar (Oud)",
+                baseNotes: "Âmbar, Sândalo, Baunilha",
+                occasions: ["Jantar de Negócios", "Eventos Especiais", "Noite"],
+                image: "https://i.postimg.cc/W414kM1T/shopping-(6).webp",
+                isNewRelease: true
+            },
+            {
+                id: 1,
+                name: "Eclaire",
+                brand: "Lattafa",
+                description: "Aroma intenso de caramelo, leite e mel. Uma sobremesa sofisticada e luxuosa.",
+                fullDescription: "Famoso por seu aroma intenso de caramelo, leite e mel. Uma fragrância cremosa e doce, lembrando uma sobremesa sofisticada servida nos cafés luxuosos de Dubai. Uma fixação absurda que projeta conforto e extrema feminilidade.",
+                price: 380.00,
+                gender: "Feminino",
+                essence: "Gourmand",
+                topNotes: "Caramelo, Leite, Mel",
+                heartNotes: "Baunilha cremosa, Açúcar fiado",
+                baseNotes: "Almíscar Branco, Pralinê",
+                occasions: ["Encontro", "Jantar", "Dia a dia"],
+                image: "https://i.postimg.cc/50HNPbv2/shopping-(5).webp",
+                isNewRelease: false
+            },
+            {
+                id: 2,
+                name: "Genius Selina",
+                brand: "Emper",
+                description: "Floral oriental frutado. Fragrância feminina, elegante e ousada. (Inspirado no Delina).",
+                fullDescription: "Um buquê floral oriental frutado de extrema elegância. Genius Selina é para a mulher que sabe o que quer. Uma abertura fresca e frutada de lichia dá espaço a um coração de rosa turca opulenta, finalizando com uma base quente de baunilha.",
+                price: 320.00,
+                gender: "Feminino",
+                essence: "Floral Frutado",
+                topNotes: "Lichia, Pera, Bergamota",
+                heartNotes: "Rosa Turca, Peônia, Notas Aquáticas",
+                baseNotes: "Baunilha, Almíscar, Vetiver",
+                occasions: ["Trabalho", "Casamentos", "Dia a dia"],
+                image: "https://i.postimg.cc/FsXsZtK5/shopping-(4).webp",
+                isNewRelease: false
+            },
+            {
+                id: 3,
+                name: "Queen of Arabia",
+                brand: "Lattafa",
+                description: "Luxo que exala. Notas intensas de baunilha, doce e âmbar. O verdadeiro cheiro de mulherão.",
+                fullDescription: "Como o nome sugere, esta é a fragrância de uma rainha. Uma poção noturna e sedutora com níveis estonteantes de baunilha quente entrelaçada com âmbar dourado e um toque de mistério oriental.",
+                price: 410.00,
+                gender: "Feminino",
+                essence: "Âmbar Baunilha",
+                topNotes: "Laranja Amarga, Framboesa",
+                heartNotes: "Flor de Laranjeira, Jasmim Sambac",
+                baseNotes: "Baunilha de Madagascar, Âmbar, Patchouli",
+                occasions: ["Balada", "Encontro", "Noite"],
+                image: "https://i.postimg.cc/g2NzmnqT/shopping-(3).webp",
+                isNewRelease: false
+            },
+            {
+                id: 5,
+                name: "So Candid Pour Homme",
+                brand: "Maison Alhambra",
+                description: "Presença séria e elegante. Notas de caramelo escuro e especiarias árabes.",
+                fullDescription: "Para o homem de sucesso. So Candid é impetuoso, sério e extremamente magnético. A inusitada mistura de sálvia com o doce masculino do caramelo e a robustez do vetiver o tornam um perfume viciante.",
+                price: 270.00,
+                gender: "Masculino",
+                essence: "Aromático Especiado",
+                topNotes: "Sálvia Esclareia, Mandarina",
+                heartNotes: "Caramelo, Fava Tonka",
+                baseNotes: "Vetiver, Patchouli",
+                occasions: ["Jantar de Negócios", "Trabalho", "Balada"],
+                image: "https://i.postimg.cc/QtWhQSL6/shopping-(2).webp",
+                isNewRelease: false
+            },
+            {
+                id: 6,
+                name: "Afeef",
+                brand: "Lattafa",
+                description: "Elegância e sofisticação em um frasco escultural. Notas de pêssego e tuberosa.",
+                fullDescription: "Uma fragrância majestosa que exala luz. Afeef traz a suculência do pêssego combinada com a potência narcótica da tuberosa, deitando sobre uma cama luxuosa de sândalo cremoso.",
+                price: 450.00,
+                gender: "Unissex",
+                essence: "Amadeirado Floral",
+                topNotes: "Pêssego, Laranja Doce",
+                heartNotes: "Tuberosa, Ylang-Ylang",
+                baseNotes: "Sândalo, Patchouli, Baunilha",
+                occasions: ["Eventos Especiais", "Noite", "Casamentos"],
+                image: "https://i.postimg.cc/j24VcFMX/shopping-(1).webp",
+                isNewRelease: false
+            }
+        ];
+
+        const filterTags = ["Todos", "Feminino", "Masculino", "Unissex", "Gourmand", "Amadeirado", "Floral", "Balada", "Trabalho", "Jantar", "Dia a dia"];
+
+        // --- ESTADO DA APLICAÇÃO ---
+        let cart = [];
+        let currentView = 'home';
+        let selectedProductId = null;
+        let activeFilter = 'Todos';
+        let searchQuery = '';
+
+        // --- UTILITÁRIOS ---
+        const formatCurrency = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+        
+        // Re-inicia os ícones Lucide sempre que o DOM mudar
+        const renderIcons = () => lucide.createIcons();
+
+        // --- NAVEGAÇÃO ---
+        window.goHome = () => {
+            currentView = 'home';
+            selectedProductId = null;
+            renderApp();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.goToProduct = (id) => {
+            currentView = 'product';
+            selectedProductId = id;
+            renderApp();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // --- FILTROS E BUSCA ---
+        window.setActiveFilter = (tag) => {
+            activeFilter = tag;
+            renderApp();
+        };
+
+        window.setSearchQuery = (event) => {
+            searchQuery = event.target.value;
+            renderApp();
+        };
+
+        // --- CARRINHO DE COMPRAS ---
+        window.toggleCart = (isOpen) => {
+            const overlay = document.getElementById('cart-overlay');
+            const drawer = document.getElementById('cart-drawer');
+            if (isOpen) {
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                overlay.classList.add('opacity-100', 'pointer-events-auto');
+                drawer.classList.remove('translate-x-full');
+                drawer.classList.add('translate-x-0');
+                document.body.style.overflow = 'hidden';
+            } else {
+                overlay.classList.remove('opacity-100', 'pointer-events-auto');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                drawer.classList.remove('translate-x-0');
+                drawer.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+            }
+        };
+
+        window.addToCart = (id, event) => {
+            if(event) event.stopPropagation();
+            const product = catalog.find(p => p.id === id);
+            const existingItem = cart.find(item => item.product.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ product, quantity: 1 });
+            }
+            
+            updateCartUI();
+            toggleCart(true);
+        };
+
+        window.updateQuantity = (id, delta) => {
+            const item = cart.find(item => item.product.id === id);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.product.id !== id);
+                }
+            }
+            updateCartUI();
+        };
+
+        window.removeFromCart = (id) => {
+            cart = cart.filter(item => item.product.id !== id);
+            updateCartUI();
+        };
+
+        const updateCartUI = () => {
+            const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const total = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+
+            // Badges do Header e Titulo
+            const badge = document.getElementById('cart-badge');
+            document.getElementById('cart-count-header').textContent = itemCount;
+            
+            if (itemCount > 0) {
+                badge.textContent = itemCount;
+                badge.classList.remove('hidden');
+                document.getElementById('cart-footer').classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+                document.getElementById('cart-footer').classList.add('hidden');
+            }
+
+            document.getElementById('cart-total').textContent = formatCurrency(total);
+
+            // Renderizar itens
+            const container = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-gray-400 space-y-4 pt-10">
+                        <i data-lucide="shopping-bag" class="w-12 h-12 text-gray-300" stroke-width="1"></i>
+                        <p class="font-light text-lg">Sua sacola de luxo está vazia.</p>
+                        <button onclick="toggleCart(false)" class="text-luxGold border-b border-luxGold pb-1 hover:text-luxGoldDark uppercase tracking-wider text-xs font-semibold mt-4">
+                            Continuar explorando
+                        </button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = cart.map(item => `
+                    <div class="flex gap-4 bg-white p-2 rounded-lg border border-gray-100 shadow-sm">
+                        <div class="w-20 h-24 flex-shrink-0 overflow-hidden bg-gray-50 border border-gray-100 rounded-md">
+                            <img src="${item.product.image}" alt="${item.product.name}" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="flex-1 flex flex-col justify-between py-1">
+                            <div>
+                                <div class="flex justify-between items-start">
+                                    <h4 class="font-serif text-gray-900 font-medium">${item.product.name}</h4>
+                                    <button onclick="removeFromCart(${item.product.id})" class="text-gray-400 hover:text-red-500 transition-colors p-1">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                                <p class="text-[10px] text-gray-400 uppercase tracking-wider mt-1">${item.product.brand}</p>
+                            </div>
+                            <div class="flex justify-between items-center mt-4">
+                                <div class="flex items-center border border-gray-200 rounded-md overflow-hidden">
+                                    <button onclick="updateQuantity(${item.product.id}, -1)" class="px-3 py-1 text-gray-500 hover:bg-gray-100 transition-colors"><i data-lucide="minus" class="w-3 h-3"></i></button>
+                                    <span class="w-8 text-center text-sm font-medium">${item.quantity}</span>
+                                    <button onclick="updateQuantity(${item.product.id}, 1)" class="px-3 py-1 text-gray-500 hover:bg-gray-100 transition-colors"><i data-lucide="plus" class="w-3 h-3"></i></button>
+                                </div>
+                                <span class="font-medium text-luxGold">${formatCurrency(item.product.price * item.quantity)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            renderIcons();
+        };
+
+        // --- FINALIZAÇÃO WHATSAPP ---
+        window.handleWhatsAppCheckout = () => {
+            if (cart.length === 0) return;
+
+            const phoneNumber = "5592984215022";
+            let message = "Olá, *Luxy Parfums*! ✨\n\nGostaria de finalizar meu pedido:\n\n";
+            
+            cart.forEach(item => {
+                message += `▫️ ${item.quantity}x ${item.product.name} - ${item.product.brand} (${formatCurrency(item.product.price)})\n`;
+            });
+            
+            const total = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+            message += `\n*Total: ${formatCurrency(total)}*`;
+            message += "\n\nQual o próximo passo para o pagamento e envio?";
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+        };
+
+        // --- RENDERIZAÇÃO DA INTERFACE ---
+        const renderHeader = () => {
+            const headerLeft = document.getElementById('header-left');
+            if (currentView === 'product') {
+                headerLeft.innerHTML = `
+                    <button onclick="goHome()" class="p-2 -ml-2 text-gray-600 hover:text-luxGold transition-colors flex items-center gap-1 font-medium text-sm uppercase tracking-wider">
+                        <i data-lucide="chevron-left" class="w-5 h-5"></i> Voltar
+                    </button>
+                `;
+            } else {
+                headerLeft.innerHTML = `
+                    <div class="hidden lg:flex items-center bg-white rounded-full px-4 py-2 border border-gray-200 focus-within:border-luxGold/50 transition-colors w-64 shadow-sm">
+                        <i data-lucide="search" class="w-4 h-4 text-gray-400"></i>
+                        <input type="text" placeholder="Buscar notas, perfumes..." class="bg-transparent border-none outline-none ml-2 text-sm w-full placeholder:text-gray-400" value="${searchQuery}" onkeyup="setSearchQuery(event)">
+                    </div>
+                `;
+            }
+        };
+
+        const renderApp = () => {
+            renderHeader();
+            const root = document.getElementById('app-root');
+            root.innerHTML = currentView === 'home' ? getHomeHTML() : getProductHTML();
+            renderIcons();
+        };
+
+        const getHomeHTML = () => {
+            const newRelease = catalog.find(p => p.isNewRelease);
+            const carrosselProducts = catalog.filter(p => !p.isNewRelease).slice(0, 4);
+
+            // Lógica de Filtro
+            const filteredProducts = catalog.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      p.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                      p.topNotes.toLowerCase().includes(searchQuery.toLowerCase());
+                let matchesFilter = true;
+                if (activeFilter !== "Todos") {
+                    matchesFilter = p.gender === activeFilter || p.essence.includes(activeFilter) || 
+                                    p.occasions.includes(activeFilter) ||
+                                    (activeFilter === "Floral" && p.essence.includes("Floral")) ||
+                                    (activeFilter === "Amadeirado" && p.essence.includes("Amadeirado")) ||
+                                    (activeFilter === "Jantar" && p.occasions.some(o => o.includes("Jantar")));
+                }
+                return matchesSearch && matchesFilter;
+            });
+
+            let html = '';
+
+            // Hero Section (Lançamento)
+            if (newRelease && activeFilter === "Todos" && searchQuery === "") {
+                html += `
+                <section class="relative pt-12 pb-16 lg:pt-24 lg:pb-32 overflow-hidden bg-black -mt-20">
+                    <div class="absolute inset-0 z-0">
+                        <img src="https://i.postimg.cc/T3ymDM70/perfumes-arabes-capa-femininos.jpg" alt="Lançamento" class="w-full h-full object-cover opacity-50 scale-105" style="animation: shine 20s infinite alternate;">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    </div>
+                    <div class="relative z-10 max-w-7xl mx-auto px-4 flex flex-col items-center text-center mt-20">
+                        <div class="inline-flex items-center gap-2 bg-luxGold/20 border border-luxGold/50 backdrop-blur-md px-4 py-1.5 rounded-full mb-6 shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+                            <i data-lucide="star" class="w-3.5 h-3.5 text-luxGold fill-luxGold"></i>
+                            <span class="text-luxGold text-xs uppercase tracking-[0.2em] font-semibold">Novo Lançamento</span>
+                        </div>
+                        <h2 class="text-5xl md:text-6xl lg:text-7xl font-serif text-white mb-4 leading-tight drop-shadow-2xl">${newRelease.name}</h2>
+                        <p class="text-gray-300 md:text-lg max-w-xl mx-auto font-light leading-relaxed mb-8">${newRelease.description}</p>
+                        <button onclick="goToProduct(${newRelease.id})" class="btn-shine bg-luxGold hover:bg-luxGoldDark text-white px-8 py-4 rounded-none text-sm uppercase tracking-widest transition-all duration-300 shadow-xl">
+                            Conhecer a Fragrância
+                        </button>
+                    </div>
+                </section>`;
+            } else {
+                // Espaçamento compensatório se não houver hero
+                html += `<div class="h-8"></div>`;
+            }
+
+            // Main Content
+            html += `<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">`;
+
+            // Filtros
+            html += `
+                <div class="mb-12">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="tag" class="w-4 h-4 text-luxGold"></i>
+                        <h3 class="text-sm font-medium uppercase tracking-widest text-gray-900">Filtrar por Perfil</h3>
+                    </div>
+                    <div class="flex overflow-x-auto hide-scrollbar gap-3 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
+                        ${filterTags.map(tag => `
+                            <button onclick="setActiveFilter('${tag}')" class="whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border ${activeFilter === tag ? 'bg-luxGold text-white border-luxGold shadow-md shadow-luxGold/30' : 'bg-white/80 backdrop-blur-sm text-gray-600 border-gray-200 hover:border-luxGold hover:text-luxGold'}">
+                                ${tag}
+                            </button>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="mt-6 lg:hidden flex items-center bg-white/80 backdrop-blur-sm rounded-full px-4 py-3 border border-gray-200 w-full shadow-sm">
+                        <i data-lucide="search" class="w-4 h-4 text-gray-400"></i>
+                        <input type="text" placeholder="Buscar por notas (ex: Baunilha)..." class="bg-transparent border-none outline-none ml-2 text-sm w-full" value="${searchQuery}" onkeyup="setSearchQuery(event)">
+                    </div>
+                </div>
+            `;
+
+            // Grid de Produtos
+            html += `
+                <div class="flex justify-between items-end mb-8 border-b border-gray-200/50 pb-4">
+                    <h3 class="font-serif text-3xl text-gray-900">${activeFilter === "Todos" ? "Nossa Coleção" : `Resultados para "${activeFilter}"`}</h3>
+                    <span class="text-gray-500 text-sm hidden md:block">${filteredProducts.length} fragrâncias</span>
+                </div>
+            `;
+
+            if (filteredProducts.length === 0) {
+                html += `
+                    <div class="py-20 text-center flex flex-col items-center justify-center bg-white/50 backdrop-blur-sm rounded-3xl border border-gray-100">
+                        <i data-lucide="droplet" class="w-12 h-12 text-gray-300 mb-4" stroke-width="1"></i>
+                        <p class="text-gray-500 font-light text-lg">Nenhuma fragrância encontrada.</p>
+                        <button onclick="setActiveFilter('Todos'); setSearchQuery({target:{value:''}});" class="mt-4 text-luxGold underline underline-offset-4">Limpar filtros</button>
+                    </div>
+                `;
+            } else {
+                html += `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">`;
+                filteredProducts.forEach(product => {
+                    html += `
+                        <div onclick="goToProduct(${product.id})" class="group cursor-pointer flex flex-col bg-white/95 backdrop-blur-sm rounded-tr-3xl rounded-bl-3xl overflow-hidden hover:lux-shadow transition-all duration-500 border border-gray-100">
+                            <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
+                                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" />
+                                <div class="absolute top-4 left-4 flex flex-col gap-2">
+                                    ${product.isNewRelease ? `<span class="bg-black/80 backdrop-blur-sm text-white text-[10px] px-3 py-1 uppercase tracking-widest font-medium">Novo</span>` : ''}
+                                    <span class="bg-white/90 backdrop-blur-sm text-xs px-3 py-1 uppercase tracking-wider font-medium text-luxGold">${product.brand}</span>
+                                </div>
+                            </div>
+                            <div class="p-5 flex flex-col flex-grow">
+                                <h4 class="font-serif text-lg font-medium text-gray-900 group-hover:text-luxGold transition-colors mb-1">${product.name}</h4>
+                                <p class="text-xs text-gray-400 uppercase tracking-wider mb-3">${product.gender} &bull; ${product.essence}</p>
+                                <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-50">
+                                    <span class="font-sans font-medium text-gray-900">${formatCurrency(product.price)}</span>
+                                    <button onclick="addToCart(${product.id}, event)" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-luxGold hover:text-white transition-colors shadow-sm">
+                                        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+            }
+
+            // Carrossel Descubra Mais
+            if (activeFilter === "Todos" && searchQuery === "") {
+                html += `
+                    <div class="mt-24 pt-12 border-t border-gray-200/50">
+                        <h3 class="font-serif text-2xl text-gray-900 mb-8 text-center">Mais Desejados</h3>
+                        <div class="flex overflow-x-auto hide-scrollbar gap-6 pb-8 snap-x snap-mandatory">
+                            ${carrosselProducts.map(p => `
+                                <div onclick="goToProduct(${p.id})" class="snap-start shrink-0 w-72 group cursor-pointer">
+                                    <div class="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-4 rounded-tr-2xl rounded-bl-2xl shadow-md">
+                                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
+                                    </div>
+                                    <div class="text-center">
+                                        <h4 class="font-serif text-lg font-medium text-gray-900">${p.name}</h4>
+                                        <p class="text-luxGold text-sm mt-1">${formatCurrency(p.price)}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `</main>`;
+            return html;
+        };
+
+        const getProductHTML = () => {
+            const p = catalog.find(prod => prod.id === selectedProductId);
+            if (!p) return '';
+
+            return `
+                <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16 relative z-10 fade-in">
+                    <div class="flex flex-col lg:flex-row gap-12 lg:gap-20">
+                        <!-- Imagem -->
+                        <div class="w-full lg:w-1/2">
+                            <div class="sticky top-28">
+                                <div class="aspect-[4/5] bg-gray-50 rounded-tr-[3rem] rounded-bl-[3rem] overflow-hidden lux-shadow">
+                                    <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Detalhes -->
+                        <div class="w-full lg:w-1/2 flex flex-col justify-center bg-white/60 backdrop-blur-md p-8 rounded-3xl border border-white/50 shadow-xl">
+                            <div class="mb-2 flex items-center gap-3">
+                                <span class="text-luxGold text-sm uppercase tracking-widest font-semibold">${p.brand}</span>
+                                ${p.isNewRelease ? `<span class="bg-black text-white text-[10px] px-2 py-1 uppercase tracking-widest font-medium">Lançamento</span>` : ''}
+                            </div>
+                            
+                            <h2 class="font-serif text-4xl lg:text-5xl text-gray-900 mb-4">${p.name}</h2>
+                            <p class="text-2xl font-medium text-gray-900 mb-8">${formatCurrency(p.price)}</p>
+                            
+                            <p class="text-gray-600 font-light leading-relaxed mb-8 text-lg">${p.fullDescription}</p>
+
+                            <div class="grid grid-cols-2 gap-4 mb-8">
+                                <div class="bg-white/80 p-4 border border-gray-100 rounded-lg">
+                                    <span class="block text-[10px] text-gray-500 uppercase tracking-widest mb-1">Gênero</span>
+                                    <span class="font-medium text-gray-900">${p.gender}</span>
+                                </div>
+                                <div class="bg-white/80 p-4 border border-gray-100 rounded-lg">
+                                    <span class="block text-[10px] text-gray-500 uppercase tracking-widest mb-1">Família Olfativa</span>
+                                    <span class="font-medium text-gray-900">${p.essence}</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-10 space-y-4">
+                                <h3 class="font-serif text-xl text-gray-900 mb-4 flex items-center gap-2">
+                                    <i data-lucide="droplet" class="w-5 h-5 text-luxGold"></i> Pirâmide Olfativa
+                                </h3>
+                                <div class="border-l-2 border-luxGold/30 pl-4 space-y-3">
+                                    <div>
+                                        <span class="text-xs uppercase tracking-widest text-gray-500 font-semibold block">Notas de Topo</span>
+                                        <span class="text-gray-800">${p.topNotes}</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs uppercase tracking-widest text-gray-500 font-semibold block">Notas de Coração</span>
+                                        <span class="text-gray-800">${p.heartNotes}</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs uppercase tracking-widest text-gray-500 font-semibold block">Notas de Fundo</span>
+                                        <span class="text-gray-800">${p.baseNotes}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-10">
+                                <h3 class="text-xs uppercase tracking-widest text-gray-500 font-semibold mb-3">Ideal Para</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    ${p.occasions.map(occ => `<span class="bg-luxGold/10 text-luxGoldDark border border-luxGold/20 text-xs px-3 py-1.5 rounded-full font-medium">${occ}</span>`).join('')}
+                                </div>
+                            </div>
+
+                            <div class="mt-auto pt-6">
+                                <button onclick="addToCart(${p.id})" class="btn-shine w-full bg-luxDark hover:bg-luxGold text-white py-5 px-8 text-sm uppercase tracking-widest font-semibold transition-colors duration-300 flex items-center justify-center gap-3 shadow-2xl shadow-luxDark/30 rounded-none">
+                                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                                    Adicionar à Sacola
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            `;
+        };
+
+        // --- INICIALIZAÇÃO ---
+        renderApp();
+        updateCartUI();
+    </script>
+</body>
+</html>
