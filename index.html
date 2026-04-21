@@ -500,88 +500,89 @@
             // Hero Section (Lançamento)
             if (newRelease && activeFilter === "Todos" && searchQuery === "") {
                 html += `
-                <section class="relative pt-12 pb-16 lg:pt-24 lg:pb-32 overflow-hidden bg-black -mt-20">
+                <section class="relative pt-12 pb-16 lg:pt-24 lg:pb-24 overflow-hidden bg-black -mt-20">
                     <div class="absolute inset-0 z-0">
                         <img src="https://i.postimg.cc/T3ymDM70/perfumes-arabes-capa-femininos.jpg" alt="Lançamento" class="w-full h-full object-cover opacity-50 scale-105" style="animation: shine 20s infinite alternate;">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
                     </div>
-                    <div class="relative z-10 max-w-7xl mx-auto px-4 flex flex-col items-center text-center mt-20">
-                        <div class="inline-flex items-center gap-2 bg-luxGold/20 border border-luxGold/50 backdrop-blur-md px-4 py-1.5 rounded-full mb-6 shadow-[0_0_15px_rgba(212,175,55,0.4)]">
-                            <i data-lucide="star" class="w-3.5 h-3.5 text-luxGold fill-luxGold"></i>
-                            <span class="text-luxGold text-xs uppercase tracking-[0.2em] font-semibold">Novo Lançamento</span>
+                    <div class="relative z-10 max-w-7xl mx-auto px-4 flex flex-col items-center text-center mt-24">
+                        <div class="inline-flex items-center gap-2 bg-luxGold/20 border border-luxGold/50 backdrop-blur-md px-3 py-1 rounded-full mb-4 shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+                            <i data-lucide="star" class="w-3 h-3 text-luxGold fill-luxGold"></i>
+                            <span class="text-luxGold text-[10px] sm:text-xs uppercase tracking-[0.2em] font-semibold">Novo Lançamento</span>
                         </div>
-                        <h2 class="text-5xl md:text-6xl lg:text-7xl font-serif text-white mb-4 leading-tight drop-shadow-2xl">${newRelease.name}</h2>
-                        <p class="text-gray-300 md:text-lg max-w-xl mx-auto font-light leading-relaxed mb-8">${newRelease.description}</p>
-                        <button onclick="goToProduct(${newRelease.id})" class="btn-shine bg-luxGold hover:bg-luxGoldDark text-white px-8 py-4 rounded-none text-sm uppercase tracking-widest transition-all duration-300 shadow-xl">
-                            Conhecer a Fragrância
+                        <h2 class="text-4xl sm:text-5xl md:text-6xl font-serif text-white mb-3 leading-tight drop-shadow-2xl">${newRelease.name}</h2>
+                        <p class="text-gray-300 text-sm sm:text-base max-w-lg mx-auto font-light leading-relaxed mb-8 line-clamp-2">${newRelease.description}</p>
+                        <button onclick="goToProduct(${newRelease.id})" class="btn-shine bg-luxGold hover:bg-luxGoldDark text-white px-6 py-3 sm:px-8 sm:py-4 rounded-none text-xs sm:text-sm uppercase tracking-widest transition-all duration-300 shadow-xl">
+                            Descobrir
                         </button>
                     </div>
                 </section>`;
             } else {
-                // Espaçamento compensatório se não houver hero
                 html += `<div class="h-8"></div>`;
             }
 
             // Main Content
-            html += `<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">`;
+            html += `<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 relative z-10">`;
 
             // Filtros
             html += `
-                <div class="mb-12">
+                <div class="mb-10 sm:mb-16">
                     <div class="flex items-center gap-2 mb-4">
                         <i data-lucide="tag" class="w-4 h-4 text-luxGold"></i>
-                        <h3 class="text-sm font-medium uppercase tracking-widest text-gray-900">Filtrar por Perfil</h3>
+                        <h3 class="text-xs sm:text-sm font-medium uppercase tracking-widest text-gray-900">Filtrar Coleção</h3>
                     </div>
-                    <div class="flex overflow-x-auto hide-scrollbar gap-3 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
+                    <div class="flex overflow-x-auto hide-scrollbar gap-2 sm:gap-3 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
                         ${filterTags.map(tag => `
-                            <button onclick="setActiveFilter('${tag}')" class="whitespace-nowrap px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border ${activeFilter === tag ? 'bg-luxGold text-white border-luxGold shadow-md shadow-luxGold/30' : 'bg-white/80 backdrop-blur-sm text-gray-600 border-gray-200 hover:border-luxGold hover:text-luxGold'}">
+                            <button onclick="setActiveFilter('${tag}')" class="whitespace-nowrap px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 border ${activeFilter === tag ? 'bg-luxGold text-white border-luxGold shadow-md shadow-luxGold/30' : 'bg-white/80 backdrop-blur-sm text-gray-600 border-gray-200 hover:border-luxGold hover:text-luxGold'}">
                                 ${tag}
                             </button>
                         `).join('')}
                     </div>
                     
-                    <div class="mt-6 lg:hidden flex items-center bg-white/80 backdrop-blur-sm rounded-full px-4 py-3 border border-gray-200 w-full shadow-sm">
+                    <div class="mt-4 lg:hidden flex items-center bg-white/80 backdrop-blur-sm rounded-full px-4 py-2.5 border border-gray-200 w-full shadow-sm">
                         <i data-lucide="search" class="w-4 h-4 text-gray-400"></i>
-                        <input type="text" placeholder="Buscar por notas (ex: Baunilha)..." class="bg-transparent border-none outline-none ml-2 text-sm w-full" value="${searchQuery}" onkeyup="setSearchQuery(event)">
+                        <input type="text" placeholder="Buscar notas, perfumes..." class="bg-transparent border-none outline-none ml-2 text-xs sm:text-sm w-full" value="${searchQuery}" onkeyup="setSearchQuery(event)">
                     </div>
                 </div>
             `;
 
             // Grid de Produtos
             html += `
-                <div class="flex justify-between items-end mb-8 border-b border-gray-200/50 pb-4">
-                    <h3 class="font-serif text-3xl text-gray-900">${activeFilter === "Todos" ? "Nossa Coleção" : `Resultados para "${activeFilter}"`}</h3>
-                    <span class="text-gray-500 text-sm hidden md:block">${filteredProducts.length} fragrâncias</span>
+                <div class="flex justify-between items-end mb-6 border-b border-gray-200/50 pb-3">
+                    <h3 class="font-serif text-2xl sm:text-3xl text-gray-900">${activeFilter === "Todos" ? "Catálogo" : `Resultados para "${activeFilter}"`}</h3>
+                    <span class="text-gray-500 text-xs sm:text-sm">${filteredProducts.length} itens</span>
                 </div>
             `;
 
             if (filteredProducts.length === 0) {
                 html += `
-                    <div class="py-20 text-center flex flex-col items-center justify-center bg-white/50 backdrop-blur-sm rounded-3xl border border-gray-100">
-                        <i data-lucide="droplet" class="w-12 h-12 text-gray-300 mb-4" stroke-width="1"></i>
-                        <p class="text-gray-500 font-light text-lg">Nenhuma fragrância encontrada.</p>
-                        <button onclick="setActiveFilter('Todos'); setSearchQuery({target:{value:''}});" class="mt-4 text-luxGold underline underline-offset-4">Limpar filtros</button>
+                    <div class="py-16 text-center flex flex-col items-center justify-center bg-white/50 backdrop-blur-sm rounded-2xl border border-gray-100 mt-8">
+                        <i data-lucide="droplet" class="w-10 h-10 text-gray-300 mb-3" stroke-width="1"></i>
+                        <p class="text-gray-500 font-light text-sm sm:text-base">Nenhuma fragrância encontrada.</p>
+                        <button onclick="setActiveFilter('Todos'); setSearchQuery({target:{value:''}});" class="mt-3 text-luxGold text-sm underline underline-offset-4">Limpar filtros</button>
                     </div>
                 `;
             } else {
-                html += `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">`;
+                // Alterado para 2 colunas no mobile (grid-cols-2) para cards menores
+                html += `<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8 mt-6">`;
                 filteredProducts.forEach(product => {
                     html += `
-                        <div onclick="goToProduct(${product.id})" class="group cursor-pointer flex flex-col bg-white/95 backdrop-blur-sm rounded-tr-3xl rounded-bl-3xl overflow-hidden hover:lux-shadow transition-all duration-500 border border-gray-100">
+                        <div onclick="goToProduct(${product.id})" class="group cursor-pointer flex flex-col bg-white rounded-xl sm:rounded-2xl overflow-hidden hover:lux-shadow transition-all duration-300 border border-gray-100 shadow-sm">
                             <div class="relative aspect-[4/5] overflow-hidden bg-gray-50">
                                 <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" />
-                                <div class="absolute top-4 left-4 flex flex-col gap-2">
-                                    ${product.isNewRelease ? `<span class="bg-black/80 backdrop-blur-sm text-white text-[10px] px-3 py-1 uppercase tracking-widest font-medium">Novo</span>` : ''}
-                                    <span class="bg-white/90 backdrop-blur-sm text-xs px-3 py-1 uppercase tracking-wider font-medium text-luxGold">${product.brand}</span>
+                                <div class="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-col gap-1.5">
+                                    ${product.isNewRelease ? `<span class="bg-black/80 backdrop-blur-sm text-white text-[8px] sm:text-[9px] px-2 py-0.5 uppercase tracking-widest font-medium rounded-sm">Novo</span>` : ''}
                                 </div>
                             </div>
-                            <div class="p-5 flex flex-col flex-grow">
-                                <h4 class="font-serif text-lg font-medium text-gray-900 group-hover:text-luxGold transition-colors mb-1">${product.name}</h4>
-                                <p class="text-xs text-gray-400 uppercase tracking-wider mb-3">${product.gender} &bull; ${product.essence}</p>
-                                <div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-50">
-                                    <span class="font-sans font-medium text-gray-900">${formatCurrency(product.price)}</span>
-                                    <button onclick="addToCart(${product.id}, event)" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-600 hover:bg-luxGold hover:text-white transition-colors shadow-sm">
-                                        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                            <div class="p-3 sm:p-4 flex flex-col flex-grow">
+                                <p class="text-[9px] sm:text-[10px] text-gray-400 uppercase tracking-widest mb-1 sm:mb-1.5">${product.brand}</p>
+                                <h4 class="font-serif text-sm sm:text-base font-medium text-gray-900 group-hover:text-luxGold transition-colors leading-tight line-clamp-1">${product.name}</h4>
+                                <p class="text-[10px] text-gray-400 hidden sm:block truncate mt-1">${product.essence}</p>
+                                
+                                <div class="mt-3 sm:mt-auto flex items-center justify-between pt-3 border-t border-gray-50">
+                                    <span class="font-sans font-medium text-sm sm:text-base text-gray-900">${formatCurrency(product.price)}</span>
+                                    <button onclick="addToCart(${product.id}, event)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-luxCreme flex items-center justify-center text-gray-600 hover:bg-luxGold hover:text-white transition-colors border border-gray-100">
+                                        <i data-lucide="shopping-bag" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i>
                                     </button>
                                 </div>
                             </div>
@@ -591,20 +592,21 @@
                 html += `</div>`;
             }
 
-            // Carrossel Descubra Mais
+            // Carrossel Descubra Mais (Proporção Menor)
             if (activeFilter === "Todos" && searchQuery === "") {
                 html += `
-                    <div class="mt-24 pt-12 border-t border-gray-200/50">
-                        <h3 class="font-serif text-2xl text-gray-900 mb-8 text-center">Mais Desejados</h3>
-                        <div class="flex overflow-x-auto hide-scrollbar gap-6 pb-8 snap-x snap-mandatory">
+                    <div class="mt-16 sm:mt-24 pt-10 border-t border-gray-200/50">
+                        <h3 class="font-serif text-xl sm:text-2xl text-gray-900 mb-6 text-center">Em Destaque</h3>
+                        <div class="flex overflow-x-auto hide-scrollbar gap-4 sm:gap-6 pb-6 snap-x snap-mandatory px-2">
                             ${carrosselProducts.map(p => `
-                                <div onclick="goToProduct(${p.id})" class="snap-start shrink-0 w-72 group cursor-pointer">
-                                    <div class="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-4 rounded-tr-2xl rounded-bl-2xl shadow-md">
-                                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
+                                <!-- Largura reduzida: w-32 no mobile, w-48 no desktop -->
+                                <div onclick="goToProduct(${p.id})" class="snap-start shrink-0 w-32 sm:w-48 group cursor-pointer bg-white p-2 rounded-xl border border-gray-100 shadow-sm hover:lux-shadow transition-all">
+                                    <div class="relative aspect-[3/4] overflow-hidden bg-gray-50 mb-3 rounded-lg">
+                                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
                                     </div>
-                                    <div class="text-center">
-                                        <h4 class="font-serif text-lg font-medium text-gray-900">${p.name}</h4>
-                                        <p class="text-luxGold text-sm mt-1">${formatCurrency(p.price)}</p>
+                                    <div class="text-center px-1 pb-1">
+                                        <h4 class="font-serif text-xs sm:text-sm font-medium text-gray-900 truncate">${p.name}</h4>
+                                        <p class="text-luxGold text-[11px] sm:text-xs mt-1 font-medium">${formatCurrency(p.price)}</p>
                                     </div>
                                 </div>
                             `).join('')}
