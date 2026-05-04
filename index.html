@@ -85,8 +85,16 @@
         .btn-close-modal:hover { color: var(--accent-color); }
         
         .modal-content { max-width: 1100px; width: 100%; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        
+        /* Galeria do Modal */
         .modal-gallery { position: sticky; top: 100px; }
-        .modal-img-main { width: 100%; aspect-ratio: 4/5; object-fit: cover; background: #f9f9f9; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .modal-img-main { width: 100%; aspect-ratio: 4/5; object-fit: cover; background: #f9f9f9; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); transition: 0.3s; }
+        .modal-thumbnails { display: flex; gap: 12px; margin-top: 20px; overflow-x: auto; padding-bottom: 5px; }
+        .modal-thumbnails::-webkit-scrollbar { height: 4px; }
+        .modal-thumbnails::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+        .modal-thumb { width: 70px; height: 70px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; opacity: 0.6; }
+        .modal-thumb:hover { opacity: 1; }
+        .modal-thumb.active { border-color: var(--gold); opacity: 1; }
         
         .modal-details { padding-bottom: 50px; }
         .modal-category { font-size: 12px; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-weight: 600; margin-bottom: 10px; display: block; }
@@ -138,14 +146,21 @@
         .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .grid-3-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
         
-        /* Checkbox Pirâmide Olfativa */
-        .notas-wrapper { border: 1px solid var(--border-color); border-radius: 6px; background: #fff; overflow: hidden; }
+        /* Checkbox Pirâmide Olfativa & Input Customizado */
+        .notas-wrapper { border: 1px solid var(--border-color); border-radius: 6px; background: #fff; overflow: hidden; display: flex; flex-direction: column; }
         .notas-header { background: #fafafa; padding: 10px 15px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); border-bottom: 1px solid var(--border-color); }
-        .notas-lista { padding: 10px; max-height: 200px; overflow-y: auto; }
+        .notas-lista { padding: 10px; max-height: 200px; overflow-y: auto; flex-grow: 1; }
         .nota-checkbox-item { display: flex; align-items: center; gap: 8px; padding: 6px 5px; cursor: pointer; transition: 0.2s; border-radius: 4px; }
         .nota-checkbox-item:hover { background: #f0f0f0; }
-        .nota-checkbox-item input { cursor: pointer; width: 16px; height: 16px; accent-color: var(--gold); }
+        .nota-checkbox-item input { cursor: pointer; width: 16px; height: 16px; accent-color: var(--gold); flex-shrink: 0; }
         .nota-checkbox-item span { font-size: 13px; color: #333; }
+        
+        /* Area para Adicionar Nota Personalizada */
+        .notas-add-custom { padding: 10px; border-top: 1px dashed #eee; background: #fafafa; display: flex; gap: 5px; }
+        .notas-add-custom input { padding: 6px 8px !important; font-size: 12px !important; border-radius: 4px !important; }
+        .notas-add-custom input.emoji-input { width: 45px; text-align: center; padding: 6px 2px !important; }
+        .btn-add-nota { background: var(--accent-color); color: #fff; border: none; border-radius: 4px; width: 35px; cursor: pointer; font-weight: bold; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .btn-add-nota:hover { background: var(--gold); }
 
         .btn-admin { background: var(--accent-color); color: #fff; padding: 15px 30px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; width: 100%; font-size: 13px; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .btn-admin:hover { background: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transform: translateY(-2px); }
@@ -177,6 +192,7 @@
             .admin-navbar { flex-direction: column; gap: 15px; }
             .admin-container { padding: 0 15px; margin: 20px auto; }
             .admin-card { padding: 25px 20px; }
+            .img-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -235,7 +251,9 @@
         
         <div class="modal-content">
             <div class="modal-gallery">
-                <img id="modal-img" src="" alt="" class="modal-img-main">
+                <img id="modal-img-main" src="" alt="Fragrância" class="modal-img-main">
+                <!-- Miniaturas (Thumbnails) para 5 Imagens -->
+                <div id="modal-thumbnails" class="modal-thumbnails"></div>
             </div>
             
             <div class="modal-details">
@@ -245,7 +263,7 @@
                 
                 <p id="modal-desc" class="modal-desc"></p>
                 
-                <!-- Pirâmide Olfativa (Só aparece se tiver notas) -->
+                <!-- Pirâmide Olfativa -->
                 <div id="modal-piramide" class="piramide-olfativa hidden">
                     <h3 class="piramide-title"><i data-lucide="sparkles" style="color: var(--gold);"></i> Pirâmide Olfativa</h3>
                     
@@ -372,28 +390,54 @@
                             <textarea id="add-desc" rows="3" placeholder="Descreva a sensação, os gatilhos mentais e a ocasião ideal para este perfume..."></textarea>
                         </div>
 
-                        <!-- Construtor da Pirâmide Olfativa -->
+                        <!-- Construtor da Pirâmide Olfativa com Adição Personalizada -->
                         <div class="form-group">
-                            <label><i data-lucide="flask-conical" style="width:14px; display:inline-block; margin-right:5px;"></i> Construtor de Pirâmide Olfativa (Selecione as notas)</label>
+                            <label><i data-lucide="flask-conical" style="width:14px; display:inline-block; margin-right:5px;"></i> Construtor de Pirâmide Olfativa</label>
+                            <p style="font-size: 11px; color: #888; margin-bottom: 10px;">Selecione as notas ou adicione novas para usar futuramente.</p>
                             <div class="grid-3-col">
+                                <!-- TOPO -->
                                 <div class="notas-wrapper">
                                     <div class="notas-header">Saída (Topo)</div>
                                     <div class="notas-lista" id="check-topo"></div>
+                                    <div class="notas-add-custom">
+                                        <input type="text" id="custom-emoji-topo" class="emoji-input" placeholder="✨" maxlength="2">
+                                        <input type="text" id="custom-nome-topo" placeholder="Nova nota..." style="flex-grow: 1;">
+                                        <button type="button" class="btn-add-nota" onclick="addCustomNota('topo')" title="Salvar Nova Nota">+</button>
+                                    </div>
                                 </div>
+                                <!-- CORPO -->
                                 <div class="notas-wrapper">
                                     <div class="notas-header">Corpo (Coração)</div>
                                     <div class="notas-lista" id="check-coracao"></div>
+                                    <div class="notas-add-custom">
+                                        <input type="text" id="custom-emoji-coracao" class="emoji-input" placeholder="✨" maxlength="2">
+                                        <input type="text" id="custom-nome-coracao" placeholder="Nova nota..." style="flex-grow: 1;">
+                                        <button type="button" class="btn-add-nota" onclick="addCustomNota('coracao')" title="Salvar Nova Nota">+</button>
+                                    </div>
                                 </div>
+                                <!-- FUNDO -->
                                 <div class="notas-wrapper">
                                     <div class="notas-header">Fundo (Base)</div>
                                     <div class="notas-lista" id="check-fundo"></div>
+                                    <div class="notas-add-custom">
+                                        <input type="text" id="custom-emoji-fundo" class="emoji-input" placeholder="✨" maxlength="2">
+                                        <input type="text" id="custom-nome-fundo" placeholder="Nova nota..." style="flex-grow: 1;">
+                                        <button type="button" class="btn-add-nota" onclick="addCustomNota('fundo')" title="Salvar Nova Nota">+</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
+                        <!-- 5 Campos de Imagem -->
                         <div class="form-group" style="margin-top: 30px;">
-                            <label>Link da Imagem Principal *</label>
-                            <input type="url" id="add-img1" placeholder="https://..." required>
+                            <label>Galeria de Imagens (Até 5 links diretos)</label>
+                            <div class="img-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                <input type="url" id="add-img1" placeholder="Imagem 1 (Principal) *" required>
+                                <input type="url" id="add-img2" placeholder="Imagem 2 (Opcional)">
+                                <input type="url" id="add-img3" placeholder="Imagem 3 (Opcional)">
+                                <input type="url" id="add-img4" placeholder="Imagem 4 (Opcional)">
+                                <input type="url" id="add-img5" placeholder="Imagem 5 (Opcional)">
+                            </div>
                         </div>
 
                         <button type="submit" class="btn-admin" id="btn-submit-produto" style="margin-top: 15px;">
@@ -450,8 +494,8 @@
 
         let listaProdutosGlobais = [];
 
-        // --- DICIONÁRIO DE NOTAS OLFATIVAS COM EMOJIS ---
-        const guiasNotas = {
+        // --- DICIONÁRIO DE NOTAS OLFATIVAS COM PERSISTÊNCIA LOCAL ---
+        const notasOriginais = {
             topo: [
                 {nome: "Bergamota", emoji: "🍋"}, {nome: "Maçã Verde", emoji: "🍏"}, {nome: "Açafrão", emoji: "🧶"},
                 {nome: "Canela", emoji: "🪵"}, {nome: "Noz-moscada", emoji: "🌰"}, {nome: "Pimenta Rosa", emoji: "🌶️"},
@@ -470,7 +514,15 @@
             ]
         };
 
-        function renderizarFiltrosNotas() {
+        // Carrega notas personalizadas salvas no navegador
+        let notasSalvas = JSON.parse(localStorage.getItem('luxy_notas_custom')) || { topo: [], coracao: [], fundo: [] };
+        let guiasNotas = {
+            topo: [...notasOriginais.topo, ...notasSalvas.topo],
+            coracao: [...notasOriginais.coracao, ...notasSalvas.coracao],
+            fundo: [...notasOriginais.fundo, ...notasSalvas.fundo]
+        };
+
+        window.renderizarFiltrosNotas = function() {
             const renderizarGrupo = (grupoId, arrayNotas, categoria) => {
                 const container = document.getElementById(grupoId);
                 if(!container) return;
@@ -480,11 +532,41 @@
                         <span>${nota.emoji} ${nota.nome}</span>
                     </label>
                 `).join('');
+                
+                // Rola para o final se houver muitas
+                container.scrollTop = container.scrollHeight;
             };
             renderizarGrupo('check-topo', guiasNotas.topo, 'topo');
             renderizarGrupo('check-coracao', guiasNotas.coracao, 'coracao');
             renderizarGrupo('check-fundo', guiasNotas.fundo, 'fundo');
         }
+
+        // Função para a Operadora Adicionar Nova Nota
+        window.addCustomNota = function(categoria) {
+            const emojiInput = document.getElementById(`custom-emoji-${categoria}`);
+            const nomeInput = document.getElementById(`custom-nome-${categoria}`);
+            
+            let emoji = emojiInput.value.trim() || "✨";
+            const nome = nomeInput.value.trim();
+
+            if(!nome) {
+                alert("Por favor, digite o nome da nota olfativa.");
+                return;
+            }
+
+            const novaNota = { nome: nome, emoji: emoji };
+            
+            // Adiciona nas variáveis ativas e no LocalStorage
+            guiasNotas[categoria].push(novaNota);
+            notasSalvas[categoria].push(novaNota);
+            localStorage.setItem('luxy_notas_custom', JSON.stringify(notasSalvas));
+
+            // Atualiza a tela e limpa os inputs
+            renderizarFiltrosNotas();
+            emojiInput.value = "";
+            nomeInput.value = "";
+        }
+
 
         // ==========================================
         // ROTEADOR E AUTENTICAÇÃO
@@ -550,8 +632,16 @@
             btn.innerHTML = `<i data-lucide="loader" class="spin"></i> Guardando...`;
             btn.disabled = true;
 
-            // Pega notas selecionadas
             const getSelecionados = (name) => Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(cb => cb.value);
+            
+            // Pega os 5 campos de imagem e filtra apenas os que foram preenchidos
+            const imagens = [
+                document.getElementById('add-img1').value.trim(),
+                document.getElementById('add-img2').value.trim(),
+                document.getElementById('add-img3').value.trim(),
+                document.getElementById('add-img4').value.trim(),
+                document.getElementById('add-img5').value.trim()
+            ].filter(url => url !== "");
 
             try {
                 await addDoc(collection(db, "produtos"), {
@@ -560,7 +650,7 @@
                     preco: parseFloat(document.getElementById('add-preco').value),
                     estoque: parseInt(document.getElementById('add-estoque').value),
                     descricao: document.getElementById('add-desc').value.trim(),
-                    imagens: [document.getElementById('add-img1').value.trim()],
+                    imagens: imagens,
                     piramide: {
                         topo: getSelecionados('nota_topo'),
                         coracao: getSelecionados('nota_coracao'),
@@ -568,9 +658,9 @@
                     },
                     criadoEm: new Date()
                 });
-                alert("Fragrância guardada!");
+                alert("Fragrância guardada no Catálogo!");
                 document.getElementById('form-add-produto').reset();
-            } catch (error) { alert("Erro ao guardar."); } 
+            } catch (error) { alert("Erro ao guardar. Verifique a conexão com a base de dados."); } 
             finally {
                 btn.innerHTML = `<i data-lucide="save"></i> Publicar no Catálogo`;
                 btn.disabled = false;
@@ -579,7 +669,7 @@
         });
 
         window.apagarProduto = async function(id) {
-            if(confirm("Remover do catálogo?")) await deleteDoc(doc(db, "produtos", id));
+            if(confirm("Tem a certeza que deseja remover do catálogo?")) await deleteDoc(doc(db, "produtos", id));
         }
 
         function carregarDashboard() {
@@ -643,11 +733,31 @@
             renderizarGrade(categoriaDesejada === 'Todos' ? listaProdutosGlobais : listaProdutosGlobais.filter(p => p.categoria === categoriaDesejada));
         }
 
+        // Troca a imagem principal quando clica na miniatura do Modal
+        window.mudarImagemModal = function(url, elem) {
+            document.getElementById('modal-img-main').src = url;
+            document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
+            elem.classList.add('active');
+        }
+
         window.abrirModalProduto = function(id) {
             const prod = listaProdutosGlobais.find(p => p.id === id);
             if(!prod) return;
 
-            document.getElementById('modal-img').src = prod.imagens[0];
+            // Galeria
+            document.getElementById('modal-img-main').src = prod.imagens[0];
+            const thumbsContainer = document.getElementById('modal-thumbnails');
+            
+            // Se tiver mais de 1 imagem, renderiza as miniaturas
+            if (prod.imagens.length > 1) {
+                thumbsContainer.innerHTML = prod.imagens.map((img, idx) => `
+                    <img src="${img}" class="modal-thumb ${idx === 0 ? 'active' : ''}" onclick="mudarImagemModal('${img}', this)">
+                `).join('');
+            } else {
+                thumbsContainer.innerHTML = ''; // Limpa se tiver só uma
+            }
+
+            // Textos
             document.getElementById('modal-categoria').innerText = prod.categoria;
             document.getElementById('modal-nome').innerText = prod.nome;
             document.getElementById('modal-preco').innerText = `R$ ${prod.preco.toFixed(2).replace('.', ',')}`;
@@ -684,7 +794,7 @@
             }
 
             document.getElementById('product-modal').classList.add('active');
-            document.body.style.overflow = 'hidden'; // Impede scroll do fundo
+            document.body.style.overflow = 'hidden'; 
         }
 
         window.fecharModalProduto = function() {
