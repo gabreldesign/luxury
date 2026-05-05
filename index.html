@@ -151,8 +151,8 @@
         /* MODAL DE EDIÇÃO ADMIN */
         .admin-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 3000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s; padding: 20px; }
         .admin-modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .admin-modal-content { background: #fff; width: 100%; max-width: 800px; max-height: 90vh; border-radius: 12px; overflow-y: auto; padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .admin-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 15px; }
+        .admin-modal-content { background: #fff; width: 100%; max-width: 1050px; max-height: 90vh; border-radius: 12px; overflow-y: auto; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .admin-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #ddd; padding-bottom: 20px; }
 
         @media (max-width: 900px) { .modal-content { grid-template-columns: 1fr; gap: 40px; margin: 10px auto 40px; } .modal-gallery-wrapper { position: static; } .grid-2-col, .grid-3-col { grid-template-columns: 1fr; } }
         @media (max-width: 500px) { .banner { min-height: 400px; padding: 30px 15px; } .banner-title { font-size: 32px; } .sensory-features { grid-template-columns: 1fr; padding: 15px; gap: 20px; } .feature-item { flex-direction: row; text-align: left; } .catalogo-grid { gap: 25px; padding: 40px 15px; grid-template-columns: 1fr; } }
@@ -320,27 +320,52 @@
     <div id="modal-edit-produto" class="admin-modal-overlay">
         <div class="admin-modal-content">
             <div class="admin-modal-header">
-                <h3 style="font-family:'Playfair Display'; font-size:24px;">Editar Fragrância</h3>
-                <button onclick="fecharModalEdicao()" style="background:none; border:none; cursor:pointer; font-size:20px;">&times;</button>
+                <h3 style="font-family:'Playfair Display'; font-size:28px; color: var(--accent-color);">Editar Fragrância</h3>
+                <button onclick="fecharModalEdicao()" style="background:#f0f0f0; border:none; cursor:pointer; font-size:24px; width:45px; height:45px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:0.3s;" onmouseover="this.style.background='#e0e0e0'" onmouseout="this.style.background='#f0f0f0'">&times;</button>
             </div>
             <form id="form-edit-produto">
                 <input type="hidden" id="edit-id">
-                <div class="grid-2-col">
-                    <div class="form-group"><label>Nome</label><input type="text" id="edit-nome" required></div>
-                    <div class="form-group"><label>Perfil</label><select id="edit-categoria"><option value="Feminino">Feminino</option><option value="Masculino">Masculino</option><option value="Compartilháveis">Compartilháveis</option><option value="Pastas Hidratantes">Pastas Hidratantes</option><option value="Body splash">Body splash</option></select></div>
-                </div>
-                <div class="grid-2-col">
-                    <div class="form-group"><label>Ocasião</label><select id="edit-ocasiao"><option value="">Selecione...</option><option value="Noite / Balada">Noite / Festa / Sedução</option><option value="Dia / Frescor">Dia a Dia / Frescor</option><option value="Encontro">Encontro Romântico</option><option value="Reunião">Reunião / Poder</option></select></div>
+                
+                <!-- Bloco de Informações -->
+                <div style="background: #fafafa; padding: 25px; border-radius: 8px; border: 1px solid #eaeaea; margin-bottom: 25px;">
+                    <h4 style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 15px;"><i data-lucide="info" style="width: 16px; vertical-align: text-bottom; margin-right: 5px;"></i> Informações Principais</h4>
                     <div class="grid-2-col">
-                        <div class="form-group"><label>Valor (R$)</label><input type="number" id="edit-preco" step="0.01" min="0" required></div>
-                        <div class="form-group"><label>Estoque</label><input type="number" id="edit-estoque" min="0" required></div>
+                        <div class="form-group"><label>Nome</label><input type="text" id="edit-nome" required></div>
+                        <div class="form-group"><label>Perfil</label><select id="edit-categoria"><option value="Feminino">Feminino</option><option value="Masculino">Masculino</option><option value="Compartilháveis">Compartilháveis</option><option value="Pastas Hidratantes">Pastas Hidratantes</option><option value="Body splash">Body splash</option></select></div>
+                    </div>
+                    <div class="grid-2-col">
+                        <div class="form-group"><label>Ocasião</label><select id="edit-ocasiao"><option value="">Selecione...</option><option value="Noite / Balada">Noite / Festa / Sedução</option><option value="Dia / Frescor">Dia a Dia / Frescor</option><option value="Encontro">Encontro Romântico</option><option value="Reunião">Reunião / Poder</option></select></div>
+                        <div class="grid-2-col">
+                            <div class="form-group"><label>Valor (R$)</label><input type="number" id="edit-preco" step="0.01" min="0" required></div>
+                            <div class="form-group"><label>Estoque</label><input type="number" id="edit-estoque" min="0" required></div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;"><label>Copywriting</label><textarea id="edit-desc" rows="3"></textarea></div>
+                </div>
+
+                <!-- Bloco de Pirâmide Olfativa -->
+                <div style="background: #fafafa; padding: 25px; border-radius: 8px; border: 1px solid #eaeaea; margin-bottom: 25px;">
+                    <h4 style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 15px;"><i data-lucide="flask-conical" style="width: 16px; vertical-align: text-bottom; margin-right: 5px;"></i> Pirâmide Olfativa</h4>
+                    <div class="grid-3-col">
+                        <div class="notas-wrapper"><div class="notas-header">Saída</div><div class="notas-lista" id="edit-check-topo"></div><div class="notas-add-custom"><input type="text" id="edit-ce-t" placeholder="✨"><input type="text" id="edit-cn-t" placeholder="Nova nota..."><button type="button" class="btn-add-nota" onclick="addCustomNota('topo','edit-ce-t','edit-cn-t')">+</button></div></div>
+                        <div class="notas-wrapper"><div class="notas-header">Corpo</div><div class="notas-lista" id="edit-check-coracao"></div><div class="notas-add-custom"><input type="text" id="edit-ce-c" placeholder="✨"><input type="text" id="edit-cn-c" placeholder="Nova nota..."><button type="button" class="btn-add-nota" onclick="addCustomNota('coracao','edit-ce-c','edit-cn-c')">+</button></div></div>
+                        <div class="notas-wrapper"><div class="notas-header">Fundo</div><div class="notas-lista" id="edit-check-fundo"></div><div class="notas-add-custom"><input type="text" id="edit-ce-f" placeholder="✨"><input type="text" id="edit-cn-f" placeholder="Nova nota..."><button type="button" class="btn-add-nota" onclick="addCustomNota('fundo','edit-ce-f','edit-cn-f')">+</button></div></div>
                     </div>
                 </div>
-                <div class="form-group"><label>Copywriting</label><textarea id="edit-desc" rows="4"></textarea></div>
-                <div class="form-group"><label>Imagens (URLs Diretas)</label>
-                    <div class="grid-2-col"><input type="url" id="edit-img1" required><input type="url" id="edit-img2"><input type="url" id="edit-img3"><input type="url" id="edit-img4"><input type="url" id="edit-img5"></div>
+
+                <!-- Bloco de Imagens -->
+                <div style="background: #fafafa; padding: 25px; border-radius: 8px; border: 1px solid #eaeaea; margin-bottom: 25px;">
+                    <h4 style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 15px;"><i data-lucide="image" style="width: 16px; vertical-align: text-bottom; margin-right: 5px;"></i> Imagens (URLs Diretas)</h4>
+                    <div class="grid-2-col">
+                        <input type="url" id="edit-img1" placeholder="Imagem Principal *" required>
+                        <input type="url" id="edit-img2" placeholder="Imagem 2">
+                        <input type="url" id="edit-img3" placeholder="Imagem 3">
+                        <input type="url" id="edit-img4" placeholder="Imagem 4">
+                        <input type="url" id="edit-img5" placeholder="Imagem 5">
+                    </div>
                 </div>
-                <button type="submit" class="btn-admin" id="btn-salvar-edicao" style="width:100%; margin-top:10px;">Salvar Alterações</button>
+                
+                <button type="submit" class="btn-admin" id="btn-salvar-edicao" style="width:100%; margin-top:10px; padding: 18px; font-size: 16px;">Salvar Alterações</button>
             </form>
         </div>
     </div>
@@ -349,7 +374,9 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, updateDoc, getDocs, deleteDoc, doc, onSnapshot, query } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        
+        // Importando agora a função 'writeBatch' fundamental para envios em massa
+        import { getFirestore, collection, addDoc, updateDoc, getDocs, deleteDoc, doc, onSnapshot, query, writeBatch } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         const userConfig = { apiKey: "AIzaSyCIFtKNI5vD9HucWX5c8fNcAkSOSoHQm-M", authDomain: "luxyparfums-46c59.firebaseapp.com", projectId: "luxyparfums-46c59", storageBucket: "luxyparfums-46c59.firebasestorage.app", messagingSenderId: "211881648987", appId: "1:211881648987:web:e3635cc04168237bad307e" };
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : userConfig;
@@ -385,10 +412,18 @@
             fundo: [...[{nome:"Âmbar",emoji:"☄️"},{nome:"Almíscar",emoji:"☁️"},{nome:"Baunilha",emoji:"🍦"}], ...nSalvas.fundo]
         };
 
-        window.renderizarFiltrosNotas = function() { ['topo','coracao','fundo'].forEach(c => { let div = document.getElementById('check-'+c); if(div) div.innerHTML = gNotas[c].map(n => `<label class="nota-checkbox-item"><input type="checkbox" name="nota_${c}" value="${n.emoji} ${n.nome}"> <span>${n.emoji} ${n.nome}</span></label>`).join(''); }); };
+        window.renderizarFiltrosNotas = function() { 
+            ['topo','coracao','fundo'].forEach(c => { 
+                let divCreate = document.getElementById('check-'+c); 
+                if(divCreate) divCreate.innerHTML = gNotas[c].map(n => `<label class="nota-checkbox-item"><input type="checkbox" name="nota_${c}" value="${n.emoji} ${n.nome}"> <span>${n.emoji} ${n.nome}</span></label>`).join(''); 
+                
+                let divEdit = document.getElementById('edit-check-'+c); 
+                if(divEdit) divEdit.innerHTML = gNotas[c].map(n => `<label class="nota-checkbox-item"><input type="checkbox" name="edit_nota_${c}" value="${n.emoji} ${n.nome}"> <span>${n.emoji} ${n.nome}</span></label>`).join(''); 
+            }); 
+        };
         window.addCustomNota = function(cat, idE, idN) { let e = document.getElementById(idE).value||"✨", n = document.getElementById(idN).value; if(!n) return; let obj = {nome:n, emoji:e}; gNotas[cat].push(obj); nSalvas[cat].push(obj); localStorage.setItem('luxy_notas', JSON.stringify(nSalvas)); renderizarFiltrosNotas(); document.getElementById(idE).value=""; document.getElementById(idN).value=""; };
 
-        // AUTH SEGURO DO AMBIENTE (SEM SUBSTITUIR POR EMAIL/SENHA)
+        // AUTH SEGURO
         const initAuth = async () => { 
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) { 
@@ -406,7 +441,6 @@
                 document.getElementById('app-admin').classList.remove('hidden'); 
                 document.body.classList.add('admin-body');
                 
-                // Usar senha local para acessar a tela
                 if(localStorage.getItem('luxy_admin') === 'true'){ 
                     document.getElementById('login-section').classList.add('hidden'); 
                     document.getElementById('dashboard-section').classList.remove('hidden'); 
@@ -429,7 +463,6 @@
 
         initAuth().then(() => { onAuthStateChanged(auth, (user) => { currentUser = user; checarRota(); }); });
 
-        // LOGIN ADMINISTRATIVO SIMPLES E SEGURO
         document.getElementById('login-btn').addEventListener('click', () => { 
             const pwd = document.getElementById('password').value;
             if(pwd === 'luxy2026') {
@@ -477,11 +510,27 @@
             document.getElementById('edit-preco').value = p.preco || 0;
             document.getElementById('edit-estoque').value = p.estoque || 0;
             document.getElementById('edit-desc').value = p.descricao || '';
+            
+            // Limpa as seleções de notas e remarca as que o perfume já possui
+            document.querySelectorAll('#form-edit-produto input[type="checkbox"]').forEach(cb => cb.checked = false);
+            if(p.piramide) {
+                ['topo', 'coracao', 'fundo'].forEach(nivel => {
+                    if(p.piramide[nivel]) {
+                        p.piramide[nivel].forEach(nota => {
+                            let cb = document.querySelector(`#form-edit-produto input[name="edit_nota_${nivel}"][value="${nota}"]`);
+                            if(cb) cb.checked = true;
+                        });
+                    }
+                });
+            }
+
             document.getElementById('edit-img1').value = p.imagens?.[0] || '';
             document.getElementById('edit-img2').value = p.imagens?.[1] || '';
             document.getElementById('edit-img3').value = p.imagens?.[2] || '';
             document.getElementById('edit-img4').value = p.imagens?.[3] || '';
             document.getElementById('edit-img5').value = p.imagens?.[4] || '';
+            
+            if(window.lucide) lucide.createIcons();
             document.getElementById('modal-edit-produto').classList.add('active');
         };
         window.fecharModalEdicao = () => { document.getElementById('modal-edit-produto').classList.remove('active'); };
@@ -490,13 +539,15 @@
             e.preventDefault(); if(!currentUser) return;
             const btn = document.getElementById('btn-salvar-edicao'); btn.disabled = true; btn.innerText = "Salvando...";
             const id = document.getElementById('edit-id').value;
+            const getEditSel = (n) => Array.from(document.querySelectorAll(`input[name="${n}"]:checked`)).map(c=>c.value);
             const imgs = [document.getElementById('edit-img1').value, document.getElementById('edit-img2').value, document.getElementById('edit-img3').value, document.getElementById('edit-img4').value, document.getElementById('edit-img5').value].filter(i=>i);
             try {
                 await updateDoc(getProdutoDoc(id), {
                     nome: document.getElementById('edit-nome').value, categoria: document.getElementById('edit-categoria').value,
                     ocasiao: document.getElementById('edit-ocasiao').value, preco: parseFloat(document.getElementById('edit-preco').value),
                     estoque: parseInt(document.getElementById('edit-estoque').value), descricao: document.getElementById('edit-desc').value,
-                    imagens: imgs
+                    imagens: imgs,
+                    piramide: { topo: getEditSel('edit_nota_topo'), coracao: getEditSel('edit_nota_coracao'), fundo: getEditSel('edit_nota_fundo') }
                 });
                 showToast("Produto atualizado com sucesso!"); fecharModalEdicao();
             } catch(e) { showToast("Erro ao editar.", "error"); } finally { btn.disabled = false; btn.innerText = "Salvar Alterações"; }
@@ -597,7 +648,7 @@
         window.fecharModalProduto = () => { document.getElementById('product-modal').classList.remove('active'); document.body.style.overflow = 'auto'; };
 
         // ==========================================
-        // SCRIPT DE IMPORTAÇÃO EM MASSA (Otimizado)
+        // SCRIPT DE IMPORTAÇÃO EM MASSA (VIA BATCH)
         // ==========================================
         const dataImport = [
             {n:"9AM CITRICO (AFNAN)",d:"9AM CITRICO é uma celebração da frescura e energia das manhãs ensolaradas. Com sua vibrante composição cítrica, esta fragrância desperta os sentidos e inspira confiança. Ideal para uso diário em climas quentes.",pt:["🍋 Limão","🍊 Laranja","🌿 Bergamota"],pc:["🌸 Jasmim","🍏 Maçã Verde","🍃 Hortelã"],pf:["🌲 Cedro","🌿 Musgo de Carvalho","🪵 Almíscar"]},
@@ -650,17 +701,20 @@
 
         document.getElementById('btn-importar-massa').addEventListener('click', async () => {
             if(!currentUser) return;
-            if(!confirm("Deseja importar 46 fragrâncias agora? Elas entrarão com Estoque: 10 e Preço: R$ 299,90.")) return;
+            if(!confirm("Deseja importar as 46 fragrâncias agora? (Estoque 10, Preço: R$ 299,90).")) return;
             
             const btn = document.getElementById('btn-importar-massa');
             const originalText = btn.innerHTML;
-            btn.innerHTML = `<i data-lucide="loader" class="spin"></i> Importando...`;
+            btn.innerHTML = `<i data-lucide="loader" class="spin"></i> Empacotando e Enviando...`;
             btn.disabled = true;
 
-            let successCount = 0;
             const genericImg = "https://i.postimg.cc/mD0v7mKq/placeholder-perfume.jpg"; 
             
             try {
+                // Iniciação do Batch - Todas as gravações em 1 único pedido
+                const batch = writeBatch(db);
+                let successCount = 0;
+                
                 for(let item of dataImport) {
                     let cat = item.n.toLowerCase().includes("femme") || item.n.toLowerCase().includes("mulher") || item.n.toLowerCase().includes("pink") || item.n.toLowerCase().includes("diva") ? "Feminino" : 
                               item.n.toLowerCase().includes("male") || item.n.toLowerCase().includes("homem") || item.n.toLowerCase().includes("intense") || item.n.toLowerCase().includes("black") ? "Masculino" : "Compartilháveis";
@@ -668,7 +722,9 @@
                     if(item.n.toLowerCase().includes("splash")) cat = "Body splash";
                     if(item.n.toLowerCase().includes("cream")) cat = "Pastas Hidratantes";
 
-                    await addDoc(getProdutosCollection(), {
+                    // Cria a referência vazia e atribui os dados ao Lote (Batch)
+                    const docRef = doc(getProdutosCollection());
+                    batch.set(docRef, {
                         nome: item.n,
                         categoria: cat,
                         ocasiao: "", 
@@ -677,19 +733,18 @@
                         descricao: item.d,
                         imagens: [genericImg], 
                         piramide: { topo: item.pt, coracao: item.pc, fundo: item.pf },
-                        criadoEm: new Date().getTime()
+                        criadoEm: new Date().getTime() + successCount
                     });
                     
                     successCount++;
-                    btn.innerHTML = `<i data-lucide="loader" class="spin"></i> Importando (${successCount}/46)`;
-                    if(window.lucide) lucide.createIcons();
-                    
-                    // Pequeno atraso para evitar limite de taxas do Firebase!
-                    await new Promise(resolve => setTimeout(resolve, 150)); 
                 }
+                
+                // Dispara todos de uma só vez para o Firebase!
+                await batch.commit(); 
+                
                 showToast(`${successCount} Produtos importados com sucesso!`, "success");
             } catch(e) {
-                console.error("Erro no Firebase:", e);
+                console.error("Erro no Firebase Batch:", e);
                 showToast(`Falha na importação. Motivo: ${e.message}`, "error");
             } finally {
                 btn.innerHTML = originalText;
