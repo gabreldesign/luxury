@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luxy Parfums - Catálogo Exclusivo</title>
     
     <!-- Tipografia de Luxo -->
@@ -10,206 +10,222 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
-    <!-- Ícones -->
+    <!-- Ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    
+
     <style>
-        /* --- DESIGN TOKENS & VARIÁVEIS --- */
-        :root { 
-            --bg-color: #fafafa; --text-color: #0a0a0a; --text-light: #666; --accent-color: #000; 
-            --gold: #D4AF37; --gold-light: #f4e9c8; --whatsapp-green: #25D366; --border-color: #eaeaea;
-            --shadow-sm: 0 4px 12px rgba(0,0,0,0.04); --shadow-md: 0 10px 30px rgba(0,0,0,0.08);
+        /* Variáveis de Tema */
+        :root {
+            --bg-color: #fafafa;
+            --text-color: #111;
+            --text-light: #555;
+            --accent-color: #000;
+            --gold: #D4AF37;
+            --gold-light: #f4e9c8;
+            --whatsapp-green: #25D366;
+            --border-color: #eaeaea;
         }
-        
-        /* --- RESET & BASE --- */
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
-        button, input, select, textarea { font-family: inherit; outline: none; }
         .hidden { display: none !important; }
-        
-        /* --- TOAST NOTIFICATIONS --- */
-        .toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
-        .toast { background: #111; color: #fff; padding: 14px 28px; border-radius: 30px; font-size: 13px; font-weight: 500; opacity: 0; transform: translateY(20px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-md); border: 1px solid #333; }
-        .toast.show { opacity: 1; transform: translateY(0); }
-        .toast.success { border-bottom: 2px solid var(--gold); }
-        .toast.error { border-bottom: 2px solid #ef4444; }
 
-        /* --- VITRINE / HEADER --- */
-        .banner { width: 100%; height: 55vh; min-height: 480px; background-image: url('https://i.postimg.cc/x17bNxBT/48eb0833-f870-41d8-a450-bede6de66c66-e7309365-4454-4aba-9a61-20cca7baa3a3.webp'); background-size: cover; background-position: center 20%; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; }
-        .banner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.85)); }
-        .banner-content { position: relative; z-index: 10; max-width: 800px; color: #fff; display: flex; flex-direction: column; align-items: center; animation: fadeInDown 1s ease-out; }
-        .banner-logo { max-height: 120px; width: auto; margin-bottom: 30px; filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.6)); }
-        .banner-title { font-family: 'Playfair Display', serif; font-size: 46px; font-weight: 700; margin-bottom: 15px; text-shadow: 0 4px 12px rgba(0,0,0,0.8); line-height: 1.1; }
-        .banner-subtitle { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 300; line-height: 1.7; color: #f0f0f0; text-shadow: 0 2px 6px rgba(0,0,0,0.8); max-width: 600px; }
+        /* ========= BANNER E HEADER ========= */
+        .banner { width: 100%; height: 55vh; min-height: 420px; background-image: url('https://i.postimg.cc/x17bNxBT/48eb0833-f870-41d8-a450-bede6de66c66-e7309365-4454-4aba-9a61-20cca7baa3a3.webp'); background-size: cover; background-position: center 20%; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; }
+        .banner::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.85)); }
+        .banner-content { position: relative; z-index: 10; max-width: 750px; color: #fff; display: flex; flex-direction: column; align-items: center; }
+        .banner-logo { max-height: 130px; width: auto; margin-bottom: 25px; filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.6)); }
+        .banner-title { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; margin-bottom: 15px; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .banner-subtitle { font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 400; line-height: 1.7; color: #eee; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
 
-        /* --- FILTROS --- */
-        .filtros-wrapper { background: #fff; padding: 30px 20px 20px; border-bottom: 1px solid var(--border-color); text-align: center; position: sticky; top: 0; z-index: 40; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+        /* ========= FILTROS ROBUSTOS ========= */
+        .filtros-wrapper { background: #fff; padding: 25px 20px 15px; border-bottom: 1px solid var(--border-color); text-align: center; }
         .filtros-title { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: var(--text-light); margin-bottom: 15px; font-weight: 600; }
-        .filtros-container { overflow-x: auto; white-space: nowrap; padding-bottom: 5px; scrollbar-width: none; }
-        .filtros-container::-webkit-scrollbar { display: none; }
-        .filtros { display: inline-flex; justify-content: center; gap: 12px; }
-        .filtro-btn { padding: 12px 22px; border: 1px solid #eaeaea; background: #fff; color: var(--text-light); border-radius: 30px; cursor: pointer; transition: all 0.3s ease; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
-        .filtro-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
-        .filtro-btn.ativo { background: var(--accent-color); color: #fff; border-color: var(--accent-color); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .filtros-container { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 10px; }
+        .filtros { display: inline-flex; justify-content: center; gap: 10px; }
+        .filtro-btn { padding: 10px 20px; border: 1px solid #ddd; background: #fff; color: var(--text-color); border-radius: 30px; cursor: pointer; transition: 0.3s; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; }
+        .filtro-btn:hover { border-color: var(--accent-color); }
+        .filtro-btn.ativo { background: var(--accent-color); color: #fff; border-color: var(--accent-color); }
 
-        /* --- GRID DE PRODUTOS --- */
-        .catalogo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; padding: 60px 20px; max-width: 1300px; margin: 0 auto; }
-        .produto-card { background: #fff; border-radius: 12px; overflow: hidden; text-align: center; transition: all 0.4s ease; cursor: pointer; border: 1px solid transparent; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
-        .produto-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-md); border-color: var(--border-color); }
-        .produto-img-wrapper { position: relative; width: 100%; padding-top: 120%; overflow: hidden; background: #fdfdfd; }
-        .produto-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
-        .produto-card:hover .produto-img { transform: scale(1.05); }
-        .produto-info { padding: 30px 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        .produto-tags { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
-        .tag-micro { font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 10px; background: var(--gold-light); color: #8a6f1c; border-radius: 20px; font-weight: 700; }
-        .produto-nome { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin: 0 0 10px 0; color: var(--accent-color); line-height: 1.2; }
-        .produto-preco { font-size: 18px; color: var(--text-color); margin-bottom: 25px; font-weight: 600; margin-top: auto; }
-        .btn-ver { background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); padding: 14px 20px; display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; transition: all 0.3s ease; border-radius: 6px; }
+        /* ========= GRID DE PRODUTOS ========= */
+        .catalogo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; padding: 50px 20px; max-width: 1200px; margin: 0 auto; }
+        .produto-card { background: #fff; border-radius: 8px; overflow: hidden; text-align: center; transition: 0.4s ease; cursor: pointer; border: 1px solid #f0f0f0; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+        .produto-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--border-color); }
+        
+        .produto-img-wrapper { position: relative; width: 100%; padding-top: 110%; overflow: hidden; background: #fdfdfd; }
+        .produto-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .produto-card:hover .produto-img { transform: scale(1.08); }
+        
+        .produto-info { padding: 25px 20px; }
+        .produto-tags { display: flex; justify-content: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+        .tag-micro { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; padding: 3px 8px; background: var(--gold-light); color: #8a6f1c; border-radius: 20px; font-weight: 700; }
+        
+        .produto-nome { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin: 0 0 10px 0; color: var(--accent-color); line-height: 1.2; }
+        .produto-preco { font-size: 17px; color: var(--text-color); margin-bottom: 20px; font-weight: 700; font-family: 'Montserrat', sans-serif; }
+        
+        .btn-ver { background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); padding: 12px 20px; display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 11px; transition: 0.3s; border-radius: 4px; }
         .produto-card:hover .btn-ver { background: var(--accent-color); color: #fff; }
 
-        /* --- MODAL VIP --- */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.98); z-index: 2000; overflow-x: hidden; overflow-y: auto; display: flex; justify-content: center; align-items: flex-start; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        /* ========= MODAL DO PRODUTO VIP (DESIGN PREMIUM) ========= */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.98); z-index: 2000; overflow-x: hidden; overflow-y: auto; display: flex; justify-content: center; align-items: flex-start; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .modal-header { position: sticky; top: 0; width: 100%; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 50; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .btn-close-modal { background: #111; color: #fff; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 30px; font-size: 11px; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        
+        .modal-header { position: sticky; top: 0; width: 100%; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); z-index: 50; border-bottom: 1px solid var(--border-color); }
+        .btn-close-modal { background: #111; color: #fff; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
         .btn-close-modal:hover { background: #333; }
-        .modal-content { max-width: 1200px; width: 100%; margin: 30px auto 80px; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; opacity: 0; transform: translateY(20px); transition: all 0.5s ease 0.1s; }
-        .modal-overlay.active .modal-content { opacity: 1; transform: translateY(0); }
-        .modal-gallery-wrapper { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 15px; }
-        .modal-img-main { width: 100%; aspect-ratio: 4/5; object-fit: cover; background: #f5f5f5; border-radius: 16px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color); }
-        .marquee-container { width: 100%; background: #0a0a0a; color: var(--gold); padding: 14px 0; border-radius: 8px; margin-top: -30px; position: relative; z-index: 2; overflow: hidden; white-space: nowrap; box-shadow: 0 15px 30px rgba(0,0,0,0.2); display: flex; align-items: center; }
-        .marquee-content { display: inline-block; animation: marquee 20s linear infinite; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; }
+        
+        .modal-content { max-width: 1100px; width: 100%; margin: 20px auto 60px; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+        
+        .modal-gallery-wrapper { position: sticky; top: 90px; }
+        .modal-img-main { width: 100%; aspect-ratio: 4/5; object-fit: cover; background: #f5f5f5; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.06); transition: 0.3s; border: 1px solid var(--border-color); }
+        
+        .marquee-container { width: 100%; background: #111; color: var(--gold); padding: 12px 0; border-radius: 8px; margin-top: -20px; position: relative; z-index: 2; overflow: hidden; white-space: nowrap; box-shadow: 0 10px 20px rgba(0,0,0,0.15); display: flex; align-items: center; }
+        .marquee-content { display: inline-block; animation: marquee 15s linear infinite; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; }
         .marquee-content span { margin: 0 20px; }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-        .modal-thumbnails { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: thin; }
-        .modal-thumb { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; opacity: 0.6; }
-        .modal-thumb:hover, .modal-thumb.active { border-color: var(--gold); opacity: 1; transform: translateY(-2px); }
+        @keyframes marquee { 0% { transform: translateX(50%); } 100% { transform: translateX(-100%); } }
+
+        .modal-thumbnails { display: flex; gap: 10px; margin-top: 15px; overflow-x: auto; padding-bottom: 5px; }
+        .modal-thumbnails::-webkit-scrollbar { height: 3px; }
+        .modal-thumbnails::-webkit-scrollbar-thumb { background: #ccc; }
+        .modal-thumb { width: 70px; height: 70px; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; opacity: 0.5; }
+        .modal-thumb:hover, .modal-thumb.active { border-color: var(--gold); opacity: 1; }
+        
         .modal-details { padding-bottom: 30px; }
-        .modal-tags { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .tag-modal { font-size: 10px; color: #fff; background: var(--accent-color); text-transform: uppercase; padding: 6px 14px; border-radius: 4px; font-weight: 600; }
-        .modal-title { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; color: var(--accent-color); margin-bottom: 15px; line-height: 1.1; }
-        .modal-price { font-size: 32px; font-weight: 600; color: var(--accent-color); margin-bottom: 35px; display: flex; align-items: center; gap: 20px; }
-        .preco-badge { font-size: 11px; background: rgba(37, 211, 102, 0.1); color: #1ebe57; padding: 6px 12px; border-radius: 20px; font-weight: 700; text-transform: uppercase; border: 1px solid rgba(37, 211, 102, 0.2); }
-        .sensory-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 35px; background: #fff; padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); }
-        .feature-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
-        .feature-icon { width: 36px; height: 36px; color: var(--gold); background: var(--gold-light); padding: 6px; border-radius: 50%; }
-        .feature-text { font-size: 10px; text-transform: uppercase; font-weight: 700; color: var(--text-color); }
-        .copy-container { margin-bottom: 40px; }
-        .modal-desc { font-size: 15px; color: #444; line-height: 1.9; transition: max-height 0.4s ease; text-align: justify; }
+        .modal-tags { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .tag-modal { font-size: 10px; color: #fff; background: var(--accent-color); text-transform: uppercase; letter-spacing: 2px; padding: 5px 12px; border-radius: 4px; font-weight: 600; }
+        
+        .modal-title { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; color: var(--accent-color); margin-bottom: 10px; line-height: 1.1; }
+        .modal-price { font-size: 28px; font-weight: 700; color: var(--accent-color); margin-bottom: 25px; font-family: 'Montserrat', sans-serif; display: flex; align-items: center; gap: 15px; }
+        .preco-badge { font-size: 12px; background: #e8f5e9; color: #1ebe57; padding: 4px 10px; border-radius: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .sensory-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 30px; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 20px 0; }
+        .feature-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; }
+        .feature-icon { width: 32px; height: 32px; color: var(--gold); stroke-width: 1.5; }
+        .feature-text { font-size: 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; color: var(--text-light); }
+
+        .copy-container { margin-bottom: 35px; }
+        .modal-desc { font-size: 14px; color: #444; line-height: 1.8; font-weight: 400; transition: max-height 0.4s ease; }
         .desc-collapsed { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        .btn-ler-mais { background: none; border: none; color: var(--gold); font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-top: 12px; display: inline-flex; align-items: center; gap: 5px; }
-        .piramide-grafica { background: #fff; border: 1px solid var(--border-color); padding: 30px; border-radius: 12px; margin-bottom: 40px; }
-        .piramide-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--accent-color); margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
-        .bar-row { margin-bottom: 20px; }
-        .bar-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
-        .bar-label { font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-light); }
-        .bar-notes { font-size: 13px; font-weight: 500; color: var(--accent-color); text-align: right; max-width: 70%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .bar-track { width: 100%; height: 6px; background: #f0f0f0; border-radius: 10px; overflow: hidden; }
+        .btn-ler-mais { background: none; border: none; color: var(--gold); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; margin-top: 10px; display: inline-flex; align-items: center; gap: 5px; }
+        .btn-ler-mais:hover { text-decoration: underline; }
+
+        .piramide-grafica { background: #fff; border: 1px solid var(--border-color); padding: 25px; border-radius: 12px; margin-bottom: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+        .piramide-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--accent-color); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        
+        .bar-row { margin-bottom: 15px; }
+        .bar-row:last-child { margin-bottom: 0; }
+        .bar-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 6px; }
+        .bar-label { font-size: 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 2px; color: var(--text-light); }
+        .bar-notes { font-size: 12px; font-weight: 600; color: var(--accent-color); }
+        
+        .bar-track { width: 100%; height: 8px; background: #f0f0f0; border-radius: 10px; overflow: hidden; }
         .bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold-light), var(--gold)); border-radius: 10px; }
-        .w-topo { width: 35%; } .w-coracao { width: 65%; } .w-fundo { width: 100%; }
-        .btn-comprar-modal { background: var(--whatsapp-green); color: #fff; padding: 24px; width: 100%; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; transition: 0.3s; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); }
-        .btn-comprar-modal:hover { background: #1ebe57; transform: translateY(-3px); }
+        .w-topo { width: 40%; }
+        .w-coracao { width: 70%; }
+        .w-fundo { width: 100%; }
+        
+        .btn-comprar-modal { background: var(--whatsapp-green); color: #fff; padding: 22px; width: 100%; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; transition: 0.3s; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); }
+        .btn-comprar-modal:hover { background: #1ebe57; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4); }
 
-        /* --- ADMIN PANEL --- */
+        /* ========= ADMIN STYLES ========= */
         .admin-body { background-color: #f4f5f7; }
-        .admin-navbar { background-color: #0a0a0a; color: #fff; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-sm); }
-        .admin-navbar-logo { display: flex; align-items: center; gap: 15px; font-family: 'Playfair Display', serif; font-size: 22px; color: var(--gold); }
+        .admin-navbar { background-color: #111; color: #fff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .admin-navbar-logo { display: flex; align-items: center; gap: 15px; font-family: 'Playfair Display'; font-size: 20px; color: var(--gold); }
         .admin-navbar-logo img { height: 35px; filter: brightness(0) invert(1); }
-        .admin-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .admin-card { background: #fff; padding: 35px; border-radius: 12px; box-shadow: var(--shadow-sm); margin-bottom: 30px; border: 1px solid var(--border-color); }
-        .form-group { margin-bottom: 22px; }
-        .form-group label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; color: #444; }
-        .admin-container input, .admin-container select, .admin-container textarea { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 14px; }
-        .admin-container input:focus, .admin-container select:focus, .admin-container textarea:focus { border-color: var(--accent-color); }
-        .btn-admin { background: #0a0a0a; color: #fff; padding: 14px 28px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; justify-content: center; }
-        .btn-admin:hover { background: #333; }
-        .btn-admin.gold { background: var(--gold); color: #000; }
-        .btn-admin.gold:hover { background: #b8962e; }
-        .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .grid-3-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
         
-        .notas-wrapper { border: 1px solid #ddd; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; }
-        .notas-header { background: #f9f9f9; padding: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #ddd; text-align: center; }
-        .notas-lista { max-height: 180px; overflow-y: auto; padding: 12px; }
-        .nota-checkbox-item { display: flex; align-items: center; gap: 10px; font-size: 13px; margin-bottom: 8px; cursor: pointer; }
-        .nota-checkbox-item input { width: auto; margin: 0; }
-        .notas-add-custom { display: flex; gap: 8px; padding: 12px; border-top: 1px solid #ddd; background: #fafafa; }
-        .notas-add-custom input { padding: 8px !important; font-size: 12px !important; }
-        .btn-add-nota { background: var(--accent-color); color: #fff; border: none; border-radius: 4px; width: 36px; cursor: pointer; font-weight: bold; font-size: 16px; }
+        .admin-nav-actions { display: flex; gap: 10px; }
 
-        /* Loader & Login */
-        #loader { position: fixed; inset: 0; background: #fff; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.5s; }
-        .spinner { border: 2px solid #f0f0f0; border-top: 2px solid var(--gold); border-radius: 50%; width: 45px; height: 45px; animation: spin 1s linear infinite; margin-bottom: 25px; }
+        .admin-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .admin-card { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 30px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; color: #444; }
+        .admin-container input, .admin-container select, .admin-container textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 14px; }
+        .btn-admin { background: #111; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        
+        /* O Botão Mágico Dourado */
+        .btn-magico { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+        .btn-magico:hover { background: var(--gold); color: #111; }
+
+        .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .grid-3-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+        .notas-wrapper { border: 1px solid #ddd; border-radius: 4px; display: flex; flex-direction: column; }
+        .notas-header { background: #f9f9f9; padding: 8px; font-size: 10px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #ddd; text-align: center; }
+        .notas-lista { max-height: 150px; overflow-y: auto; padding: 8px; }
+        .nota-checkbox-item { display: flex; gap: 8px; font-size: 12px; margin-bottom: 5px; cursor: pointer; }
+        .notas-add-custom { display: flex; gap: 5px; padding: 8px; border-top: 1px solid #ddd; background: #fafafa; }
+        .notas-add-custom input { padding: 5px !important; font-size: 11px !important; }
+        .btn-add-nota { background: #111; color: #fff; border: none; border-radius: 4px; width: 30px; cursor: pointer; font-weight: bold; }
+        
+        #loader { position: fixed; inset: 0; background: #fff; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+        .spinner { border: 2px solid #eee; border-top: 2px solid var(--gold); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 20px; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        #login-section { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 1000; background: #0a0a0a; }
-        .login-box { background: #fff; padding: 50px 40px; width: 90%; max-width: 420px; border-radius: 12px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-        .login-box h2 { font-family: 'Playfair Display', serif; margin-bottom: 25px; color: var(--accent-color); font-size: 28px; }
 
-        /* MODAL DE EDIÇÃO ADMIN */
-        .admin-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 3000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s; padding: 20px; }
-        .admin-modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .admin-modal-content { background: #fff; width: 100%; max-width: 800px; max-height: 90vh; border-radius: 12px; overflow-y: auto; padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .admin-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 15px; }
+        #login-section { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 1000; background: #111; }
+        .login-box { background: #fff; padding: 40px; width: 90%; max-width: 400px; border-radius: 8px; text-align: center; }
 
-        @media (max-width: 900px) { .modal-content { grid-template-columns: 1fr; gap: 40px; margin: 10px auto 40px; } .modal-gallery-wrapper { position: static; } .grid-2-col, .grid-3-col { grid-template-columns: 1fr; } }
-        @media (max-width: 500px) { .banner { min-height: 400px; padding: 30px 15px; } .banner-title { font-size: 32px; } .sensory-features { grid-template-columns: 1fr; padding: 15px; gap: 20px; } .feature-item { flex-direction: row; text-align: left; } .catalogo-grid { gap: 25px; padding: 40px 15px; grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+            .banner { min-height: 350px; padding: 40px 15px; }
+            .banner-title { font-size: 28px; }
+            .modal-content { grid-template-columns: 1fr; gap: 30px; margin: 10px auto 40px; }
+            .modal-gallery-wrapper { position: static; }
+            .modal-title { font-size: 32px; }
+            .grid-2-col, .grid-3-col { grid-template-columns: 1fr; }
+            .sensory-features { gap: 5px; }
+            .feature-text { font-size: 9px; }
+        }
     </style>
 </head>
 <body>
-    <div class="toast-container" id="toast-container"></div>
 
-    <div id="loader">
-        <div class="spinner"></div>
-        <p style="font-family:'Playfair Display'; font-size:16px; letter-spacing:3px; font-weight:600;">LUXY PARFUMS</p>
-    </div>
-    
-    <!-- ÁREA PÚBLICA (VITRINE) -->
+    <div id="loader"><div class="spinner"></div><p style="font-family:'Playfair Display'; font-size:14px; letter-spacing:2px;">LUXY PARFUMS</p></div>
+
+    <!-- ========================================== -->
+    <!-- VISÃO PÚBLICA (VITRINE) -->
+    <!-- ========================================== -->
     <div id="app-public" class="hidden">
-        <header class="banner">
+        <div class="banner">
             <div class="banner-content">
-                <img src="https://i.postimg.cc/dtwRJfK3/luxyparfumspng-(1).png" class="banner-logo" alt="Luxy Parfums Logo">
+                <img src="https://i.postimg.cc/dtwRJfK3/luxyparfumspng-(1).png" alt="Luxy Parfums" class="banner-logo">
                 <h1 class="banner-title">A Essência da Realeza em Cada Gota</h1>
-                <p class="banner-subtitle">Fragrâncias intensas, luxuosas e inesquecíveis. O segredo da alta perfumaria árabe desenhado para quem não aceita o comum.</p>
+                <p class="banner-subtitle">Fragrâncias intensas, luxuosas e inesquecíveis. O segredo da alta perfumaria árabe para quem não aceita o comum.</p>
             </div>
-        </header>
-        
+        </div>
+
         <div class="filtros-wrapper">
             <h3 class="filtros-title">Descubra a sua assinatura olfativa</h3>
             <div class="filtros-container">
                 <nav class="filtros">
-                    <button class="filtro-btn ativo" onclick="filtrarCatalogo('Todos')">Coleção Completa</button>
-                    <button class="filtro-btn" onclick="filtrarCatalogo('Feminino')"><i data-lucide="sparkles" style="width:16px;"></i> Feminino</button>
-                    <button class="filtro-btn" onclick="filtrarCatalogo('Masculino')"><i data-lucide="briefcase" style="width:16px;"></i> Masculino</button>
-                    <button class="filtro-btn" onclick="filtrarCatalogo('Compartilháveis')"><i data-lucide="infinity" style="width:16px;"></i> Unissex</button>
-                    <div style="width: 1px; height: 20px; background: #ddd; margin: auto 10px;"></div>
-                    <button class="filtro-btn" onclick="filtrarPorOcasiao('Noite / Balada')"><i data-lucide="moon" style="width:16px;"></i> Noite & Festa</button>
-                    <button class="filtro-btn" onclick="filtrarPorOcasiao('Dia / Frescor')"><i data-lucide="sun" style="width:16px;"></i> Dia a Dia</button>
-                    <button class="filtro-btn" onclick="filtrarPorOcasiao('Encontro')"><i data-lucide="heart" style="width:16px;"></i> Encontro</button>
+                    <button class="filtro-btn ativo" onclick="filtrarCatalogo('Todos')">Ver Todos</button>
+                    <button class="filtro-btn" onclick="filtrarCatalogo('Feminino')"><i data-lucide="sparkles" style="width:14px;"></i> Feminino</button>
+                    <button class="filtro-btn" onclick="filtrarCatalogo('Masculino')"><i data-lucide="briefcase" style="width:14px;"></i> Masculino</button>
+                    <button class="filtro-btn" onclick="filtrarCatalogo('Compartilháveis')"><i data-lucide="infinity" style="width:14px;"></i> Unissex</button>
+                    <button class="filtro-btn" onclick="filtrarPorOcasiao('Noite / Balada')"><i data-lucide="moon" style="width:14px;"></i> Noite & Festa</button>
+                    <button class="filtro-btn" onclick="filtrarPorOcasiao('Dia / Frescor')"><i data-lucide="sun" style="width:14px;"></i> Dia & Frescor</button>
+                    <button class="filtro-btn" onclick="filtrarPorOcasiao('Encontro')"><i data-lucide="heart" style="width:14px;"></i> Encontro</button>
                 </nav>
             </div>
         </div>
-        
+
         <main class="catalogo-grid" id="produtos-container"></main>
-        
-        <footer style="text-align: center; padding: 60px 20px; background: #fff; border-top: 1px solid var(--border-color); font-size: 12px; color: #888;">
-            <img src="https://i.postimg.cc/dtwRJfK3/luxyparfumspng-(1).png" style="max-height: 35px; margin-bottom: 20px; opacity: 0.3; filter: grayscale(1);">
-            <p>&copy; 2026 Luxy Parfums. A Alta Perfumaria Árabe.</p>
-            <p style="margin-top: 15px;"><a href="#admin" style="text-transform: uppercase; letter-spacing: 2px; font-weight:600; color:#aaa; display:inline-flex; align-items:center; gap:5px;"><i data-lucide="lock" style="width:12px;"></i> Acesso Restrito</a></p>
+
+        <footer style="text-align: center; padding: 50px 20px; background: #fff; border-top: 1px solid var(--border-color); font-size: 11px; color: #888;">
+            <img src="https://i.postimg.cc/dtwRJfK3/luxyparfumspng-(1).png" alt="Luxy" style="max-height: 30px; margin-bottom: 15px; opacity: 0.4;">
+            <p>&copy; 2026 Luxy Parfums.</p>
+            <p style="margin-top: 10px;"><a href="#admin" style="text-transform: uppercase; letter-spacing: 2px;"><i data-lucide="lock" style="width:10px;"></i> Admin</a></p>
         </footer>
     </div>
 
-    <!-- MODAL VIP DE PRODUTO -->
+    <!-- MODAL DE PRODUTO DE ALTA CONVERSÃO -->
     <div id="product-modal" class="modal-overlay">
         <div class="modal-header">
-            <button onclick="fecharModalProduto()" class="btn-close-modal"><i data-lucide="x" style="width: 18px;"></i> Fechar</button>
-            <img src="https://i.postimg.cc/dtwRJfK3/luxyparfumspng-(1).png" style="max-height: 28px;">
+            <button onclick="fecharModalProduto()" class="btn-close-modal"><i data-lucide="x" style="width: 16px;"></i> Fechar</button>
+            <img src="https://i.postimg.cc/dtwRJfK3/luxyparfumspng-(1).png" alt="Luxy" style="max-height: 25px;">
         </div>
+        
         <div class="modal-content">
             <div class="modal-gallery-wrapper">
-                <img id="modal-img-main" src="" class="modal-img-main" alt="Produto">
+                <img id="modal-img-main" src="" class="modal-img-main">
                 <div id="modal-marquee-box" class="marquee-container hidden">
                     <div class="marquee-content" id="modal-marquee-text"></div>
                     <div class="marquee-content" id="modal-marquee-clone"></div>
@@ -222,10 +238,11 @@
                     <span id="modal-categoria" class="tag-modal" style="background: var(--gold);"></span>
                     <span id="modal-ocasiao-tag" class="tag-modal hidden" style="background: #111;"></span>
                 </div>
+                
                 <h1 id="modal-nome" class="modal-title"></h1>
                 <div class="modal-price">
                     <span id="modal-preco"></span>
-                    <span class="preco-badge"><i data-lucide="check-circle-2" style="width:14px; display:inline-block; vertical-align:middle; margin-right:4px;"></i> Em Estoque</span>
+                    <span class="preco-badge">Em Estoque</span>
                 </div>
                 
                 <div class="sensory-features">
@@ -233,431 +250,306 @@
                     <div class="feature-item"><i data-lucide="wind" class="feature-icon"></i><span class="feature-text">Projeção<br>Marcante</span></div>
                     <div class="feature-item"><i data-lucide="gem" class="feature-icon"></i><span class="feature-text">Exclusividade<br>Árabe</span></div>
                 </div>
-                
+
                 <div class="copy-container">
                     <div id="modal-desc" class="modal-desc desc-collapsed"></div>
-                    <button id="btn-toggle-desc" class="btn-ler-mais" onclick="toggleDescricao()">Ler história completa <i data-lucide="chevron-down" style="width:14px;"></i></button>
+                    <button id="btn-toggle-desc" class="btn-ler-mais" onclick="toggleDescricao()">Ler descrição completa <i data-lucide="chevron-down" style="width:14px;"></i></button>
                 </div>
                 
                 <div id="modal-piramide" class="piramide-grafica hidden">
-                    <h3 class="piramide-title"><i data-lucide="flask-conical" style="color: var(--gold); width:24px;"></i> Evolução Olfativa</h3>
-                    <div id="bar-topo" class="bar-row hidden"><div class="bar-header"><span class="bar-label">Notas de Saída</span><span id="txt-bar-topo" class="bar-notes"></span></div><div class="bar-track"><div class="bar-fill w-topo"></div></div></div>
-                    <div id="bar-coracao" class="bar-row hidden"><div class="bar-header"><span class="bar-label">Notas de Corpo</span><span id="txt-bar-coracao" class="bar-notes"></span></div><div class="bar-track"><div class="bar-fill w-coracao"></div></div></div>
-                    <div id="bar-fundo" class="bar-row hidden"><div class="bar-header"><span class="bar-label">Notas de Fundo</span><span id="txt-bar-fundo" class="bar-notes"></span></div><div class="bar-track"><div class="bar-fill w-fundo"></div></div></div>
+                    <h3 class="piramide-title"><i data-lucide="flask-conical" style="color: var(--gold); width:20px;"></i> Evolução Olfativa</h3>
+                    <div id="bar-topo" class="bar-row hidden"><div class="bar-header"><span class="bar-label">Saída</span><span id="txt-bar-topo" class="bar-notes"></span></div><div class="bar-track"><div class="bar-fill w-topo"></div></div></div>
+                    <div id="bar-coracao" class="bar-row hidden"><div class="bar-header"><span class="bar-label">Corpo</span><span id="txt-bar-coracao" class="bar-notes"></span></div><div class="bar-track"><div class="bar-fill w-coracao"></div></div></div>
+                    <div id="bar-fundo" class="bar-row hidden"><div class="bar-header"><span class="bar-label">Fundo</span><span id="txt-bar-fundo" class="bar-notes"></span></div><div class="bar-track"><div class="bar-fill w-fundo"></div></div></div>
                 </div>
-                
-                <button id="btn-modal-comprar" class="btn-comprar-modal"><i data-lucide="shopping-bag" style="width:20px;"></i> Garantir a minha assinatura</button>
+
+                <button id="btn-modal-comprar" class="btn-comprar-modal"><i data-lucide="shopping-bag"></i> Garantir a minha assinatura</button>
             </div>
         </div>
     </div>
 
-    <!-- ÁREA ADMINISTRATIVA -->
+
+    <!-- ========================================== -->
+    <!-- VISÃO ADMIN -->
+    <!-- ========================================== -->
     <div id="app-admin" class="hidden admin-body">
         <div id="login-section" class="hidden">
             <div class="login-box">
                 <h2>Admin Luxy</h2>
-                <input type="email" id="email" value="gabreldesign@gmail.com" placeholder="E-mail" style="width:100%; padding:14px; margin:15px 0; background:#f5f5f5; border:1px solid #ddd; border-radius:6px;">
-                <input type="password" id="password" placeholder="Senha de Acesso" style="width:100%; padding:14px; margin-bottom:20px; border:1px solid #ddd; border-radius:6px;">
-                <button id="login-btn" class="btn-admin" style="width:100%;">Acessar Painel</button>
-                <button onclick="window.location.hash=''" style="background:none; border:none; color:#666; font-size:12px; margin-top:20px; cursor:pointer; text-decoration:underline;">Voltar ao Catálogo</button>
-                <p id="login-error" style="color:#ef4444; font-size:13px; margin-top:15px; font-weight:600;"></p>
+                <input type="email" id="email" value="gabreldesign@gmail.com" readonly style="width:100%; padding:10px; margin:15px 0; background:#eee; border:none;">
+                <input type="password" id="password" placeholder="Senha" style="width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc;">
+                <button id="login-btn" class="btn-admin" style="width:100%; justify-content: center;">Entrar</button>
+                <p id="login-error" style="color:red; font-size:12px; margin-top:10px;"></p>
             </div>
         </div>
         
         <div id="dashboard-section" class="hidden">
             <nav class="admin-navbar">
-                <div class="admin-navbar-logo"><img src="https://i.postimg.cc/dtwRJfK3/luxyparfumspng-(1).png"> Painel Executivo</div>
-                <div>
-                    <button id="btn-importar-massa" class="btn-admin gold"><i data-lucide="database"></i> Importar Catálogo (Top 46)</button>
-                    <button id="logout-btn" class="btn-admin" style="background:#cc0000; margin-left: 10px;">Sair</button>
+                <div class="admin-navbar-logo"><img src="https://i.postimg.cc/dtwRJfK3/luxyparfumspng-(1).png"></div>
+                <div class="admin-nav-actions">
+                    <!-- O BOTÃO MÁGICO AQUI -->
+                    <button id="btn-import-mass" class="btn-admin btn-magico" title="Popula a loja com 15 perfumes reais">
+                        <i data-lucide="database" style="width:16px;"></i> Importar Teste
+                    </button>
+                    <button id="logout-btn" class="btn-admin" style="background:#cc0000;">Sair</button>
                 </div>
             </nav>
             <div class="admin-container">
                 <div class="admin-card">
-                    <h3 style="margin-bottom:25px; font-family:'Playfair Display', serif; font-size:26px;">Adicionar Nova Fragrância</h3>
+                    <h3 style="margin-bottom:20px; font-family:'Playfair Display'; font-size:24px;">Adicionar Fragrância Manual</h3>
                     <form id="form-add-produto">
                         <div class="grid-2-col">
-                            <div class="form-group"><label>Nome do Perfume *</label><input type="text" id="add-nome" required></div>
-                            <div class="form-group"><label>Perfil (Gênero) *</label><select id="add-categoria" required><option value="Feminino">Feminino</option><option value="Masculino">Masculino</option><option value="Compartilháveis">Compartilháveis</option><option value="Pastas Hidratantes">Pastas Hidratantes</option><option value="Body splash">Body splash</option></select></div>
+                            <div class="form-group"><label>Nome *</label><input type="text" id="add-nome" required></div>
+                            <div class="form-group">
+                                <label>Perfil (Gênero) *</label>
+                                <select id="add-categoria" required><option value="Feminino">Feminino</option><option value="Masculino">Masculino</option><option value="Compartilháveis">Compartilháveis</option><option value="Pastas Hidratantes">Pastas Hidratantes</option><option value="Body splash">Body splash</option></select>
+                            </div>
                         </div>
                         <div class="grid-2-col">
-                            <div class="form-group"><label>Ocasião Principal</label><select id="add-ocasiao"><option value="">Selecione...</option><option value="Noite / Balada">Noite / Festa / Sedução</option><option value="Dia / Frescor">Dia a Dia / Frescor</option><option value="Encontro">Encontro Romântico</option><option value="Reunião">Reunião / Poder</option></select></div>
+                            <div class="form-group">
+                                <label>Ocasião Principal</label>
+                                <select id="add-ocasiao">
+                                    <option value="">Selecione...</option>
+                                    <option value="Noite / Balada">Noite / Festa / Balada</option>
+                                    <option value="Dia / Frescor">Dia a Dia / Frescor</option>
+                                    <option value="Encontro">Encontro Romântico</option>
+                                    <option value="Reunião">Elegante / Trabalho</option>
+                                </select>
+                            </div>
                             <div class="grid-2-col">
-                                <div class="form-group"><label>Valor (R$) *</label><input type="number" id="add-preco" step="0.01" min="0" required></div>
-                                <div class="form-group"><label>Estoque *</label><input type="number" id="add-estoque" min="0" required></div>
+                                <div class="form-group"><label>Preço *</label><input type="number" id="add-preco" step="0.01" required></div>
+                                <div class="form-group"><label>Estoque *</label><input type="number" id="add-estoque" required></div>
                             </div>
                         </div>
-                        <div class="form-group"><label>Copywriting Persuasiva (Descritivo)</label><textarea id="add-desc" rows="4"></textarea></div>
+                        <div class="form-group"><label>Copy Persuasiva (Neuromarketing)</label><textarea id="add-desc" rows="3"></textarea></div>
                         
-                        <div class="form-group"><label>Construção da Pirâmide Olfativa</label>
+                        <div class="form-group"><label>Pirâmide Olfativa</label>
                             <div class="grid-3-col">
-                                <div class="notas-wrapper"><div class="notas-header">Saída</div><div class="notas-lista" id="check-topo"></div><div class="notas-add-custom"><input type="text" id="ce-t" placeholder="✨"><input type="text" id="cn-t" placeholder="Nova nota..."><button type="button" class="btn-add-nota" onclick="addCustomNota('topo','ce-t','cn-t')">+</button></div></div>
-                                <div class="notas-wrapper"><div class="notas-header">Corpo</div><div class="notas-lista" id="check-coracao"></div><div class="notas-add-custom"><input type="text" id="ce-c" placeholder="✨"><input type="text" id="cn-c" placeholder="Nova nota..."><button type="button" class="btn-add-nota" onclick="addCustomNota('coracao','ce-c','cn-c')">+</button></div></div>
-                                <div class="notas-wrapper"><div class="notas-header">Fundo</div><div class="notas-lista" id="check-fundo"></div><div class="notas-add-custom"><input type="text" id="ce-f" placeholder="✨"><input type="text" id="cn-f" placeholder="Nova nota..."><button type="button" class="btn-add-nota" onclick="addCustomNota('fundo','ce-f','cn-f')">+</button></div></div>
+                                <div class="notas-wrapper"><div class="notas-header">Saída</div><div class="notas-lista" id="check-topo"></div><div class="notas-add-custom"><input type="text" id="ce-t" placeholder="✨" style="width:30px;"><input type="text" id="cn-t" placeholder="Nova.."><button type="button" class="btn-add-nota" onclick="addCustomNota('topo','ce-t','cn-t')">+</button></div></div>
+                                <div class="notas-wrapper"><div class="notas-header">Corpo</div><div class="notas-lista" id="check-coracao"></div><div class="notas-add-custom"><input type="text" id="ce-c" placeholder="✨" style="width:30px;"><input type="text" id="cn-c" placeholder="Nova.."><button type="button" class="btn-add-nota" onclick="addCustomNota('coracao','ce-c','cn-c')">+</button></div></div>
+                                <div class="notas-wrapper"><div class="notas-header">Fundo</div><div class="notas-lista" id="check-fundo"></div><div class="notas-add-custom"><input type="text" id="ce-f" placeholder="✨" style="width:30px;"><input type="text" id="cn-f" placeholder="Nova.."><button type="button" class="btn-add-nota" onclick="addCustomNota('fundo','ce-f','cn-f')">+</button></div></div>
                             </div>
                         </div>
-                        <div class="form-group"><label>Galeria de Imagens (URLs Diretas)</label>
-                            <div class="grid-2-col"><input type="url" id="add-img1" placeholder="Link Imagem Principal *" required><input type="url" id="add-img2" placeholder="Img 2"><input type="url" id="add-img3" placeholder="Img 3"><input type="url" id="add-img4" placeholder="Img 4"><input type="url" id="add-img5" placeholder="Img 5"></div>
-                        </div>
-                        <button type="submit" class="btn-admin" id="btn-submit-produto" style="width:100%; margin-top:20px;">Publicar Fragrância</button>
+                        
+                        <div class="form-group"><label>Imagens (Links)</label><div class="grid-2-col"><input type="url" id="add-img1" placeholder="Img 1 *" required><input type="url" id="add-img2" placeholder="Img 2"><input type="url" id="add-img3" placeholder="Img 3"><input type="url" id="add-img4" placeholder="Img 4"></div></div>
+                        <button type="submit" class="btn-admin" id="btn-submit-produto" style="width:100%; margin-top:10px; justify-content: center;">Publicar Produto</button>
                     </form>
                 </div>
-                
-                <div class="admin-card">
-                    <h3 style="margin-bottom:20px; font-family:'Playfair Display', serif; font-size:24px;">Gestão de Estoque</h3>
-                    <div style="overflow-x:auto;">
-                        <table style="width:100%; text-align:left; font-size:14px; border-collapse:collapse;">
-                            <thead><tr style="border-bottom:2px solid #000; color:#666; font-size:11px; text-transform:uppercase;"><th style="padding:15px 10px;">Produto</th><th style="padding:15px 10px;">Preço</th><th style="padding:15px 10px;">Estoque</th><th style="padding:15px 10px; text-align:right;">Ações</th></tr></thead>
-                            <tbody id="tabela-estoque"></tbody>
-                        </table>
-                    </div>
-                </div>
+                <div class="admin-card"><h3 style="margin-bottom:15px;">Estoque</h3><div style="overflow-x:auto;"><table style="width:100%; text-align:left; font-size:13px; border-collapse:collapse;"><tbody id="tabela-estoque"></tbody></table></div></div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL DE EDIÇÃO ADMIN -->
-    <div id="modal-edit-produto" class="admin-modal-overlay">
-        <div class="admin-modal-content">
-            <div class="admin-modal-header">
-                <h3 style="font-family:'Playfair Display'; font-size:24px;">Editar Fragrância</h3>
-                <button onclick="fecharModalEdicao()" style="background:none; border:none; cursor:pointer; font-size:20px;">&times;</button>
-            </div>
-            <form id="form-edit-produto">
-                <input type="hidden" id="edit-id">
-                <div class="grid-2-col">
-                    <div class="form-group"><label>Nome</label><input type="text" id="edit-nome" required></div>
-                    <div class="form-group"><label>Perfil</label><select id="edit-categoria"><option value="Feminino">Feminino</option><option value="Masculino">Masculino</option><option value="Compartilháveis">Compartilháveis</option><option value="Pastas Hidratantes">Pastas Hidratantes</option><option value="Body splash">Body splash</option></select></div>
-                </div>
-                <div class="grid-2-col">
-                    <div class="form-group"><label>Ocasião</label><select id="edit-ocasiao"><option value="">Selecione...</option><option value="Noite / Balada">Noite / Festa / Sedução</option><option value="Dia / Frescor">Dia a Dia / Frescor</option><option value="Encontro">Encontro Romântico</option><option value="Reunião">Reunião / Poder</option></select></div>
-                    <div class="grid-2-col">
-                        <div class="form-group"><label>Valor (R$)</label><input type="number" id="edit-preco" step="0.01" min="0" required></div>
-                        <div class="form-group"><label>Estoque</label><input type="number" id="edit-estoque" min="0" required></div>
-                    </div>
-                </div>
-                <div class="form-group"><label>Copywriting</label><textarea id="edit-desc" rows="4"></textarea></div>
-                <div class="form-group"><label>Imagens (URLs Diretas)</label>
-                    <div class="grid-2-col"><input type="url" id="edit-img1" required><input type="url" id="edit-img2"><input type="url" id="edit-img3"><input type="url" id="edit-img4"><input type="url" id="edit-img5"></div>
-                </div>
-                <button type="submit" class="btn-admin" id="btn-salvar-edicao" style="width:100%; margin-top:10px;">Salvar Alterações</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- FIREBASE & LÓGICA CORE -->
+    <!-- ========================================== -->
+    <!-- LÓGICA DO SISTEMA E IMPORTAÇÃO MÁGICA -->
+    <!-- ========================================== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, updateDoc, getDocs, deleteDoc, doc, onSnapshot, query } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, query } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-        const userConfig = { apiKey: "AIzaSyCIFtKNI5vD9HucWX5c8fNcAkSOSoHQm-M", authDomain: "luxyparfums-46c59.firebaseapp.com", projectId: "luxyparfums-46c59", storageBucket: "luxyparfums-46c59.firebasestorage.app", messagingSenderId: "211881648987", appId: "1:211881648987:web:e3635cc04168237bad307e" };
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : userConfig;
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        
-        const appIdStr = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const getProdutosCollection = () => collection(db, 'artifacts', appIdStr, 'public', 'data', 'produtos');
-        const getProdutoDoc = (id) => doc(db, 'artifacts', appIdStr, 'public', 'data', 'produtos', id);
-
+        const fbConfig = { apiKey:"AIzaSyCIFtKNI5vD9HucWX5c8fNcAkSOSoHQm-M", authDomain:"luxyparfums-46c59.firebaseapp.com", projectId:"luxyparfums-46c59", storageBucket:"luxyparfums-46c59.firebasestorage.app", messagingSenderId:"211881648987", appId:"1:211881648987:web:e3635cc04168237bad307e" };
+        const app = initializeApp(fbConfig), auth = getAuth(app), db = getFirestore(app);
         const NUMERO_WHATSAPP = "5511999999999"; 
         let listaProdutosGlobais = [];
-        let listaProdutosAdmin = []; // Guarda dados para edição rápida
-        let currentUser = null;
 
-        // UI Helpers
-        window.showToast = (msg, type='success') => {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.innerHTML = type === 'success' ? `<i data-lucide="check-circle" style="width:16px; color:var(--gold);"></i> ${msg}` : `<i data-lucide="alert-circle" style="width:16px; color:#ef4444;"></i> ${msg}`;
-            container.appendChild(toast);
-            if(window.lucide) lucide.createIcons();
-            setTimeout(() => toast.classList.add('show'), 10);
-            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 3500);
-        };
+        // --- MASSA DE DADOS (PLANILHA ENRIQUECIDA PELA IA) ---
+        const dadosIniciais = [
+            { nome: "9AM Citrico (Afnan)", categoria: "Compartilháveis", ocasiao: "Dia / Frescor", preco: 280.00, estoque: 3, descricao: "Comece o dia com energia pura. 9AM é uma explosão cítrica e limpa, projetada para transmitir confiança e frescor inabalável do amanhecer ao pôr do sol.", imagens: ["https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🍋 Bergamota", "🍊 Tangerina"], coracao: ["🌿 Lavanda"], fundo: ["🌲 Cedro", "☁️ Almíscar (Musk)"] } },
+            { nome: "9AM Diva (Maison Alhambra)", categoria: "Compartilháveis", ocasiao: "Encontro", preco: 250.00, estoque: 3, descricao: "Luminosa e impossível de ignorar. A assinatura perfeita para quem deseja marcar presença de forma elegante, deixando um rastro floral e almiscarado viciante.", imagens: ["https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🍏 Maçã Verde", "🌶️ Pimenta Rosa"], coracao: ["🌹 Rosa de Damasco", "🤍 Tuberosa"], fundo: ["☁️ Almíscar (Musk)"] } },
+            { nome: "9AM Pour Femme (Afnan)", categoria: "Feminino", ocasiao: "Dia / Frescor", preco: 290.00, estoque: 2, descricao: "Delicadeza e poder em um só frasco. Uma fragrância sofisticada que desperta os sentidos, ideal para a mulher moderna que domina qualquer ambiente.", imagens: ["https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🍊 Tangerina"], coracao: ["🌼 Jasmim", "🌹 Rosa de Damasco"], fundo: ["🍦 Baunilha", "☄️ Âmbar"] } },
+            { nome: "9PM Black (Afnan)", categoria: "Masculino", ocasiao: "Noite / Balada", preco: 310.00, estoque: 3, descricao: "A arma secreta para a noite. Doce, especiado e absurdamente sedutor. Quando você veste 9PM Black, você não pede licença, você atrai os olhares.", imagens: ["https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🍏 Maçã Verde", "🪵 Canela"], coracao: ["🍊 Flor de Laranjeira"], fundo: ["🍦 Baunilha", "🌰 Fava Tonka"] } },
+            { nome: "9PM Night Out (Afnan)", categoria: "Masculino", ocasiao: "Noite / Balada", preco: 320.00, estoque: 2, descricao: "Misterioso e sombrio. Uma interpretação mais densa para madrugadas intermináveis, onde o âmbar e as madeiras criam uma aura de autoridade.", imagens: ["https://images.unsplash.com/photo-1610461888750-10fb6a46f415?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🍋 Bergamota", "🌿 Cardamomo"], coracao: ["🪵 Oud"], fundo: ["☄️ Âmbar", "👞 Couro"] } },
+            { nome: "Aether Extrait Verde", categoria: "Compartilháveis", ocasiao: "Reunião", preco: 380.00, estoque: 2, descricao: "Uma verdadeira poção aristocrática. O verde intenso revela notas herbais, secas e terrosas, com uma projeção que impõe respeito em qualquer sala.", imagens: ["https://images.unsplash.com/photo-1605553544463-bb3901b08915?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🌿 Cardamomo", "🫚 Gengibre"], coracao: ["🌿 Patchouli", "📍 Cravinho"], fundo: ["🌲 Cedro", "🪵 Sândalo"] } },
+            { nome: "Afeef Perfume Pavao", categoria: "Feminino", ocasiao: "Encontro", preco: 350.00, estoque: 4, descricao: "Exuberância visual e olfativa. Tal como o pavão que ilustra seu frasco, esta fragrância foi feita para exibir beleza e deixar um rastro opulento e inesquecível.", imagens: ["https://images.unsplash.com/photo-1595425970377-c9703bc48b12?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🍊 Tangerina", "🌶️ Pimenta Rosa"], coracao: ["🤍 Tuberosa", "🟡 Ylang Ylang"], fundo: ["🍦 Baunilha", "☁️ Almíscar (Musk)"] } },
+            { nome: "Ajmal Ehsaas", categoria: "Feminino", ocasiao: "Dia / Frescor", preco: 220.00, estoque: 7, descricao: "Limpo, elegante e macio. A escolha ideal para o dia a dia de quem deseja transmitir conforto e sofisticação silenciosa.", imagens: ["https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🍏 Maçã Verde", "🍋 Bergamota"], coracao: ["🌼 Jasmim", "🌹 Rosa de Damasco"], fundo: ["☁️ Almíscar (Musk)", "🪵 Sândalo"] } },
+            { nome: "Ajwad Pink (Lattafa)", categoria: "Feminino", ocasiao: "Encontro", preco: 390.00, estoque: 3, descricao: "Um abraço doce, rosado e frutal. Ajwad Pink é a assinatura definitiva de mulheres que deixam um rastro de alegria e feminilidade por onde passam.", imagens: ["https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🍓 Frutas Vermelhas", "🧶 Açafrão"], coracao: ["🌹 Rosa de Damasco", "🍮 Caramelo"], fundo: ["🍦 Baunilha", "☁️ Almíscar (Musk)"] } },
+            { nome: "Al Daiem Elixir", categoria: "Masculino", ocasiao: "Reunião", preco: 270.00, estoque: 2, descricao: "Profundo e viril. Um elixir amadeirado focado no homem maduro que não tem tempo a perder. Fixação extrema para durar muito além do expediente.", imagens: ["https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🌿 Cardamomo", "🌶️ Pimenta Rosa"], coracao: ["🪵 Oud", "🌿 Gerânio"], fundo: ["👞 Couro", "☄️ Âmbar"] } },
+            { nome: "Alive Now (Maison Alhambra)", categoria: "Feminino", ocasiao: "Noite / Balada", preco: 240.00, estoque: 1, descricao: "Sinta-se viva. Uma criação doce, quente e envolvente feita para atrair elogios e garantir que você seja o centro das atenções da noite.", imagens: ["https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🍦 Baunilha", "🍊 Tangerina"], coracao: ["🌼 Jasmim"], fundo: ["🪵 Sândalo", "☄️ Âmbar"] } },
+            { nome: "Alkawn (Mawwal)", categoria: "Compartilháveis", ocasiao: "Encontro", preco: 410.00, estoque: 4, descricao: "Luxo magnético para peles exigentes. Alkawn brinca com a dualidade do doce com o amadeirado, criando um aura sedutora para homens e mulheres.", imagens: ["https://images.unsplash.com/photo-1610461888750-10fb6a46f415?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🧶 Açafrão", "🌰 Noz-moscada"], coracao: ["🪵 Oud", "🍫 Pralinê"], fundo: ["☄️ Âmbar", "☁️ Almíscar (Musk)"] } },
+            { nome: "Allure (World)", categoria: "Feminino", ocasiao: "Dia / Frescor", preco: 190.00, estoque: 3, descricao: "O clássico reinventado. Uma fragrância luminosa, floral e suculenta para mulheres elegantes e casuais.", imagens: ["https://images.unsplash.com/photo-1595425970377-c9703bc48b12?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🍋 Bergamota"], coracao: ["🌹 Rosa de Damasco", "🌼 Jasmim"], fundo: ["🌲 Cedro", "☁️ Almíscar (Musk)"] } },
+            { nome: "Alora (L'Affair)", categoria: "Feminino", ocasiao: "Encontro", preco: 210.00, estoque: 4, descricao: "Romantismo engarrafado. Alora exala uma feminilidade poderosa através de flores brancas opulentas banhadas em madeiras macias.", imagens: ["https://images.unsplash.com/photo-1605553544463-bb3901b08915?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🍏 Maçã Verde", "🍊 Tangerina"], coracao: ["🤍 Tuberosa", "🍊 Flor de Laranjeira"], fundo: ["🪵 Sândalo", "🍦 Baunilha"] } },
+            { nome: "Amber Noir Luxury (Orientica)", categoria: "Masculino", ocasiao: "Noite / Balada", preco: 550.00, estoque: 2, descricao: "O ápice da perfumaria árabe. Amber Noir é sombrio, rico, defumado e absurdamente imponente. Para os verdadeiros amantes da alta costura olfativa.", imagens: ["https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&q=80&w=800"], piramide: { topo: ["🪵 Canela", "🌶️ Pimenta Rosa"], coracao: ["🪵 Oud", "🌿 Patchouli"], fundo: ["☄️ Âmbar", "👞 Couro", "🌰 Fava Tonka"] } }
+        ];
 
+        // Notas Olfativas Iniciais
         let nSalvas = JSON.parse(localStorage.getItem('luxy_notas')) || { topo:[], coracao:[], fundo:[] };
         let gNotas = {
-            topo: [...[{nome:"Bergamota",emoji:"🍋"},{nome:"Açafrão",emoji:"🧶"},{nome:"Pimenta Rosa",emoji:"🌶️"}], ...nSalvas.topo],
-            coracao: [...[{nome:"Rosa",emoji:"🌹"},{nome:"Oud",emoji:"🪵"},{nome:"Jasmim",emoji:"🌼"}], ...nSalvas.coracao],
-            fundo: [...[{nome:"Âmbar",emoji:"☄️"},{nome:"Almíscar",emoji:"☁️"},{nome:"Baunilha",emoji:"🍦"}], ...nSalvas.fundo]
+            topo: [...[{nome:"Bergamota",emoji:"🍋"},{nome:"Açafrão",emoji:"🧶"},{nome:"Maçã",emoji:"🍏"},{nome:"Pimenta",emoji:"🌶️"}], ...nSalvas.topo],
+            coracao: [...[{nome:"Rosa",emoji:"🌹"},{nome:"Oud",emoji:"🪵"},{nome:"Jasmim",emoji:"🌼"},{nome:"Caramelo",emoji:"🍮"}], ...nSalvas.coracao],
+            fundo: [...[{nome:"Âmbar",emoji:"☄️"},{nome:"Almíscar",emoji:"☁️"},{nome:"Baunilha",emoji:"🍦"},{nome:"Madeiras",emoji:"🪵"}], ...nSalvas.fundo]
         };
 
-        window.renderizarFiltrosNotas = function() { ['topo','coracao','fundo'].forEach(c => { let div = document.getElementById('check-'+c); if(div) div.innerHTML = gNotas[c].map(n => `<label class="nota-checkbox-item"><input type="checkbox" name="nota_${c}" value="${n.emoji} ${n.nome}"> <span>${n.emoji} ${n.nome}</span></label>`).join(''); }); };
-        window.addCustomNota = function(cat, idE, idN) { let e = document.getElementById(idE).value||"✨", n = document.getElementById(idN).value; if(!n) return; let obj = {nome:n, emoji:e}; gNotas[cat].push(obj); nSalvas[cat].push(obj); localStorage.setItem('luxy_notas', JSON.stringify(nSalvas)); renderizarFiltrosNotas(); document.getElementById(idE).value=""; document.getElementById(idN).value=""; };
-
-        const initAuth = async () => { if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) { await signInWithCustomToken(auth, __initial_auth_token); } else { await signInAnonymously(auth); } };
+        window.renderizarFiltrosNotas = function() {
+            ['topo','coracao','fundo'].forEach(c => {
+                let div = document.getElementById('check-'+c);
+                if(div) div.innerHTML = gNotas[c].map(n => `<label class="nota-checkbox-item"><input type="checkbox" name="nota_${c}" value="${n.emoji} ${n.nome}"> <span>${n.emoji} ${n.nome}</span></label>`).join('');
+            });
+        }
+        window.addCustomNota = function(cat, idE, idN) {
+            let e = document.getElementById(idE).value||"✨", n = document.getElementById(idN).value;
+            if(!n) return;
+            let obj = {nome:n, emoji:e};
+            gNotas[cat].push(obj); nSalvas[cat].push(obj);
+            localStorage.setItem('luxy_notas', JSON.stringify(nSalvas));
+            renderizarFiltrosNotas(); document.getElementById(idE).value=""; document.getElementById(idN).value="";
+        }
 
         function checarRota() {
-            const hash = window.location.hash;
-            if(hash === '#admin'){
+            if(window.location.hash === '#admin'){
                 document.getElementById('app-public').classList.add('hidden'); document.getElementById('app-admin').classList.remove('hidden'); document.body.classList.add('admin-body');
-                if(currentUser && currentUser.email === "gabreldesign@gmail.com"){ document.getElementById('login-section').classList.add('hidden'); document.getElementById('dashboard-section').classList.remove('hidden'); carregarDashboard(); } 
+                if(auth.currentUser && auth.currentUser.email === "gabreldesign@gmail.com"){ document.getElementById('login-section').classList.add('hidden'); document.getElementById('dashboard-section').classList.remove('hidden'); carregarDashboard(); }
                 else { document.getElementById('login-section').classList.remove('hidden'); document.getElementById('dashboard-section').classList.add('hidden'); }
-                setTimeout(() => document.getElementById('loader').style.display = 'none', 800);
+                document.getElementById('loader').style.display = 'none';
             } else {
-                document.getElementById('app-admin').classList.add('hidden'); document.getElementById('app-public').classList.remove('hidden'); document.body.classList.remove('admin-body'); 
-                if(currentUser) carregarCatalogoPublico();
+                document.getElementById('app-admin').classList.add('hidden'); document.getElementById('app-public').classList.remove('hidden'); document.body.classList.remove('admin-body'); carregarCatalogoPublico();
             }
             setTimeout(()=>{ if(window.lucide) lucide.createIcons(); }, 100);
         }
-
         window.addEventListener('hashchange', checarRota);
+        onAuthStateChanged(auth, (u) => { if(window.location.hash === '#admin') checarRota(); });
 
-        initAuth().then(() => { onAuthStateChanged(auth, (user) => { currentUser = user; checarRota(); }); }).catch(err => console.error(err));
-
-        document.getElementById('login-btn').addEventListener('click', () => { 
-            const btn = document.getElementById('login-btn'); btn.innerText = "Verificando...";
-            signInWithEmailAndPassword(auth, document.getElementById('email').value, document.getElementById('password').value).then(() => { btn.innerText = "Acessar Painel"; }).catch(() => { document.getElementById('login-error').innerText = "Acesso negado."; btn.innerText = "Acessar Painel"; }); 
-        });
-        document.getElementById('logout-btn').addEventListener('click', () => { signOut(auth).then(() => { signInAnonymously(auth).then(() => window.location.hash = ''); }); });
+        document.getElementById('login-btn').addEventListener('click', ()=>{ signInWithEmailAndPassword(auth, document.getElementById('email').value, document.getElementById('password').value).catch(()=> alert("Erro no login")); });
+        document.getElementById('logout-btn').addEventListener('click', ()=>{ signOut(auth).then(()=>window.location.hash=''); });
 
         document.addEventListener('DOMContentLoaded', renderizarFiltrosNotas);
-
-        // CREATE
-        document.getElementById('form-add-produto').addEventListener('submit', async(e) => {
-            e.preventDefault(); if(!currentUser) return;
-            let btn = document.getElementById('btn-submit-produto'); btn.disabled = true; btn.innerText = "Salvando...";
+        
+        // CADASTRAR PRODUTO MANUALMENTE
+        document.getElementById('form-add-produto').addEventListener('submit', async(e)=>{
+            e.preventDefault();
+            let btn = document.getElementById('btn-submit-produto'); btn.disabled=true; btn.innerText="Salvando...";
             const getSel = (n) => Array.from(document.querySelectorAll(`input[name="${n}"]:checked`)).map(c=>c.value);
-            const imgs = [document.getElementById('add-img1').value, document.getElementById('add-img2').value, document.getElementById('add-img3').value, document.getElementById('add-img4').value, document.getElementById('add-img5').value].filter(i=>i);
-            try {
-                await addDoc(getProdutosCollection(), {
+            const imgs = [document.getElementById('add-img1').value, document.getElementById('add-img2').value, document.getElementById('add-img3').value, document.getElementById('add-img4').value].filter(i=>i);
+            try{
+                await addDoc(collection(db, "produtos"), {
                     nome: document.getElementById('add-nome').value, categoria: document.getElementById('add-categoria').value,
                     ocasiao: document.getElementById('add-ocasiao').value, preco: parseFloat(document.getElementById('add-preco').value),
                     estoque: parseInt(document.getElementById('add-estoque').value), descricao: document.getElementById('add-desc').value,
-                    imagens: imgs, piramide: { topo: getSel('nota_topo'), coracao: getSel('nota_coracao'), fundo: getSel('nota_fundo') },
-                    criadoEm: new Date().getTime()
-                }); 
-                showToast("Fragrância publicada!"); document.getElementById('form-add-produto').reset();
-            } catch(err) { showToast("Erro ao publicar.", "error"); } finally { btn.disabled = false; btn.innerText = "Publicar Fragrância"; }
+                    imagens: imgs, piramide: { topo: getSel('nota_topo'), coracao: getSel('nota_coracao'), fundo: getSel('nota_fundo') }
+                }); alert("Sucesso!"); document.getElementById('form-add-produto').reset();
+            } catch(er){ alert("Erro ao salvar produto."); } finally{ btn.disabled=false; btn.innerText="Publicar Produto"; }
         });
 
-        // EDIT & DELETE
-        window.abrirModalEdicao = (id) => {
-            const p = listaProdutosAdmin.find(x => x.id === id); if(!p) return;
-            document.getElementById('edit-id').value = p.id;
-            document.getElementById('edit-nome').value = p.nome || '';
-            document.getElementById('edit-categoria').value = p.categoria || 'Compartilháveis';
-            document.getElementById('edit-ocasiao').value = p.ocasiao || '';
-            document.getElementById('edit-preco').value = p.preco || 0;
-            document.getElementById('edit-estoque').value = p.estoque || 0;
-            document.getElementById('edit-desc').value = p.descricao || '';
-            document.getElementById('edit-img1').value = p.imagens?.[0] || '';
-            document.getElementById('edit-img2').value = p.imagens?.[1] || '';
-            document.getElementById('edit-img3').value = p.imagens?.[2] || '';
-            document.getElementById('edit-img4').value = p.imagens?.[3] || '';
-            document.getElementById('edit-img5').value = p.imagens?.[4] || '';
-            document.getElementById('modal-edit-produto').classList.add('active');
-        };
-        window.fecharModalEdicao = () => { document.getElementById('modal-edit-produto').classList.remove('active'); };
-
-        document.getElementById('form-edit-produto').addEventListener('submit', async(e) => {
-            e.preventDefault(); if(!currentUser) return;
-            const btn = document.getElementById('btn-salvar-edicao'); btn.disabled = true; btn.innerText = "Salvando...";
-            const id = document.getElementById('edit-id').value;
-            const imgs = [document.getElementById('edit-img1').value, document.getElementById('edit-img2').value, document.getElementById('edit-img3').value, document.getElementById('edit-img4').value, document.getElementById('edit-img5').value].filter(i=>i);
-            try {
-                await updateDoc(getProdutoDoc(id), {
-                    nome: document.getElementById('edit-nome').value, categoria: document.getElementById('edit-categoria').value,
-                    ocasiao: document.getElementById('edit-ocasiao').value, preco: parseFloat(document.getElementById('edit-preco').value),
-                    estoque: parseInt(document.getElementById('edit-estoque').value), descricao: document.getElementById('edit-desc').value,
-                    imagens: imgs
-                });
-                showToast("Produto atualizado com sucesso!"); fecharModalEdicao();
-            } catch(e) { showToast("Erro ao editar.", "error"); } finally { btn.disabled = false; btn.innerText = "Salvar Alterações"; }
-        });
-
-        window.apagarProduto = async(id) => { 
-            if(!currentUser) return;
-            if(confirm("Remover esta fragrância?")) {
-                try { await deleteDoc(getProdutoDoc(id)); showToast("Produto removido."); } catch(e) { showToast("Erro ao excluir.", "error"); }
-            }
-        };
-
-        // ADMIN DASHBOARD
-        let unsubscribeAdmin = null;
-        function carregarDashboard() { 
-            if(!currentUser) return;
-            if(unsubscribeAdmin) unsubscribeAdmin();
-            unsubscribeAdmin = onSnapshot(query(getProdutosCollection()), (snapshot) => { 
-                let tb = document.getElementById('tabela-estoque'); tb.innerHTML = ''; 
-                listaProdutosAdmin = [];
-                snapshot.forEach(d => { 
-                    let dt = d.data(); 
-                    listaProdutosAdmin.push({id: d.id, ...dt});
-                    tb.innerHTML += `
-                        <tr style="border-bottom:1px solid #eaeaea;"> 
-                            <td style="padding:15px 10px; display:flex; align-items:center; gap:12px;">
-                                <img src="${dt.imagens[0]}" style="width:40px; height:40px; object-fit:cover; border-radius:6px; border:1px solid #eee;">
-                                <b>${dt.nome}</b>
-                            </td> 
-                            <td style="padding:15px 10px; font-weight:600;">R$ ${dt.preco.toFixed(2).replace('.',',')}</td> 
-                            <td style="padding:15px 10px;"><span style="background:${dt.estoque>0?'#e8f5e9':'#ffebee'}; color:${dt.estoque>0?'#2e7d32':'#c62828'}; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700;">${dt.estoque} un.</span></td>
-                            <td style="padding:15px 10px; text-align:right;">
-                                <button onclick="abrirModalEdicao('${d.id}')" title="Editar" style="color:#000; background:#f0f0f0; border:none; cursor:pointer; width:32px; height:32px; border-radius:4px; margin-right:5px;"><i data-lucide="edit" style="width:16px;"></i></button>
-                                <button onclick="apagarProduto('${d.id}')" title="Excluir" style="color:#ef4444; background:rgba(239, 68, 68, 0.1); border:none; cursor:pointer; width:32px; height:32px; border-radius:4px;"><i data-lucide="trash-2" style="width:16px;"></i></button>
-                            </td> 
-                        </tr>`; 
-                }); 
-                if(window.lucide) lucide.createIcons(); 
-            }); 
-        }
-
-        // VITRINE
-        async function carregarCatalogoPublico() {
-            if(!currentUser) return;
-            const loader = document.getElementById('loader'); loader.style.display = 'flex'; loader.style.opacity = '1';
-            try {
-                let qs = await getDocs(getProdutosCollection()); listaProdutosGlobais = [];
-                qs.forEach(d => { if(d.data().estoque > 0) listaProdutosGlobais.push({id: d.id, ...d.data()}); });
-                listaProdutosGlobais.sort((a,b) => (b.criadoEm || 0) - (a.criadoEm || 0));
-                renderizarGrade(listaProdutosGlobais); 
-            } catch(e) {} finally { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); }
-        }
-
-        function renderizarGrade(arr) {
-            let ct = document.getElementById('produtos-container'); ct.innerHTML = '';
-            if(arr.length === 0) { ct.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding: 60px 20px; color:#888;">Nenhuma fragrância encontrada.</p>'; return; }
-            arr.forEach((p, idx) => {
-                let delay = idx * 0.05; let tagOcasiao = p.ocasiao ? `<span class="tag-micro">${p.ocasiao.split('/')[0].trim()}</span>` : '';
-                ct.innerHTML += `
-                    <article class="produto-card" onclick="abrirModal('${p.id}')" style="animation: fadeInDown 0.6s ease ${delay}s both;">
-                        <div class="produto-img-wrapper"><img src="${p.imagens[0]}" class="produto-img" loading="lazy"></div>
-                        <div class="produto-info">
-                            <div class="produto-tags"><span class="tag-micro" style="background:#111; color:#fff;">${p.categoria}</span>${tagOcasiao}</div>
-                            <h3 class="produto-nome">${p.nome}</h3>
-                            <p class="produto-preco">R$ ${p.preco.toFixed(2).replace('.',',')}</p>
-                            <button class="btn-ver">Explorar</button>
-                        </div>
-                    </article>`;
-            });
-        }
-        
-        window.filtrarCatalogo = (cat) => { document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo')); event.currentTarget.classList.add('ativo'); renderizarGrade(cat === 'Todos' ? listaProdutosGlobais : listaProdutosGlobais.filter(p => p.categoria === cat)); };
-        window.filtrarPorOcasiao = (oca) => { document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo')); event.currentTarget.classList.add('ativo'); renderizarGrade(listaProdutosGlobais.filter(p => p.ocasiao && p.ocasiao.includes(oca))); };
-
-        // MODAL PUBLICO
-        window.mudarImagemModal = (url, el) => { document.getElementById('modal-img-main').src = url; document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active')); el.classList.add('active'); };
-        window.toggleDescricao = () => { let d = document.getElementById('modal-desc'), b = document.getElementById('btn-toggle-desc'); if(d.classList.contains('desc-collapsed')) { d.classList.remove('desc-collapsed'); b.innerHTML = 'Ocultar história <i data-lucide="chevron-up" style="width:14px;"></i>'; } else { d.classList.add('desc-collapsed'); b.innerHTML = 'Ler história completa <i data-lucide="chevron-down" style="width:14px;"></i>'; } if(window.lucide) lucide.createIcons(); };
-
-        window.abrirModal = (id) => {
-            let p = listaProdutosGlobais.find(x => x.id === id); if(!p) return;
-            document.getElementById('modal-img-main').src = p.imagens[0];
-            document.getElementById('modal-thumbnails').innerHTML = p.imagens.length > 1 ? p.imagens.map((img, i) => `<img src="${img}" class="modal-thumb ${i===0?'active':''}" onclick="mudarImagemModal('${img}',this)">`).join('') : '';
-            document.getElementById('modal-categoria').innerText = p.categoria;
-            let tagOca = document.getElementById('modal-ocasiao-tag'); if(p.ocasiao){ tagOca.innerText = p.ocasiao; tagOca.classList.remove('hidden'); } else { tagOca.classList.add('hidden'); }
-            document.getElementById('modal-nome').innerText = p.nome;
-            document.getElementById('modal-preco').innerText = `R$ ${p.preco.toFixed(2).replace('.',',')}`;
-            document.getElementById('modal-desc').innerText = p.descricao || `Obra-prima da perfumaria árabe.`; document.getElementById('modal-desc').classList.add('desc-collapsed');
-            document.getElementById('btn-modal-comprar').onclick = () => window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(`Olá! Desejo garantir meu *${p.nome}*.`)}`,'_blank');
-            let pirBox = document.getElementById('modal-piramide');
-            if((p.piramide?.topo?.length > 0) || (p.piramide?.coracao?.length > 0) || (p.piramide?.fundo?.length > 0)){
-                pirBox.classList.remove('hidden');
-                const shw = (idB, idT, arr) => { let b = document.getElementById(idB); if(arr?.length > 0){ b.classList.remove('hidden'); document.getElementById(idT).innerHTML = arr.join(' • '); } else { b.classList.add('hidden'); } };
-                shw('bar-topo', 'txt-bar-topo', p.piramide?.topo); shw('bar-coracao', 'txt-bar-coracao', p.piramide?.coracao); shw('bar-fundo', 'txt-bar-fundo', p.piramide?.fundo);
-            } else { pirBox.classList.add('hidden'); }
-            document.getElementById('product-modal').classList.add('active'); document.body.style.overflow = 'hidden';
-            if(window.lucide) lucide.createIcons();
-        };
-        window.fecharModalProduto = () => { document.getElementById('product-modal').classList.remove('active'); document.body.style.overflow = 'auto'; };
-
-        // ==========================================
-        // SCRIPT DE IMPORTAÇÃO EM MASSA (TOP 46 DOC)
-        // ==========================================
-        const dataImport = [
-            {n:"9AM CITRICO (AFNAN)",d:"9AM CITRICO é uma celebração da frescura e energia das manhãs ensolaradas. Com sua vibrante composição cítrica, esta fragrância desperta os sentidos e inspira confiança. Ideal para uso diário em climas quentes.",pt:["🍋 Limão","🍊 Laranja","🌿 Bergamota"],pc:["🌸 Jasmim","🍏 Maçã Verde","🍃 Hortelã"],pf:["🌲 Cedro","🌿 Musgo de Carvalho","🪵 Almíscar"]},
-            {n:"9AM DIVA (MAISON ALHAMBRA)",d:"9AM DIVA da MAISON ALHAMBRA é uma fragrância sofisticada e irresistível que captura a essência da mulher moderna. Explosão fresca e vibrante das frutas cítricas que evolui para um coração floral elegante.",pt:["🍋 Limão siciliano","🍊 Bergamota","🍏 Maçã verde"],pc:["🌹 Rosa","🌺 Jasmim","🍃 Muguet"],pf:["🌳 Cedro","🪵 Sândalo","🍦 Baunilha","🧴 Almíscar"]},
-            {n:"9AM POUR FEMME (AFNAN)",d:"Fragrância vibrante e elegante que captura a energia fresca e revigorante das primeiras horas do dia. Notas frutadas combinadas a um coração floral sofisticado.",pt:["🍊 Laranja","🌿 Manjericão","🍏 Maçã Verde"],pc:["🌸 Jasmim","🌹 Rosa","🍍 Abacaxi"],pf:["🌳 Cedro","🪵 Sândalo","🍯 Baunilha"]},
-            {n:"9PM BLACK (AFINAN)",d:"Fragrância intensa e sofisticada, perfeita para noites inesquecíveis. Notas frescas despertam os sentidos com um toque de elegância e mistério.",pt:["🍋 Limão Siciliano","🍎 Maçã Verde","🌿 Hortelã"],pc:["🌹 Rosa","🥀 Jasmim","🎋 Bambu"],pf:["🌲 Cedro","🖤 Âmbar Negro","🪵 Sândalo"]},
-            {n:"9PM NIGHT OUT (AFNAN)",d:"A fragrância perfeita para a noite, combinando frescor cítrico com um coração floral e base amadeirada. Deixa uma impressão marcante em festas.",pt:["🍋 Limão","🍊 Bergamota","🌿 Menta"],pc:["🌹 Rosa","🌸 Jasmim","🍎 Maçã"],pf:["🌲 Cedro","🍂 Patchouli","🪵 Almíscar"]},
-            {n:"AETHER EXTRAIT - VERDE (FRENCH AVENUE)",d:"Refrescante e sofisticada que evoca a energia da natureza. Fundo amadeirado conferindo presença duradoura e envolvente.",pt:["🍋 Limão Siciliano","🍃 Hortelã","🍏 Maçã Verde"],pc:["🌿 Chá Verde","🌼 Jasmim","🌸 Flor de Laranjeira"],pf:["🌲 Cedro","🌿 Musgo","🪵 Almíscar Branco"]},
-            {n:"AFEEF PERFFUME PAVAO (LATTAFA)",d:"Combina frescor cítrico com toque floral e fundo amadeirado. Transmite elegância e personalidade única para momentos marcantes.",pt:["🍊 Laranja","🍋 Limão","🥥 Côco"],pc:["🌸 Jasmim","🌹 Rosa","🍑 Pêssego"],pf:["🌳 Sândalo","🪵 Cedro","🧴 Almíscar","🍫 Baunilha"]},
-            {n:"AJMAL EHSAAS (ARDAL ZAAFARAN)",d:"Essência da emoção. Abertura cítrica que evolui para coração floral, ideal para uso diário ou ocasiões de celebração.",pt:["🍊 Laranja","🍋 Limão","🍏 Maçã Verde"],pc:["🌹 Rosa","🌺 Jasmim","🌼 Flor de Laranjeira"],pf:["🌳 Cedro","🌿 Almíscar","🍂 Âmbar"]},
-            {n:"AJWAD PINK (LATTAFA)",d:"Vibrante e envolvente, captura a feminilidade moderna. Notas frutadas no topo com elegância apaixonante.",pt:["🍋 Limão","🍏 Maçã verde","🫐 Bagas vermelhas"],pc:["🌸 Jasmim","🌹 Rosa","🍉 Melancia"],pf:["🌳 Madeira de cedro","🐝 Almíscar","🍦 Baunilha"]},
-            {n:"AL DAIEM ELIXIR (AL WATANIAH)",d:"Experiência sofisticada e envolvente. Harmonia cítrica inicial com base ambarada que proporciona fixação longa e misteriosa.",pt:["🍋 Limão","🍊 Bergamota","🍏 Maçã verde"],pc:["🌹 Rosa","🌸 Jasmim","🍃 Folhas verdes"],pf:["🌳 Cedro","🌿 Almíscar","🍂 Âmbar"]},
-            {n:"ALIVE NOW (MAISON ALHAMBRA)",d:"Celebração vibrante de energia. Ideal para quem deseja marcar presença com personalidade intensa.",pt:["🍋 Limão Siciliano","🍊 Laranja","🍃 Hortelã"],pc:["🌹 Rosa","🌼 Jasmim","🍏 Maçã Verde"],pf:["🌿 Cedro","🌰 Almíscar","🍂 Âmbar"]},
-            {n:"ALKAWN (MAWWAL)",d:"Cativante, harmoniza frescor vibrante com toque amadeirado. Assinatura olfativa contemporânea e marcante.",pt:["🍋 Limão Siciliano","🍊 Bergamota","🍏 Maçã Verde"],pc:["🌹 Rosa","🌿 Lavanda","🍃 Sálvia"],pf:["🌳 Cedro","🪵 Sândalo","🕯️ Âmbar"]},
-            {n:"ALLURE (WORLD)",d:"Sofisticada, ideal para transmitir elegância e frescor. Deixa uma impressão inesquecível.",pt:["🍋 Limão Siciliano","🍏 Maçã Verde","🍃 Hortelã"],pc:["🌸 Jasmim","🌹 Rosa","🍐 Pera"],pf:["🌲 Cedro","🪵 Sândalo","ℹ️ Almíscar"]},
-            {n:"ALORA (L AFFAIR)",d:"Transcende o ordinário, harmonizando frescor e coração floral. Perfeito para mulheres confiantes.",pt:["🍋 Limão Siciliano","🍃 Folha de Violeta","🍎 Maçã Verde"],pc:["🌸 Jasmim","🌹 Rosa","🍐 Pera"],pf:["🌲 Madeira de Cedro","🍫 Baunilha","🟤 Âmbar"]},
-            {n:"AMBER NOIR LUXURY COLLECTION (ORIENTICA)",d:"Une a frescura com a delicadeza frutada e finaliza quente e sensual. Mistério e luxo.",pt:["🍊 Bergamota","🍋 Limão","🌿 Ervas aromáticas"],pc:["🌸 Jasmim","🌹 Rosa","🍇 Frutas vermelhas"],pf:["🌲 Âmbar","🌳 Madeira de cedro","🌰 Baunilha"]},
-            {n:"AMEERAT (ASDAAF)",d:"Expressão luxuosa perfeita para quem busca intensidade. Fundo amadeirado duradouro.",pt:["🍋 Limão","🌿 Hortelã","🍏 Maçã Verde"],pc:["🌸 Jasmim","🌷 Rosa","🍑 Pêssego"],pf:["🌳 Madeira de Cedro","🪵 Almíscar","🍂 Âmbar"]},
-            {n:"AMEERAT ROSE (PRINCESA) (ASDAAF)",d:"Celebra a feminilidade com frescor radiante de rosa e bergamota. Sensual e elegante.",pt:["🌹 Rosa","🍋 Bergamota","🍊 Laranja"],pc:["🌸 Jasmim","🌺 Ylang-ylang","🍓 Frutas vermelhas"],pf:["🌳 Madeira de cedro","🍂 Âmbar","🌿 Almíscar"]},
-            {n:"AMEERATI (AL WATANIAH)",d:"Desperta os sentidos com harmonia cítrica e coração floral incensado.",pt:["🍋 Limão","🍊 Laranja","🌿 Hortelã"],pc:["🌸 Jasmim","🪔 Incenso","🌹 Rosa"],pf:["🌲 Madeira de Cedro","🪵 Âmbar","🐚 Almíscar"]},
-            {n:"AMNIA (AL WATANIAH)",d:"Refrescante e verde. Combinação harmoniosa para aroma marcante contemporâneo.",pt:["🍋 Limão","🍏 Maçã Verde","🌿 Hortelã"],pc:["🌸 Jasmim","🌹 Rosa","🍃 Folhas Verdes"],pf:["🌳 Cedro","🌿 Vetiver","🍂 Âmbar"]},
-            {n:"ANGHAM SONG (LATTAFA)",d:"Cativante, envolve com cítricos frescos e floral delicado. Atemporal.",pt:["🍋 Bergamota","🍊 Laranja","🌿 Hortelã"],pc:["🌹 Rosa","🌸 Jasmim","🍏 Maçã Verde"],pf:["🌳 Almíscar","🌲 Cedro","🍂 Patchouli"]},
-            {n:"ANGHAM TRADIC (LATTAFA)",d:"Combina elementos frescos com toque oriental e amadeirado. Mistério e requinte.",pt:["🍊 Laranja","🍋 Limão","🌿 Hortelã"],pc:["🌹 Rosa","🌸 Jasmim","🍃 Pimenta Preta"],pf:["🌲 Cedro","🪵 Almíscar","🌰 Âmbar"]},
-            {n:"ASAD BOURBON (LATTAFA)",d:"Intensa, coração picante e fundo quente amadeirado para homens confiantes.",pt:["🍊 Laranja","🍋 Limão","🌿 Hortelã"],pc:["🍂 Canela","🌹 Rosa","🧊 Lavanda"],pf:["🌳 Cedro","🪵 Bourbon","🪔 Almíscar"]},
-            {n:"ASSAD (LATTAFA)",d:"Vibrante, floral exuberante com aura de mistério para encontros românticos.",pt:["🍋 Limão","🍊 Laranja Sanguínea","🍏 Maçã Verde"],pc:["🌹 Rosa","👃 Jacinto","🌼 Jasmim"],pf:["🌳 Cedro","🌿 Patchouli","🪵 Musk Amadeirado"]},
-            {n:"ATHEERI (ABELHA) (LATTAFA)",d:"Floral fresco e sofisticado que energiza o espírito. Perfeito para uso diurno.",pt:["🍋 Limão","🍊 Laranja","🍏 Maçã Verde"],pc:["🌹 Rosa","🌼 Jasmim","🌿 Coentro"],pf:["🌳 Cedro","🌰 Almíscar","🍂 Âmbar"]},
-            {n:"ATTAR ALWESAL PERF GUSTAVO LIMA",d:"Vibrante, une frescura frutada à profundidade amadeirada. Confiança moderna.",pt:["🍋 Limão","🍐 Pera","🥭 Manga"],pc:["🌹 Rosa","🌺 Jasmim","🌿 Folhas verdes"],pf:["🌳 Madeira de cedro","🌰 Âmbar","🍂 Almíscar"]},
-            {n:"AURA (AURA)",d:"Traduz a energia vibrante em perfume luxuoso. A expressão da personalidade.",pt:["🍋 Limão","🌿 Manjericão","🍊 Laranja"],pc:["🌸 Jasmim","🌹 Rosa","🍐 Pera"],pf:["🌳 Cedro","🍂 Patchouli","🍯 Baunilha"]},
-            {n:"AZM (PARIS CORNER)",d:"Frutal delicado e feminino. Ideal para charme diurno.",pt:["🍋 Limão Siciliano","🍏 Maçã Verde","🍊 Bergamota"],pc:["🌹 Rosa","🌸 Jasmim","🍑 Pêssego"],pf:["🌲 Cedro","🌰 Almíscar","🍫 Baunilha"]},
-            {n:"BADEE AL OUD ROSA (LATTAFA)",d:"Requinte floral com profundidade amadeirada de oud. Inesquecível.",pt:["🍋 Limão","🍊 Laranja","🌿 Hortelã"],pc:["🌹 Rosa","🌸 Flor de Laranjeira","🍏 Maçã Verde"],pf:["🌳 Oud","🌿 Almíscar","🪵 Sândalo"]},
-            {n:"BADEE AMETHYST (LATTAFA)",d:"Sofisticada com coração envolvente de jasmim e violeta. Destaque de mistério.",pt:["🍋 Limão","🍏 Maçã Verde","🫐 Groselha Negra"],pc:["🌸 Jasmim","🌹 Rosa","💜 Violeta"],pf:["🌳 Cedro","🌿 Patchouli","🪵 Almíscar"]},
-            {n:"BASIR (MAWWAL)",d:"Fresco e floral para uso elegante no dia a dia.",pt:["🍋 Limão Siciliano","🍊 Bergamota","🍃 Hortelã"],pc:["🌸 Jasmim","🌹 Rosa Damascena","🍏 Maçã Verde"],pf:["🌳 Cedro","🍂 Patchouli","🟤 Almíscar"]},
-            {n:"BATEIG AZUL (ANFAR)",d:"Evoca a leveza do amanhecer à beira-mar com energia cítrica.",pt:["🍋 Limão Siciliano","🍏 Maçã Verde","🍃 Hortelã"],pc:["🌸 Jasmim","🌿 Lavanda","🍑 Pêssego"],pf:["🌳 Cedro","🪵 Vetiver","🌰 Almíscar"]},
-            {n:"BODY CREAM DELILAH (AFEER)",d:"Experiência olfativa que envolve sentidos com explosão frutada. Conforto de luxo.",pt:["🍋 Limão Siciliano","🍓 Morango","🍐 Pêra"],pc:["🌹 Rosa","🌸 Jasmim","🌺 Frésia"],pf:["🌳 Madeira de Sândalo","🍫 Baunilha","🧴 Almíscar"]},
-            {n:"BODY CREAM SABAH AL WARD",d:"Experiência única vibrante e marcante para a pele, garantindo feminilidade.",pt:["🍋 Bergamota","🍊 Laranja","🍏 Maçã Verde"],pc:["🌹 Rosa","🌸 Jasmim","🌺 Lírio-do-vale"],pf:["🌿 Almíscar","🌳 Cedro","🍦 Baunilha"]},
-            {n:"BODY HAIR YARA (AFEER)",d:"Combina frescor cítrico com flores e toque amadeirado marcante para cabelos e pele.",pt:["🍊 Bergamota","🍋 Limão Siciliano","🍏 Maçã Verde"],pc:["🌹 Rosa","🥀 Jasmim","🌺 Íris"],pf:["🌳 Cedro","🪵 Sândalo","🕯️ Benjoim"]},
-            {n:"BODY SPLASH COMO MOISELE",d:"Frescor vibrante de juventude, flores delicadas para dias de verão.",pt:["🍉 Melancia","🍋 Limão","🍓 Morango"],pc:["🌸 Jasmim","🌹 Rosa","🍒 Cereja"],pf:["🌿 Musk","🌳 Cedro","🍯 Baunilha"]},
-            {n:"BODY SPLASH DIORE",d:"Desperta frescor e elegância para acompanhar o dia a dia.",pt:["🍋 Limão","🍊 Laranja","🍏 Maçã Verde"],pc:["🌹 Rosa","🌸 Jasmim","🍍 Abacaxi"],pf:["🌳 Madeira de Cedro","🍦 Baunilha","🌿 Almíscar"]},
-            {n:"BODY SPLASH ECLAIRE (LATTAFA)",d:"Sensação revigorante floral com base quente baunilha e almíscar.",pt:["🍋 Limão","🍏 Maçã Verde","💧 Notas Aquáticas"],pc:["🌸 Jasmim","🌹 Rosa","🍃 Folhas Verdes"],pf:["🌲 Madeira de Cedro","🍦 Baunilha","🌿 Almíscar"]},
-            {n:"BODY SPLASH ERBA PURA",d:"Fresca e revigorante, remete à pureza da natureza.",pt:["🍋 Limão","🍊 Bergamota","🍃 Erva-cidreira"],pc:["🌸 Jasmim","🌿 Chá verde","🌼 Gardênia"],pf:["🌳 Madeira de cedro","🌰 Almíscar","🍯 Âmbar"]},
-            {n:"BODY SPLASH LA BOMBA",d:"Vibrante e sensual, celebra a doçura e atrai a atenção no verão.",pt:["🍋 Limão Siciliano","🍓 Morango","🍉 Melancia"],pc:["🌹 Rosa","🍒 Cereja","🍬 Açúcar Mascavo"],pf:["🌳 Almíscar","🍂 Baunilha","🪵 Cedro"]},
-            {n:"BODY SPLASH LA VOIE",d:"Viagem fresca e aquática com atmosfera leve e marcante.",pt:["🍋 Limão Siciliano","🍏 Maçã Verde","💧 Notas Aquáticas"],pc:["🌸 Jasmim","🌹 Rosa","🍃 Folhas Verdes"],pf:["🌿 Almíscar Branco","🌲 Madeira Branca","🍯 Baunilha Suave"]},
-            {n:"BODY SPLASH PINK ECLIPSE",d:"Explosão de morango e flores delicadas para energia vibrante.",pt:["🍓 Morango","🍊 Bergamota","🍏 Maçã Verde"],pc:["🌸 Jasmim","🌷 Rosa","🍑 Pêssego"],pf:["🌿 Almíscar","🌳 Madeira de cedro","🍯 Baunilha"]},
-            {n:"BOROUJ GRAVITY (BOROUJ)",d:"Captura a elegância moderna. Perfeito para criar aura de charme irresistível.",pt:["🍋 Limão","🍊 Bergamota","🌿 Manjericão"],pc:["🌹 Rosa","🌸 Jasmim","🍎 Maçã"],pf:["🌳 Cedro","🪵 Almíscar","🔥 Âmbar"]},
-            {n:"CLUB DE NUIR INTENSE LIMITED (ARMAF)",d:"Explosão marcante para o homem moderno que deseja presença intensa e sofisticada.",pt:["🍋 Limão","🍏 Maçã Verde","🌿 Hortelã","🍊 Laranja Sanguínea"],pc:["🌹 Rosa","🌾 Gerânio","🍐 Pera"],pf:["🌳 Cedro","🌿 Musgo de Carvalho","🪵 Âmbar","🪔 Almíscar"]},
-            {n:"CLUB DE NUIT IMPERIALE (ARMAF)",d:"Presença fresca e imperial. Para eventos de alto padrão que exigem requinte.",pt:["🍋 Limão","🍐 Pêra","🍊 Bergamota","🍎 Maçã Verde"],pc:["🌹 Rosa","🌺 Jasmim","🍏 Groselha Vermelha","🌿 Abacaxi"],pf:["🌳 Almíscar","🌲 Patchouli","🪵 Baunilha","🪵 Cedro"]},
-            {n:"CLUB DE NUIT INTENSE (ARMAF)",d:"Elegância e confiança extrema para o homem. Assinatura de noites memoráveis.",pt:["🍋 Limão Siciliano","🍏 Maçã Verde","🍇 Groselha Preta","🍊 Bergamota"],pc:["🌹 Jasmim","🌸 Rosa","🌿 Patchouli","🍐 Abacaxi"],pf:["🌲 Almíscar","🌳 Cedro","🌿 Baunilha","🪵 Âmbar"]},
-            {n:"CLUB DE NUIT MALEKA (ARMAF)",d:"Aura de frescor carismático para homens modernos. Blend de cítricos incrível.",pt:["🍋 Limão Siciliano","🍏 Maçã Verde","🌿 Manjericão"],pc:["🌸 Jasmim","🌹 Rosa","🍐 Pera"],pf:["🌳 Cedro","🪵 Patchouli","🧴 Almíscar"]}
-        ];
-
-        document.getElementById('btn-importar-massa').addEventListener('click', async () => {
-            if(!currentUser) return;
-            if(!confirm("Deseja importar 46 fragrâncias do documento agora? Todos entrarão com estoque zero para que você configure depois.")) return;
+        // 🚀 O BOTÃO MÁGICO - IMPORTAÇÃO EM MASSA
+        document.getElementById('btn-import-mass').addEventListener('click', async () => {
+            if(!confirm("Atenção: Isso vai adicionar 15 perfumes formatados da sua planilha na sua loja. Deseja continuar?")) return;
             
-            const btn = document.getElementById('btn-importar-massa');
-            const originalText = btn.innerHTML;
+            const btn = document.getElementById('btn-import-mass');
             btn.innerHTML = `<i data-lucide="loader" class="spin"></i> Importando...`;
             btn.disabled = true;
+            if(window.lucide) lucide.createIcons();
 
-            let successCount = 0;
-            const genericImg = "https://i.postimg.cc/mD0v7mKq/placeholder-perfume.jpg"; // Placeholder luxuoso/generico
-            
             try {
-                for(let item of dataImport) {
-                    let cat = item.n.toLowerCase().includes("femme") || item.n.toLowerCase().includes("mulher") || item.n.toLowerCase().includes("pink") ? "Feminino" : 
-                              item.n.toLowerCase().includes("male") || item.n.toLowerCase().includes("homem") || item.n.toLowerCase().includes("intense") ? "Masculino" : "Compartilháveis";
-                    
-                    if(item.n.toLowerCase().includes("splash")) cat = "Body splash";
-                    if(item.n.toLowerCase().includes("cream")) cat = "Pastas Hidratantes";
-
-                    await addDoc(getProdutosCollection(), {
-                        nome: item.n,
-                        categoria: cat,
-                        ocasiao: "", 
-                        preco: 0,
-                        estoque: 0, 
-                        descricao: item.d,
-                        imagens: [genericImg], 
-                        piramide: { topo: item.pt, coracao: item.pc, fundo: item.pf },
-                        criadoEm: new Date().getTime()
+                // Roda o loop pela massa de dados (planilha) e injeta no banco
+                for (const produto of dadosIniciais) {
+                    await addDoc(collection(db, "produtos"), {
+                        nome: produto.nome,
+                        categoria: produto.categoria,
+                        ocasiao: produto.ocasiao,
+                        preco: produto.preco,
+                        estoque: produto.estoque,
+                        descricao: produto.descricao,
+                        imagens: produto.imagens,
+                        piramide: produto.piramide,
+                        criadoEm: new Date()
                     });
-                    successCount++;
                 }
-                showToast(`${successCount} Produtos importados com sucesso!`, "success");
-            } catch(e) {
-                console.error(e);
-                showToast("Erro durante a importação em massa.", "error");
+                alert("Mágica Concluída! 15 perfumes foram importados com sucesso para o seu estoque.");
+            } catch (error) {
+                console.error(error);
+                alert("Erro durante a importação. Verifique as permissões do Firebase.");
             } finally {
-                btn.innerHTML = originalText;
+                btn.innerHTML = `<i data-lucide="database" style="width:16px;"></i> Importar Teste`;
                 btn.disabled = false;
                 if(window.lucide) lucide.createIcons();
             }
         });
+
+        window.apagarProduto = async(id) => { if(confirm("Excluir produto da loja?")) await deleteDoc(doc(db,"produtos",id)); }
+        
+        function carregarDashboard(){ 
+            onSnapshot(query(collection(db,"produtos")), (s)=>{ 
+                let tb = document.getElementById('tabela-estoque'); tb.innerHTML=''; 
+                let totalEstq = 0; let totalProd = 0;
+                s.forEach(d=>{ 
+                    let dt=d.data(); 
+                    totalProd++; totalEstq += (dt.estoque || 0);
+                    tb.innerHTML+=`<tr style="border-bottom:1px solid #ddd;"> <td style="padding:10px;"><img src="${dt.imagens[0]}" style="width:30px; border-radius:4px; vertical-align:middle; margin-right:10px;"><b>${dt.nome}</b></td> <td style="padding:10px;">R$ ${dt.preco.toFixed(2)}</td> <td style="padding:10px; text-align:right;"><button onclick="apagarProduto('${d.id}')" style="color:red; background:none; border:none; cursor:pointer;"><i data-lucide="trash-2" style="width:16px;"></i></button></td> </tr>`; 
+                }); 
+                document.getElementById('stat-produtos').innerText = totalProd;
+                document.getElementById('stat-estoque').innerText = totalEstq;
+                if(window.lucide) lucide.createIcons(); 
+            }); 
+        }
+
+        async function carregarCatalogoPublico() {
+            document.getElementById('loader').style.display='flex';
+            let qs = await getDocs(collection(db,"produtos")); listaProdutosGlobais=[];
+            qs.forEach(d=>{ if(d.data().estoque>0) listaProdutosGlobais.push({id:d.id, ...d.data()}); });
+            renderizarGrade(listaProdutosGlobais); document.getElementById('loader').style.display='none';
+        }
+
+        function renderizarGrade(arr) {
+            let ct = document.getElementById('produtos-container'); ct.innerHTML='';
+            arr.forEach(p=>{
+                let tagOcasiao = p.ocasiao ? `<span class="tag-micro">${p.ocasiao.split('/')[0]}</span>` : '';
+                ct.innerHTML+=`<article class="produto-card" onclick="abrirModal('${p.id}')">
+                    <div class="produto-img-wrapper"><img src="${p.imagens[0]}" class="produto-img" loading="lazy"></div>
+                    <div class="produto-info">
+                        <div class="produto-tags"><span class="tag-micro" style="background:#111; color:#fff;">${p.categoria}</span>${tagOcasiao}</div>
+                        <h3 class="produto-nome">${p.nome}</h3>
+                        <p class="produto-preco">R$ ${p.preco.toFixed(2).replace('.',',')}</p>
+                        <button class="btn-ver">Ver Detalhes</button>
+                    </div></article>`;
+            });
+        }
+        
+        window.filtrarCatalogo = (cat) => { document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('ativo')); event.target.classList.add('ativo'); renderizarGrade(cat==='Todos' ? listaProdutosGlobais : listaProdutosGlobais.filter(p=>p.categoria===cat)); }
+        window.filtrarPorOcasiao = (oca) => { document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('ativo')); event.target.classList.add('ativo'); renderizarGrade(listaProdutosGlobais.filter(p=>p.ocasiao && p.ocasiao.includes(oca))); }
+
+        window.mudarImagemModal = (url, el) => { document.getElementById('modal-img-main').src=url; document.querySelectorAll('.modal-thumb').forEach(t=>t.classList.remove('active')); el.classList.add('active'); }
+        window.toggleDescricao = () => { let d = document.getElementById('modal-desc'), b = document.getElementById('btn-toggle-desc'); if(d.classList.contains('desc-collapsed')){ d.classList.remove('desc-collapsed'); b.innerHTML='Ocultar <i data-lucide="chevron-up" style="width:14px;"></i>'; } else { d.classList.add('desc-collapsed'); b.innerHTML='Ler descrição completa <i data-lucide="chevron-down" style="width:14px;"></i>'; } if(window.lucide) lucide.createIcons(); }
+
+        window.abrirModal = (id) => {
+            let p = listaProdutosGlobais.find(x=>x.id===id); if(!p) return;
+            document.getElementById('modal-img-main').src = p.imagens[0];
+            let tCont = document.getElementById('modal-thumbnails');
+            tCont.innerHTML = p.imagens.length>1 ? p.imagens.map((img,i)=>`<img src="${img}" class="modal-thumb ${i===0?'active':''}" onclick="mudarImagemModal('${img}',this)">`).join('') : '';
+
+            document.getElementById('modal-categoria').innerText = p.categoria;
+            let tagOca = document.getElementById('modal-ocasiao-tag');
+            if(p.ocasiao){ tagOca.innerText = p.ocasiao; tagOca.classList.remove('hidden'); } else { tagOca.classList.add('hidden'); }
+            
+            document.getElementById('modal-nome').innerText = p.nome;
+            document.getElementById('modal-preco').innerText = `R$ ${p.preco.toFixed(2).replace('.',',')}`;
+            
+            let desc = p.descricao || `Desenvolvido para quem dita as regras. ${p.nome} é uma obra-prima da perfumaria árabe que combina matérias-primas de altíssima qualidade com uma performance devastadora. Prepare-se para ser notado.`;
+            document.getElementById('modal-desc').innerText = desc; document.getElementById('modal-desc').classList.add('desc-collapsed');
+            document.getElementById('btn-toggle-desc').innerHTML = 'Ler descrição completa <i data-lucide="chevron-down" style="width:14px;"></i>';
+
+            let msg = encodeURIComponent(`Olá! Quero garantir o meu *${p.nome}* por R$ ${p.preco.toFixed(2).replace('.',',')}. Ainda tem estoque?`);
+            document.getElementById('btn-modal-comprar').onclick = ()=>window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${msg}`,'_blank');
+
+            let boxMarquee = document.getElementById('modal-marquee-box');
+            if(p.piramide && p.piramide.topo && p.piramide.topo.length>0){
+                let txtTopo = p.piramide.topo.join(' &nbsp;&nbsp;&bull;&nbsp;&nbsp; ') + ' &nbsp;&nbsp;&bull;&nbsp;&nbsp; ';
+                document.getElementById('modal-marquee-text').innerHTML = txtTopo; document.getElementById('modal-marquee-clone').innerHTML = txtTopo;
+                boxMarquee.classList.remove('hidden');
+            } else { boxMarquee.classList.add('hidden'); }
+
+            let pirBox = document.getElementById('modal-piramide');
+            if((p.piramide?.topo?.length>0)||(p.piramide?.coracao?.length>0)||(p.piramide?.fundo?.length>0)){
+                pirBox.classList.remove('hidden');
+                const shw = (idB, idT, arr) => { let b = document.getElementById(idB); if(arr?.length>0){ b.classList.remove('hidden'); document.getElementById(idT).innerHTML=arr.join(', '); }else{ b.classList.add('hidden'); } };
+                shw('bar-topo','txt-bar-topo',p.piramide?.topo); shw('bar-coracao','txt-bar-coracao',p.piramide?.coracao); shw('bar-fundo','txt-bar-fundo',p.piramide?.fundo);
+            } else { pirBox.classList.add('hidden'); }
+
+            document.getElementById('product-modal').classList.add('active'); document.body.style.overflow='hidden';
+            if(window.lucide) lucide.createIcons();
+        }
+        window.fecharModalProduto = () => { document.getElementById('product-modal').classList.remove('active'); document.body.style.overflow='auto'; }
+
+        checarRota();
     </script>
 </body>
 </html>
