@@ -373,8 +373,8 @@
     <!-- FIREBASE & LÓGICA CORE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, updateDoc, getDocs, deleteDoc, doc, onSnapshot, query } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, updateDoc, getDocs, deleteDoc, doc, onSnapshot, query, writeBatch } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         const userConfig = { apiKey: "AIzaSyCIFtKNI5vD9HucWX5c8fNcAkSOSoHQm-M", authDomain: "luxyparfums-46c59.firebaseapp.com", projectId: "luxyparfums-46c59", storageBucket: "luxyparfums-46c59.firebasestorage.app", messagingSenderId: "211881648987", appId: "1:211881648987:web:e3635cc04168237bad307e" };
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : userConfig;
@@ -421,9 +421,14 @@
         };
         window.addCustomNota = function(cat, idE, idN) { let e = document.getElementById(idE).value||"✨", n = document.getElementById(idN).value; if(!n) return; let obj = {nome:n, emoji:e}; gNotas[cat].push(obj); nSalvas[cat].push(obj); localStorage.setItem('luxy_notas', JSON.stringify(nSalvas)); renderizarFiltrosNotas(); document.getElementById(idE).value=""; document.getElementById(idN).value=""; };
 
-        // AUTH SEGURO
+        // AUTH SEGURO (COM LIMPEZA DE CACHE)
         const initAuth = async () => { 
             try {
+                // 1. FORÇA O LOGOUT: Limpa o cache de qualquer login (Email/Senha) antigo
+                // que estava causando o erro de "Missing or insufficient permissions".
+                if(auth.currentUser) await signOut(auth);
+                
+                // 2. LOGA COM O TOKEN CORRETO DO SISTEMA
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) { 
                     await signInWithCustomToken(auth, __initial_auth_token); 
                 } else { 
@@ -646,7 +651,7 @@
         window.fecharModalProduto = () => { document.getElementById('product-modal').classList.remove('active'); document.body.style.overflow = 'auto'; };
 
         // ==========================================
-        // SCRIPT DE IMPORTAÇÃO EM MASSA (ANTI-SPAM)
+        // SCRIPT DE IMPORTAÇÃO EM MASSA (VIA BATCH LOTE ÚNICO)
         // ==========================================
         const dataImport = [
             {n:"9AM CITRICO (AFNAN)",d:"9AM CITRICO é uma celebração da frescura e energia das manhãs ensolaradas. Com sua vibrante composição cítrica, esta fragrância desperta os sentidos e inspira confiança. Ideal para uso diário em climas quentes.",pt:["🍋 Limão","🍊 Laranja","🌿 Bergamota"],pc:["🌸 Jasmim","🍏 Maçã Verde","🍃 Hortelã"],pf:["🌲 Cedro","🌿 Musgo de Carvalho","🪵 Almíscar"]},
@@ -699,29 +704,29 @@
 
         document.getElementById('btn-importar-massa').addEventListener('click', async () => {
             if(!currentUser) return;
-            if(!confirm("Deseja importar as 46 fragrâncias agora? Isso levará cerca de 30 segundos (Enviando lentamente para não ser bloqueado como spam).")) return;
+            if(!confirm("Deseja importar as 46 fragrâncias agora? (Estoque 10, Preço: R$ 299,90).")) return;
             
             const btn = document.getElementById('btn-importar-massa');
             const originalText = btn.innerHTML;
+            btn.innerHTML = `<i data-lucide="loader" class="spin"></i> Importando Instântaneamente...`;
             btn.disabled = true;
 
             const genericImg = "https://i.postimg.cc/mD0v7mKq/placeholder-perfume.jpg"; 
-            let successCount = 0;
             
-            for(let i = 0; i < dataImport.length; i++) {
-                let item = dataImport[i];
-                let cat = item.n.toLowerCase().includes("femme") || item.n.toLowerCase().includes("mulher") || item.n.toLowerCase().includes("pink") || item.n.toLowerCase().includes("diva") ? "Feminino" : 
-                          item.n.toLowerCase().includes("male") || item.n.toLowerCase().includes("homem") || item.n.toLowerCase().includes("intense") || item.n.toLowerCase().includes("black") ? "Masculino" : "Compartilháveis";
+            try {
+                // Usando writeBatch do Firebase para envio ÚNICO e instantâneo
+                const batch = writeBatch(db);
+                let successCount = 0;
                 
-                if(item.n.toLowerCase().includes("splash")) cat = "Body splash";
-                if(item.n.toLowerCase().includes("cream")) cat = "Pastas Hidratantes";
+                for(let item of dataImport) {
+                    let cat = item.n.toLowerCase().includes("femme") || item.n.toLowerCase().includes("mulher") || item.n.toLowerCase().includes("pink") || item.n.toLowerCase().includes("diva") ? "Feminino" : 
+                              item.n.toLowerCase().includes("male") || item.n.toLowerCase().includes("homem") || item.n.toLowerCase().includes("intense") || item.n.toLowerCase().includes("black") ? "Masculino" : "Compartilháveis";
+                    
+                    if(item.n.toLowerCase().includes("splash")) cat = "Body splash";
+                    if(item.n.toLowerCase().includes("cream")) cat = "Pastas Hidratantes";
 
-                btn.innerHTML = `<i data-lucide="loader" class="spin"></i> Importando (${i+1}/46)...`;
-                if(window.lucide) lucide.createIcons();
-
-                try {
-                    // Adiciona de 1 em 1 em vez de usar o Batch que causa bloqueio
-                    await addDoc(getProdutosCollection(), {
+                    const docRef = doc(getProdutosCollection());
+                    batch.set(docRef, {
                         nome: item.n,
                         categoria: cat,
                         ocasiao: "", 
@@ -730,23 +735,23 @@
                         descricao: item.d,
                         imagens: [genericImg], 
                         piramide: { topo: item.pt, coracao: item.pc, fundo: item.pf },
-                        criadoEm: new Date().getTime() + i
+                        criadoEm: new Date().getTime() + successCount
                     });
                     
                     successCount++;
-                    
-                    // PAUSA DE 800 MILISSEGUNDOS! O segredo para driblar o firewall do Firebase.
-                    await new Promise(resolve => setTimeout(resolve, 800)); 
-                    
-                } catch(e) {
-                    console.error(`Erro ao importar ${item.n}:`, e);
                 }
+                
+                await batch.commit(); // Executa as 46 inserções de uma só vez (sem ser bloqueado)
+                
+                showToast(`${successCount} Produtos importados com sucesso!`, "success");
+            } catch(e) {
+                console.error("Erro no Firebase Batch:", e);
+                showToast(`Falha na importação. Motivo: ${e.message}`, "error");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                if(window.lucide) lucide.createIcons();
             }
-            
-            showToast(`${successCount} Produtos importados com sucesso!`, "success");
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-            if(window.lucide) lucide.createIcons();
         });
     </script>
 </body>
