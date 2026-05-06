@@ -282,7 +282,7 @@
                     <button class="filtro-btn ativo" onclick="filtrarCatalogo('Todos')">Coleção Completa</button>
                     <button class="filtro-btn" onclick="filtrarCatalogo('Feminino')"><i data-lucide="sparkles" style="width:16px;"></i> Feminino</button>
                     <button class="filtro-btn" onclick="filtrarCatalogo('Masculino')"><i data-lucide="briefcase" style="width:16px;"></i> Masculino</button>
-                    <button class="filtro-btn" onclick="filtrarCatalogo('Compartilháveis')"><i data-lucide="infinity" style="width:16px;"></i> Unissex</button>
+                    <button class="filtro-btn" onclick="filtrarCatalogo('Compartilháveis')"><i data-lucide="infinity" style="width:16px;"></i> Compartilháveis</button>
                     <div style="width: 1px; height: 20px; background: #ddd; margin: auto 10px;"></div>
                     <button class="filtro-btn" onclick="filtrarPorOcasiao('Noite / Balada')"><i data-lucide="moon" style="width:16px;"></i> Noite & Festa</button>
                     <button class="filtro-btn" onclick="filtrarPorOcasiao('Dia / Frescor')"><i data-lucide="sun" style="width:16px;"></i> Dia a Dia</button>
@@ -520,7 +520,7 @@
         const getProdutosCollection = () => isProd ? collection(db, 'produtos') : collection(db, 'artifacts', appIdStr, 'public', 'data', 'produtos');
         const getProdutoDoc = (id) => isProd ? doc(db, 'produtos', id) : doc(db, 'artifacts', appIdStr, 'public', 'data', 'produtos', id);
 
-        const NUMERO_WHATSAPP = "5511999999999"; 
+        const NUMERO_WHATSAPP = "559284215022"; 
         
         // Imagem de segurança caso o link de alguma foto falhe
         const fallbackImg = "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=800&auto=format&fit=crop";
