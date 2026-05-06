@@ -534,16 +534,16 @@
         };
         window.addCustomNota = function(cat, idE, idN) { let e = document.getElementById(idE).value||"✨", n = document.getElementById(idN).value; if(!n) return; let obj = {nome:n, emoji:e}; gNotas[cat].push(obj); nSalvas[cat].push(obj); localStorage.setItem('luxy_notas', JSON.stringify(nSalvas)); renderizarFiltrosNotas(); document.getElementById(idE).value=""; document.getElementById(idN).value=""; };
 
-        // AUTH SEGURO
+        // AUTH SEGURO (CORREÇÃO DE PERMISSÕES)
         const initAuth = async () => { 
             try {
-                if(auth.currentUser) await signOut(auth); 
+                // Removemos o signOut() forçado. Ele estava a invalidar o token de segurança.
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) { 
                     await signInWithCustomToken(auth, __initial_auth_token); 
                 } else { 
                     await signInAnonymously(auth); 
                 }
-            } catch(e) { console.error("Auth error:", e); }
+            } catch(e) { console.error("Erro de Auth:", e); }
         };
 
         function checarRota() {
@@ -597,22 +597,42 @@
             atualizarCarrinhoUI();
         });
 
-        // CREATE
+        // CREATE (PUBLICAR NOVO PRODUTO)
         document.getElementById('form-add-produto').addEventListener('submit', async(e) => {
-            e.preventDefault(); if(!currentUser) return;
-            let btn = document.getElementById('btn-submit-produto'); btn.disabled = true; btn.innerText = "Salvando...";
+            e.preventDefault(); 
+            if(!currentUser) {
+                showToast("Sessão expirada. Recarregue a página.", "error");
+                return;
+            }
+            
+            let btn = document.getElementById('btn-submit-produto'); 
+            btn.disabled = true; 
+            btn.innerText = "Salvando...";
+            
             const getSel = (n) => Array.from(document.querySelectorAll(`input[name="${n}"]:checked`)).map(c=>c.value);
             const imgs = [document.getElementById('add-img1').value, document.getElementById('add-img2').value, document.getElementById('add-img3').value, document.getElementById('add-img4').value, document.getElementById('add-img5').value].filter(i=>i);
+            
             try {
                 await addDoc(getProdutosCollection(), {
-                    nome: document.getElementById('add-nome').value, categoria: document.getElementById('add-categoria').value,
-                    ocasiao: document.getElementById('add-ocasiao').value, preco: parseFloat(document.getElementById('add-preco').value),
-                    estoque: parseInt(document.getElementById('add-estoque').value), descricao: document.getElementById('add-desc').value,
-                    imagens: imgs, piramide: { topo: getSel('nota_topo'), coracao: getSel('nota_coracao'), fundo: getSel('nota_fundo') },
+                    nome: document.getElementById('add-nome').value || "Produto Sem Nome", 
+                    categoria: document.getElementById('add-categoria').value || "Compartilháveis",
+                    ocasiao: document.getElementById('add-ocasiao').value || "", 
+                    preco: parseFloat(document.getElementById('add-preco').value) || 0,
+                    estoque: parseInt(document.getElementById('add-estoque').value) || 0, 
+                    descricao: document.getElementById('add-desc').value || "",
+                    imagens: imgs.length > 0 ? imgs : ["https://i.postimg.cc/mD0v7mKq/placeholder-perfume.jpg"], 
+                    piramide: { topo: getSel('nota_topo'), coracao: getSel('nota_coracao'), fundo: getSel('nota_fundo') },
                     criadoEm: new Date().getTime()
                 }); 
-                showToast("Fragrância publicada!"); document.getElementById('form-add-produto').reset();
-            } catch(err) { showToast("Erro ao publicar.", "error"); } finally { btn.disabled = false; btn.innerText = "Publicar Fragrância"; }
+                showToast("Fragrância publicada com sucesso!"); 
+                document.getElementById('form-add-produto').reset();
+            } catch(err) { 
+                console.error("Erro ao publicar:", err); 
+                showToast("Erro: Permissão negada ou dados inválidos.", "error"); 
+            } finally { 
+                btn.disabled = false; 
+                btn.innerText = "Publicar Fragrância"; 
+            }
         });
 
         // EDIT & DELETE
@@ -647,30 +667,55 @@
             if(window.lucide) lucide.createIcons();
             document.getElementById('modal-edit-produto').classList.add('active');
         };
+        
         window.fecharModalEdicao = () => { document.getElementById('modal-edit-produto').classList.remove('active'); };
 
         document.getElementById('form-edit-produto').addEventListener('submit', async(e) => {
-            e.preventDefault(); if(!currentUser) return;
-            const btn = document.getElementById('btn-salvar-edicao'); btn.disabled = true; btn.innerText = "Salvando...";
+            e.preventDefault(); 
+            if(!currentUser) {
+                showToast("Sessão expirada. Recarregue a página.", "error");
+                return;
+            }
+            
+            const btn = document.getElementById('btn-salvar-edicao'); 
+            btn.disabled = true; 
+            btn.innerText = "Salvando...";
+            
             const id = document.getElementById('edit-id').value;
             const getEditSel = (n) => Array.from(document.querySelectorAll(`input[name="${n}"]:checked`)).map(c=>c.value);
             const imgs = [document.getElementById('edit-img1').value, document.getElementById('edit-img2').value, document.getElementById('edit-img3').value, document.getElementById('edit-img4').value, document.getElementById('edit-img5').value].filter(i=>i);
+            
             try {
                 await updateDoc(getProdutoDoc(id), {
-                    nome: document.getElementById('edit-nome').value, categoria: document.getElementById('edit-categoria').value,
-                    ocasiao: document.getElementById('edit-ocasiao').value, preco: parseFloat(document.getElementById('edit-preco').value),
-                    estoque: parseInt(document.getElementById('edit-estoque').value), descricao: document.getElementById('edit-desc').value,
-                    imagens: imgs,
+                    nome: document.getElementById('edit-nome').value || "Produto Sem Nome", 
+                    categoria: document.getElementById('edit-categoria').value || "Compartilháveis",
+                    ocasiao: document.getElementById('edit-ocasiao').value || "", 
+                    preco: parseFloat(document.getElementById('edit-preco').value) || 0,
+                    estoque: parseInt(document.getElementById('edit-estoque').value) || 0, 
+                    descricao: document.getElementById('edit-desc').value || "",
+                    imagens: imgs.length > 0 ? imgs : ["https://i.postimg.cc/mD0v7mKq/placeholder-perfume.jpg"],
                     piramide: { topo: getEditSel('edit_nota_topo'), coracao: getEditSel('edit_nota_coracao'), fundo: getEditSel('edit_nota_fundo') }
                 });
-                showToast("Produto atualizado com sucesso!"); fecharModalEdicao();
-            } catch(e) { showToast("Erro ao editar.", "error"); } finally { btn.disabled = false; btn.innerText = "Salvar Alterações"; }
+                showToast("Produto atualizado com sucesso!"); 
+                fecharModalEdicao();
+            } catch(err) { 
+                console.error("Erro ao editar:", err); 
+                showToast("Erro: Permissão negada ou dados inválidos.", "error"); 
+            } finally { 
+                btn.disabled = false; 
+                btn.innerText = "Salvar Alterações"; 
+            }
         });
 
         window.apagarProduto = async(id) => { 
             if(!currentUser) return;
             if(confirm("Remover esta fragrância?")) {
-                try { await deleteDoc(getProdutoDoc(id)); showToast("Produto removido."); } catch(e) { showToast("Erro ao excluir.", "error"); }
+                try { 
+                    await deleteDoc(getProdutoDoc(id)); 
+                    showToast("Produto removido."); 
+                } catch(err) { 
+                    showToast("Erro ao excluir. Falta de permissão.", "error"); 
+                }
             }
         };
 
