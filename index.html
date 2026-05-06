@@ -28,6 +28,7 @@
         button, input, select, textarea { font-family: inherit; outline: none; }
         .hidden { display: none !important; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         
         /* --- TOAST NOTIFICATIONS --- */
         .toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
@@ -69,38 +70,47 @@
         .btn-ver { background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); padding: 14px 20px; display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; transition: all 0.3s ease; border-radius: 6px; }
         .produto-card:hover .btn-ver { background: var(--accent-color); color: #fff; }
 
-        /* --- MODAL VIP PUBLICO --- */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.98); z-index: 2000; overflow-x: hidden; overflow-y: auto; display: none; justify-content: center; align-items: flex-start; }
+        /* --- MODAL VIP PUBLICO (CARD POPUP LUXO) --- */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px); z-index: 2000; overflow-y: auto; display: none; padding: 40px 20px; align-items: center; justify-content: center; }
         .modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
-        .modal-header { position: sticky; top: 0; width: 100%; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 50; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .btn-close-modal { background: #111; color: #fff; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 30px; font-size: 11px; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
-        .btn-close-modal:hover { background: #333; }
-        .modal-content { max-width: 1200px; width: 100%; margin: 30px auto 80px; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; animation: fadeInDown 0.5s ease; }
-        .modal-gallery-wrapper { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 15px; }
-        .modal-img-main { width: 100%; aspect-ratio: 4/5; object-fit: cover; background: #f5f5f5; border-radius: 16px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color); }
-        .marquee-container { width: 100%; background: #0a0a0a; color: var(--gold); padding: 14px 0; border-radius: 8px; margin-top: -30px; position: relative; z-index: 2; overflow: hidden; white-space: nowrap; box-shadow: 0 15px 30px rgba(0,0,0,0.2); display: flex; align-items: center; }
-        .marquee-content { display: inline-block; animation: marquee 20s linear infinite; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; }
+        
+        .modal-content { background: #fff; width: 100%; max-width: 1050px; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); display: grid; grid-template-columns: 1fr 1.2fr; position: relative; margin: auto; animation: fadeInDown 0.4s ease; overflow: hidden; }
+        
+        .btn-close-modal-card { position: absolute; top: 15px; right: 15px; width: 40px; height: 40px; background: #f0f0f0; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: 0.3s; color: #111; }
+        .btn-close-modal-card:hover { background: #111; color: #fff; }
+        
+        .modal-gallery-wrapper { padding: 40px; background: #fdfdfd; display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1px solid var(--border-color); }
+        .modal-img-main { width: 100%; max-width: 380px; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); background: #fff; }
+        
+        .marquee-container { width: 100%; max-width: 100%; box-sizing: border-box; background: #0a0a0a; color: var(--gold); padding: 14px 0; border-radius: 8px; margin-top: -25px; position: relative; z-index: 2; overflow: hidden; white-space: nowrap; box-shadow: 0 15px 30px rgba(0,0,0,0.2); display: flex; align-items: center; }
+        .marquee-content { display: inline-block; animation: marquee 20s linear infinite; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; }
         .marquee-content span { margin: 0 20px; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-        .modal-thumbnails { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: thin; }
-        .modal-thumb { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; opacity: 0.6; }
+        
+        .modal-thumbnails { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: thin; margin-top: 20px; }
+        .modal-thumb { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; opacity: 0.6; }
         .modal-thumb:hover, .modal-thumb.active { border-color: var(--gold); opacity: 1; transform: translateY(-2px); }
-        .modal-details { padding-bottom: 30px; }
-        .modal-tags { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .tag-modal { font-size: 10px; color: #fff; background: var(--accent-color); text-transform: uppercase; padding: 6px 14px; border-radius: 4px; font-weight: 600; }
-        .modal-title { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; color: var(--accent-color); margin-bottom: 15px; line-height: 1.1; }
-        .modal-price { font-size: 32px; font-weight: 600; color: var(--accent-color); margin-bottom: 35px; display: flex; align-items: center; gap: 20px; }
+        
+        /* Centralizando Detalhes do Produto */
+        .modal-details { padding: 50px 40px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .modal-tags { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; width: 100%; }
+        .tag-modal { font-size: 10px; color: #fff; background: var(--accent-color); text-transform: uppercase; padding: 6px 14px; border-radius: 4px; font-weight: 600; letter-spacing: 1px; }
+        .modal-title { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 700; color: var(--accent-color); margin-bottom: 15px; line-height: 1.2; text-align: center; }
+        .modal-price { font-size: 30px; font-weight: 600; color: var(--accent-color); margin-bottom: 35px; display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; flex-wrap: wrap; }
         .preco-badge { font-size: 11px; background: rgba(37, 211, 102, 0.1); color: #1ebe57; padding: 6px 12px; border-radius: 20px; font-weight: 700; text-transform: uppercase; border: 1px solid rgba(37, 211, 102, 0.2); }
-        .sensory-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 35px; background: #fff; padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); }
+        
+        .sensory-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 35px; background: #fff; padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); width: 100%; box-sizing: border-box; }
         .feature-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
         .feature-icon { width: 36px; height: 36px; color: var(--gold); background: var(--gold-light); padding: 6px; border-radius: 50%; }
         .feature-text { font-size: 10px; text-transform: uppercase; font-weight: 700; color: var(--text-color); }
-        .copy-container { margin-bottom: 40px; }
-        .modal-desc { font-size: 15px; color: #444; line-height: 1.9; transition: max-height 0.4s ease; text-align: justify; }
+        
+        .copy-container { margin-bottom: 40px; display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .modal-desc { font-size: 15px; color: #444; line-height: 1.9; transition: max-height 0.4s ease; text-align: center; }
         .desc-collapsed { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        .btn-ler-mais { background: none; border: none; color: var(--gold); font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-top: 12px; display: inline-flex; align-items: center; gap: 5px; }
-        .piramide-grafica { background: #fff; border: 1px solid var(--border-color); padding: 30px; border-radius: 12px; margin-bottom: 40px; }
-        .piramide-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--accent-color); margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
+        .btn-ler-mais { background: none; border: none; color: var(--gold); font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-top: 12px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+        
+        .piramide-grafica { background: #fff; border: 1px solid var(--border-color); padding: 30px; border-radius: 12px; margin-bottom: 40px; width: 100%; box-sizing: border-box; }
+        .piramide-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--accent-color); margin-bottom: 25px; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .bar-row { margin-bottom: 20px; }
         .bar-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
         .bar-label { font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-light); }
@@ -108,25 +118,26 @@
         .bar-track { width: 100%; height: 6px; background: #f0f0f0; border-radius: 10px; overflow: hidden; }
         .bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold-light), var(--gold)); border-radius: 10px; }
         .w-topo { width: 35%; } .w-coracao { width: 65%; } .w-fundo { width: 100%; }
-        .btn-comprar-modal { background: var(--accent-color); color: #fff; padding: 24px; width: 100%; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; transition: 0.3s; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25); }
-        .btn-comprar-modal:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35); }
+        
+        .btn-comprar-modal { background: var(--accent-color); color: #fff; padding: 22px; width: 100%; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; transition: 0.3s; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); }
+        .btn-comprar-modal:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35); }
 
         /* --- CARRINHO DE COMPRAS --- */
         .cart-fab { position: fixed; bottom: 30px; right: 30px; background: var(--accent-color); color: #fff; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 15px 30px rgba(0,0,0,0.3); z-index: 100; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: none; }
         .cart-fab:hover { transform: scale(1.08); }
         .cart-badge { position: absolute; top: -2px; right: -2px; background: var(--gold); color: #000; font-size: 13px; font-weight: 800; width: 26px; height: 26px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
         
-        .cart-sidebar { position: fixed; top: 0; right: -100%; width: 100%; max-width: 420px; height: 100%; background: #fff; z-index: 3000; box-shadow: -15px 0 40px rgba(0,0,0,0.15); transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; }
+        .cart-sidebar { position: fixed; top: 0; right: -100%; width: 100%; max-width: 420px; height: 100%; background: #fff; z-index: 4000; box-shadow: -15px 0 40px rgba(0,0,0,0.15); transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; }
         .cart-sidebar.open { right: 0; }
-        .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 2999; display: none; backdrop-filter: blur(3px); }
+        .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3999; display: none; backdrop-filter: blur(3px); }
         .cart-overlay.active { display: block; animation: fadeIn 0.3s ease; }
         .cart-header { padding: 25px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #fafafa; }
-        .cart-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--accent-color); display: flex; align-items: center; gap: 10px; }
+        .cart-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--accent-color); display: flex; align-items: center; gap: 10px; }
         .cart-close { background: #eee; width: 36px; height: 36px; border-radius: 50%; border: none; cursor: pointer; color: var(--text-color); display: flex; justify-content: center; align-items: center; transition: 0.3s; }
         .cart-close:hover { background: #ddd; }
         .cart-items { flex: 1; overflow-y: auto; padding: 20px; }
         .cart-item { display: flex; gap: 15px; margin-bottom: 25px; border-bottom: 1px solid #f5f5f5; padding-bottom: 20px; }
-        .cart-item-img { width: 85px; height: 85px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-color); }
+        .cart-item-img { width: 85px; height: 85px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-color); background:#fff; }
         .cart-item-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
         .cart-item-title { font-size: 13px; font-weight: 700; color: var(--accent-color); margin-bottom: 6px; line-height: 1.3; }
         .cart-item-price { font-size: 15px; font-weight: 600; color: var(--text-light); }
@@ -140,8 +151,7 @@
         .btn-checkout { background: var(--whatsapp-green); color: #fff; width: 100%; padding: 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.25); transition: 0.3s; }
         .btn-checkout:hover { background: #1ebe57; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.35); }
         .cart-empty { text-align: center; padding: 60px 20px; color: var(--text-light); display: none; flex-direction: column; align-items: center; }
-        .cart-empty i { margin-bottom: 20px; color: #ddd; }
-
+        
         /* --- ADMIN PANEL --- */
         .admin-body { background-color: #f4f5f7; }
         .admin-navbar { background-color: #0a0a0a; color: #fff; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-sm); }
@@ -169,41 +179,81 @@
         .notas-add-custom input { padding: 8px !important; font-size: 12px !important; }
         .btn-add-nota { background: var(--accent-color); color: #fff; border: none; border-radius: 4px; width: 36px; cursor: pointer; font-weight: bold; font-size: 16px; }
 
-        /* Loader & Login */
         #loader { position: fixed; inset: 0; background: #fff; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.5s; }
         .spinner { border: 2px solid #f0f0f0; border-top: 2px solid var(--gold); border-radius: 50%; width: 45px; height: 45px; animation: spin 1s linear infinite; margin-bottom: 25px; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         
         #login-section { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 1000; background: #0a0a0a; }
         .login-box { background: #fff; padding: 50px 40px; width: 90%; max-width: 420px; border-radius: 12px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
         .login-box h2 { font-family: 'Playfair Display', serif; margin-bottom: 25px; color: var(--accent-color); font-size: 28px; }
 
         /* MODAL DE EDIÇÃO ADMIN (AMPLO E MODERNO - BLINDADO COM DISPLAY NONE) */
-        .admin-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 3000; display: none; justify-content: center; align-items: center; padding: 20px; }
+        .admin-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 5000; display: none; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
         .admin-modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
         .admin-modal-content { background: #fff; width: 100%; max-width: 1050px; max-height: 90vh; border-radius: 12px; overflow-y: auto; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative; }
         .admin-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #eaeaea; padding-bottom: 20px; }
 
-        /* --- OTIMIZAÇÕES MOBILE EXTREMAS (UX/UI) --- */
-        @media (max-width: 900px) { .modal-content { grid-template-columns: 1fr; gap: 40px; margin: 10px auto 40px; } .modal-gallery-wrapper { position: static; } .admin-modal-content { padding: 25px; } .grid-2-col, .grid-3-col { grid-template-columns: 1fr; } }
+        /* ========================================================= */
+        /* --- OTIMIZAÇÕES MOBILE EXTREMAS (APP-LIKE UX) --- */
+        /* ========================================================= */
+        
+        @media (max-width: 900px) { 
+            .modal-content { grid-template-columns: 1fr; border-radius: 20px; } 
+            .modal-gallery-wrapper { border-right: none; border-bottom: 1px solid var(--border-color); padding: 40px 20px; }
+            .admin-modal-content { padding: 25px; } 
+            .grid-2-col, .grid-3-col { grid-template-columns: 1fr; } 
+        }
+        
         @media (max-width: 600px) { 
-            .banner { min-height: 400px; padding: 30px 15px; } 
+            /* Vitrine - Grid 2 colunas */
+            .banner { min-height: 380px; padding: 30px 15px; } 
             .banner-title { font-size: 32px; } 
             .catalogo-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 25px 15px; } 
             .produto-info { padding: 15px 10px; }
-            .produto-nome { font-size: 14px; margin-bottom: 5px; }
+            .produto-nome { font-size: 13px; margin-bottom: 5px; }
             .produto-preco { font-size: 14px; margin-bottom: 15px; }
-            .tag-micro { font-size: 8px; padding: 3px 6px; letter-spacing: 1px; }
+            .tag-micro { font-size: 7px; padding: 4px 6px; letter-spacing: 0.5px; }
             .btn-ver { padding: 10px; font-size: 9px; }
             .filtros-wrapper { padding: 20px 10px 10px; }
             .filtro-btn { padding: 10px 16px; font-size: 11px; }
-            .modal-title { font-size: 32px; }
-            .sensory-features { grid-template-columns: 1fr; padding: 15px; gap: 20px; } 
-            .feature-item { flex-direction: row; text-align: left; } 
-            .btn-comprar-modal { font-size: 14px; padding: 20px; }
-            .cart-fab { bottom: 20px; right: 20px; width: 60px; height: 60px; }
-            .cart-badge { width: 24px; height: 24px; font-size: 12px; }
+            
+            /* Modal Produto (Mobile App Layout) */
+            .modal-overlay { padding: 20px 15px; align-items: flex-start; } /* Permite scroll perfeito no mobile */
+            .btn-close-modal-card { top: 15px; right: 15px; width: 35px; height: 35px; }
+            .modal-content { margin: 0 auto; width: 100%; border-radius: 16px; }
+            
+            /* Ajuste da galeria (Economiza espaço vertical) */
+            .modal-gallery-wrapper { padding: 30px 20px; }
+            .modal-img-main { aspect-ratio: 1 / 1; border-radius: 12px; max-width: 100%; }
+            .marquee-container { margin-top: -15px; font-size: 10px; padding: 10px 0; border-radius: 6px; width: 90%; }
+            
+            /* Detalhes Centralizados no Mobile */
+            .modal-details { padding: 30px 20px; }
+            .modal-title { font-size: 26px; margin-bottom: 8px; }
+            .modal-price { font-size: 24px; margin-bottom: 25px; flex-wrap: wrap; gap: 10px; }
+            
+            /* Features em 3 colunas perfeitas */
+            .sensory-features { grid-template-columns: repeat(3, 1fr); padding: 15px 5px; gap: 5px; margin-bottom: 25px; }
+            .feature-icon { width: 30px; height: 30px; padding: 6px; }
+            .feature-text { font-size: 8px; letter-spacing: 0.5px; line-height: 1.2; }
+            
+            .modal-desc { font-size: 14px; line-height: 1.7; }
+            .piramide-grafica { padding: 20px 15px; margin-bottom: 30px; }
+            .piramide-title { font-size: 18px; margin-bottom: 15px; }
+            .bar-label { font-size: 10px; }
+            .bar-notes { font-size: 11px; max-width: 60%; }
+            
+            /* Botão CTA Fixo na tela para conversão máxima */
+            .btn-comprar-modal { font-size: 14px; padding: 18px; position: sticky; bottom: 0; margin-top: 10px; }
+            
+            /* Carrinho Sidebar Responsivo */
+            .cart-sidebar { max-width: 85vw; }
+            .cart-title { font-size: 20px; }
+            .cart-item-img { width: 65px; height: 65px; }
+            .cart-item-title { font-size: 12px; }
+            .cart-item-price { font-size: 13px; }
+            .btn-checkout { font-size: 12px; padding: 16px; }
+            .cart-fab { bottom: 20px; right: 20px; width: 55px; height: 55px; }
+            .cart-badge { width: 22px; height: 22px; font-size: 11px; }
         }
     </style>
 </head>
@@ -264,7 +314,7 @@
             </div>
             
             <div class="cart-empty" id="cart-empty-msg">
-                <i data-lucide="shopping-bag" style="width: 64px; height: 64px; stroke-width: 1;"></i>
+                <i data-lucide="shopping-bag" style="width: 64px; height: 64px; stroke-width: 1; color: #ddd; margin-bottom: 20px;"></i>
                 <h3 style="font-family:'Playfair Display'; color: #000; margin-bottom: 5px; font-size: 22px;">Carrinho Vazio</h3>
                 <p style="font-size: 13px;">Descubra sua nova assinatura olfativa e adicione ao pedido.</p>
             </div>
@@ -279,21 +329,19 @@
                     <span id="cart-total">R$ 0,00</span>
                 </div>
                 <button class="btn-checkout" onclick="finalizarPedidoWhatsApp()">
-                    <i data-lucide="message-circle" style="width: 22px; height: 22px;"></i> Finalizar Pedido no WhatsApp
+                    <i data-lucide="message-circle" style="width: 22px; height: 22px;"></i> Finalizar no WhatsApp
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL VIP DE PRODUTO -->
-    <div id="product-modal" class="modal-overlay">
-        <div class="modal-header">
-            <button onclick="fecharModalProduto()" class="btn-close-modal"><i data-lucide="x" style="width: 18px;"></i> Fechar</button>
-            <img src="https://i.postimg.cc/dtwRJfK3/luxyparfumspng-(1).png" style="max-height: 28px;">
-        </div>
+    <!-- MODAL VIP DE PRODUTO (NOVO CARD FLUTUANTE) -->
+    <div id="product-modal" class="modal-overlay" onclick="if(event.target === this) fecharModalProduto()">
         <div class="modal-content">
+            <button onclick="fecharModalProduto()" class="btn-close-modal-card"><i data-lucide="x" style="width: 18px;"></i></button>
+            
             <div class="modal-gallery-wrapper">
-                <img id="modal-img-main" src="" class="modal-img-main" alt="Produto">
+                <img id="modal-img-main" src="" class="modal-img-main" alt="Produto" onerror="this.src='https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=800&auto=format&fit=crop'">
                 <div id="modal-marquee-box" class="marquee-container hidden">
                     <div class="marquee-content" id="modal-marquee-text"></div>
                     <div class="marquee-content" id="modal-marquee-clone"></div>
@@ -324,13 +372,13 @@
                 </div>
                 
                 <div id="modal-piramide" class="piramide-grafica hidden">
-                    <h3 class="piramide-title"><i data-lucide="flask-conical" style="color: var(--gold); width:24px;"></i> Evolução Olfativa</h3>
+                    <h3 class="piramide-title"><i data-lucide="flask-conical" style="color: var(--gold); width:20px;"></i> Evolução Olfativa</h3>
                     <div id="bar-topo" class="bar-row hidden"><div class="bar-header"><span class="bar-label">Notas de Saída</span><span id="txt-bar-topo" class="bar-notes"></span></div><div class="bar-track"><div class="bar-fill w-topo"></div></div></div>
                     <div id="bar-coracao" class="bar-row hidden"><div class="bar-header"><span class="bar-label">Notas de Corpo</span><span id="txt-bar-coracao" class="bar-notes"></span></div><div class="bar-track"><div class="bar-fill w-coracao"></div></div></div>
                     <div id="bar-fundo" class="bar-row hidden"><div class="bar-header"><span class="bar-label">Notas de Fundo</span><span id="txt-bar-fundo" class="bar-notes"></span></div><div class="bar-track"><div class="bar-fill w-fundo"></div></div></div>
                 </div>
                 
-                <button id="btn-modal-comprar" class="btn-comprar-modal" style="background: var(--accent-color); box-shadow: 0 15px 30px rgba(0,0,0,0.25);">
+                <button id="btn-modal-comprar" class="btn-comprar-modal" style="background: var(--accent-color);">
                     <i data-lucide="shopping-cart"></i> Adicionar ao Carrinho
                 </button>
             </div>
@@ -355,7 +403,7 @@
             <nav class="admin-navbar">
                 <div class="admin-navbar-logo"><img src="https://i.postimg.cc/dtwRJfK3/luxyparfumspng-(1).png"> Painel Executivo</div>
                 <div>
-                    <button id="btn-importar-massa" class="btn-admin gold"><i data-lucide="database"></i> Importar Catálogo Completo</button>
+                    <button id="btn-importar-massa" class="btn-admin gold"><i data-lucide="database"></i> Importar Catálogo</button>
                     <button id="logout-btn" class="btn-admin" style="background:#cc0000; margin-left: 10px;">Sair</button>
                 </div>
             </nav>
@@ -403,8 +451,8 @@
         </div>
     </div>
 
-    <!-- MODAL DE EDIÇÃO ADMIN (AMPLO E MODERNO - BLINDADO) -->
-    <div id="modal-edit-produto" class="admin-modal-overlay">
+    <!-- MODAL DE EDIÇÃO ADMIN -->
+    <div id="modal-edit-produto" class="admin-modal-overlay" onclick="if(event.target === this) fecharModalEdicao()">
         <div class="admin-modal-content">
             <div class="admin-modal-header">
                 <h3 style="font-family:'Playfair Display'; font-size:28px; color: var(--accent-color);">Editar Fragrância</h3>
@@ -413,7 +461,6 @@
             <form id="form-edit-produto">
                 <input type="hidden" id="edit-id">
                 
-                <!-- Bloco de Informações -->
                 <div style="background: #fafafa; padding: 25px; border-radius: 8px; border: 1px solid #eaeaea; margin-bottom: 25px;">
                     <h4 style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 15px;"><i data-lucide="info" style="width: 16px; vertical-align: text-bottom; margin-right: 5px;"></i> Informações Principais</h4>
                     <div class="grid-2-col">
@@ -430,7 +477,6 @@
                     <div class="form-group" style="margin-bottom: 0;"><label>Copywriting</label><textarea id="edit-desc" rows="3"></textarea></div>
                 </div>
 
-                <!-- Bloco de Pirâmide Olfativa -->
                 <div style="background: #fafafa; padding: 25px; border-radius: 8px; border: 1px solid #eaeaea; margin-bottom: 25px;">
                     <h4 style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 15px;"><i data-lucide="flask-conical" style="width: 16px; vertical-align: text-bottom; margin-right: 5px;"></i> Pirâmide Olfativa</h4>
                     <div class="grid-3-col">
@@ -440,7 +486,6 @@
                     </div>
                 </div>
 
-                <!-- Bloco de Imagens -->
                 <div style="background: #fafafa; padding: 25px; border-radius: 8px; border: 1px solid #eaeaea; margin-bottom: 25px;">
                     <h4 style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 15px;"><i data-lucide="image" style="width: 16px; vertical-align: text-bottom; margin-right: 5px;"></i> Imagens (URLs Diretas)</h4>
                     <div class="grid-2-col">
@@ -469,21 +514,22 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
         
-        // Deteta se está no ambiente de testes ou no seu servidor real (Produção)
         const isProd = typeof __app_id === 'undefined';
         const appIdStr = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         
-        // Resolve dinamicamente as permissões: usa raiz 'produtos' no seu Firebase, ou a rota isolada nos testes.
         const getProdutosCollection = () => isProd ? collection(db, 'produtos') : collection(db, 'artifacts', appIdStr, 'public', 'data', 'produtos');
         const getProdutoDoc = (id) => isProd ? doc(db, 'produtos', id) : doc(db, 'artifacts', appIdStr, 'public', 'data', 'produtos', id);
 
         const NUMERO_WHATSAPP = "5511999999999"; 
+        
+        // Imagem de segurança caso o link de alguma foto falhe
+        const fallbackImg = "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=800&auto=format&fit=crop";
+
         let listaProdutosGlobais = [];
         let listaProdutosAdmin = []; 
         let currentUser = null;
         let carrinho = JSON.parse(localStorage.getItem('luxy_carrinho')) || []; 
 
-        // UI Helpers
         window.showToast = (msg, type='success') => {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -495,7 +541,6 @@
             setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 3500);
         };
 
-        // GIGANTESCO BANCO DE NOTAS
         let nSalvas = JSON.parse(localStorage.getItem('luxy_notas')) || { topo:[], coracao:[], fundo:[] };
         let gNotas = {
             topo: [...[
@@ -516,8 +561,7 @@
                 {nome:"Folhas Verdes",emoji:"🌿"}, {nome:"Violeta",emoji:"💜"}, {nome:"Frésia",emoji:"🌺"},
                 {nome:"Lírio-do-vale",emoji:"🌺"}, {nome:"Íris",emoji:"🌺"}, {nome:"Cereja",emoji:"🍒"},
                 {nome:"Gardênia",emoji:"🌼"}, {nome:"Chá Verde",emoji:"🌿"}, {nome:"Peônia",emoji:"🌷"},
-                {nome:"Mel",emoji:"🍯"}, {nome:"Gerânio",emoji:"🌾"}, {nome:"Maçã Verde",emoji:"🍏"},
-                {nome:"Água de Coco",emoji:"💧"}, {nome:"Sálvia",emoji:"🍃"}
+                {nome:"Mel",emoji:"🍯"}, {nome:"Gerânio",emoji:"🌾"}, {nome:"Água de Coco",emoji:"💧"}, {nome:"Sálvia",emoji:"🍃"}
             ], ...nSalvas.coracao],
             fundo: [...[
                 {nome:"Cedro",emoji:"🌲"}, {nome:"Musgo de Carvalho",emoji:"🌿"}, {nome:"Almíscar",emoji:"🪵"}, 
@@ -539,7 +583,6 @@
         };
         window.addCustomNota = function(cat, idE, idN) { let e = document.getElementById(idE).value||"✨", n = document.getElementById(idN).value; if(!n) return; let obj = {nome:n, emoji:e}; gNotas[cat].push(obj); nSalvas[cat].push(obj); localStorage.setItem('luxy_notas', JSON.stringify(nSalvas)); renderizarFiltrosNotas(); document.getElementById(idE).value=""; document.getElementById(idN).value=""; };
 
-        // AUTH SEGURO
         const initAuth = async () => { 
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) { 
@@ -557,7 +600,6 @@
                 document.getElementById('app-admin').classList.remove('hidden'); 
                 document.body.classList.add('admin-body');
                 
-                // Valida o Email de Admin baseado na sua Regra de Segurança do Firebase
                 if(currentUser && currentUser.email === "gabreldesign@gmail.com"){ 
                     document.getElementById('login-section').classList.add('hidden'); 
                     document.getElementById('dashboard-section').classList.remove('hidden'); 
@@ -577,7 +619,6 @@
         }
 
         window.addEventListener('hashchange', checarRota);
-
         initAuth().then(() => { onAuthStateChanged(auth, (user) => { currentUser = user; checarRota(); }); });
 
         document.getElementById('login-btn').addEventListener('click', () => { 
@@ -586,41 +627,30 @@
             const btn = document.getElementById('login-btn');
             
             btn.innerText = "Autenticando...";
-            
             signInWithEmailAndPassword(auth, email, pwd).then(() => {
-                btn.innerText = "Acessar Painel";
-                document.getElementById('login-error').innerText = "";
-                checarRota();
+                btn.innerText = "Acessar Painel"; document.getElementById('login-error').innerText = ""; checarRota();
             }).catch((error) => {
-                btn.innerText = "Acessar Painel";
-                document.getElementById('login-error').innerText = "Erro: E-mail/Senha incorretos ou sem permissão.";
+                btn.innerText = "Acessar Painel"; document.getElementById('login-error').innerText = "Erro: E-mail/Senha incorretos ou sem permissão.";
             });
         });
         
         document.getElementById('logout-btn').addEventListener('click', () => { 
-            signOut(auth).then(() => {
-                signInAnonymously(auth).then(() => window.location.hash = '');
-            });
+            signOut(auth).then(() => { signInAnonymously(auth).then(() => window.location.hash = ''); });
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            renderizarFiltrosNotas();
-            atualizarCarrinhoUI();
+            renderizarFiltrosNotas(); atualizarCarrinhoUI();
         });
 
-        // CREATE
         document.getElementById('form-add-produto').addEventListener('submit', async(e) => {
             e.preventDefault(); 
             if(!currentUser) { showToast("Sessão expirada. Recarregue a página.", "error"); return; }
             
             let btn = document.getElementById('btn-submit-produto'); 
-            btn.disabled = true; 
-            btn.innerText = "Salvando...";
+            btn.disabled = true; btn.innerText = "Salvando...";
             
             const getSel = (n) => Array.from(document.querySelectorAll(`input[name="${n}"]:checked`)).map(c=>c.value);
             const imgs = [document.getElementById('add-img1').value, document.getElementById('add-img2').value, document.getElementById('add-img3').value, document.getElementById('add-img4').value, document.getElementById('add-img5').value].filter(i=>i);
-            
-            // Garantir que não envia erro caso se use vírgula no preço em PT-BR
             let precoValido = document.getElementById('add-preco').value.toString().replace(',', '.');
             
             try {
@@ -631,22 +661,16 @@
                     preco: parseFloat(precoValido) || 0,
                     estoque: parseInt(document.getElementById('add-estoque').value) || 0, 
                     descricao: document.getElementById('add-desc').value || "",
-                    imagens: imgs.length > 0 ? imgs : ["https://i.postimg.cc/mD0v7mKq/placeholder-perfume.jpg"], 
+                    imagens: imgs.length > 0 ? imgs : [fallbackImg], 
                     piramide: { topo: getSel('nota_topo'), coracao: getSel('nota_coracao'), fundo: getSel('nota_fundo') },
                     criadoEm: new Date().getTime()
                 }); 
-                showToast("Fragrância publicada com sucesso!"); 
-                document.getElementById('form-add-produto').reset();
+                showToast("Fragrância publicada com sucesso!"); document.getElementById('form-add-produto').reset();
             } catch(err) { 
-                console.error("Erro ao publicar:", err);
                 showToast("Erro ao publicar: " + err.message, "error"); 
-            } finally { 
-                btn.disabled = false; 
-                btn.innerText = "Publicar Fragrância"; 
-            }
+            } finally { btn.disabled = false; btn.innerText = "Publicar Fragrância"; }
         });
 
-        // EDIT & DELETE
         window.abrirModalEdicao = (id) => {
             const p = listaProdutosAdmin.find(x => x.id === id); if(!p) return;
             document.getElementById('edit-id').value = p.id;
@@ -660,12 +684,7 @@
             document.querySelectorAll('#form-edit-produto input[type="checkbox"]').forEach(cb => cb.checked = false);
             if(p.piramide) {
                 ['topo', 'coracao', 'fundo'].forEach(nivel => {
-                    if(p.piramide[nivel]) {
-                        p.piramide[nivel].forEach(nota => {
-                            let cb = document.querySelector(`#form-edit-produto input[name="edit_nota_${nivel}"][value="${nota}"]`);
-                            if(cb) cb.checked = true;
-                        });
-                    }
+                    if(p.piramide[nivel]) { p.piramide[nivel].forEach(nota => { let cb = document.querySelector(`#form-edit-produto input[name="edit_nota_${nivel}"][value="${nota}"]`); if(cb) cb.checked = true; }); }
                 });
             }
 
@@ -686,13 +705,11 @@
             if(!currentUser) { showToast("Sessão expirada.", "error"); return; }
             
             const btn = document.getElementById('btn-salvar-edicao'); 
-            btn.disabled = true; 
-            btn.innerText = "Salvando...";
+            btn.disabled = true; btn.innerText = "Salvando...";
             
             const id = document.getElementById('edit-id').value;
             const getEditSel = (n) => Array.from(document.querySelectorAll(`input[name="${n}"]:checked`)).map(c=>c.value);
             const imgs = [document.getElementById('edit-img1').value, document.getElementById('edit-img2').value, document.getElementById('edit-img3').value, document.getElementById('edit-img4').value, document.getElementById('edit-img5').value].filter(i=>i);
-            
             let precoValido = document.getElementById('edit-preco').value.toString().replace(',', '.');
 
             try {
@@ -703,29 +720,17 @@
                     preco: parseFloat(precoValido) || 0,
                     estoque: parseInt(document.getElementById('edit-estoque').value) || 0, 
                     descricao: document.getElementById('edit-desc').value || "",
-                    imagens: imgs.length > 0 ? imgs : ["https://i.postimg.cc/mD0v7mKq/placeholder-perfume.jpg"],
+                    imagens: imgs.length > 0 ? imgs : [fallbackImg],
                     piramide: { topo: getEditSel('edit_nota_topo'), coracao: getEditSel('edit_nota_coracao'), fundo: getEditSel('edit_nota_fundo') }
                 });
-                showToast("Produto atualizado com sucesso!"); 
-                fecharModalEdicao();
-            } catch(err) { 
-                console.error("Erro ao editar:", err); 
-                showToast("Erro ao editar: " + err.message, "error"); 
-            } finally { 
-                btn.disabled = false; 
-                btn.innerText = "Salvar Alterações"; 
-            }
+                showToast("Produto atualizado com sucesso!"); fecharModalEdicao();
+            } catch(err) { showToast("Erro ao editar: " + err.message, "error"); } finally { btn.disabled = false; btn.innerText = "Salvar Alterações"; }
         });
 
         window.apagarProduto = async(id) => { 
             if(!currentUser) return;
             if(confirm("Remover esta fragrância?")) {
-                try { 
-                    await deleteDoc(getProdutoDoc(id)); 
-                    showToast("Produto removido."); 
-                } catch(err) { 
-                    showToast("Erro ao excluir: " + err.message, "error"); 
-                }
+                try { await deleteDoc(getProdutoDoc(id)); showToast("Produto removido."); } catch(err) { showToast("Erro ao excluir: " + err.message, "error"); }
             }
         };
 
@@ -743,7 +748,7 @@
                     tb.innerHTML += `
                         <tr style="border-bottom:1px solid #eaeaea;"> 
                             <td style="padding:15px 10px; display:flex; align-items:center; gap:12px;">
-                                <img src="${dt.imagens[0]}" style="width:40px; height:40px; object-fit:cover; border-radius:6px; border:1px solid #eee;">
+                                <img src="${dt.imagens[0]}" style="width:40px; height:40px; object-fit:cover; border-radius:6px; border:1px solid #eee;" onerror="this.src='${fallbackImg}'">
                                 <b>${dt.nome}</b>
                             </td> 
                             <td style="padding:15px 10px; font-weight:600;">R$ ${dt.preco.toFixed(2).replace('.',',')}</td> 
@@ -775,12 +780,8 @@
                         preco: 299.90,
                         estoque: 10,
                         descricao: "9AM CITRICO é uma celebração da frescura e energia das manhãs ensolaradas. Com sua vibrante composição cítrica, esta fragrância desperta os sentidos e inspira confiança. Ideal para uso diário em climas quentes.",
-                        imagens: ["https://i.postimg.cc/mD0v7mKq/placeholder-perfume.jpg"],
-                        piramide: {
-                            topo: ["🍋 Limão", "🍊 Laranja", "🌿 Bergamota"],
-                            coracao: ["🌸 Jasmim", "🍏 Maçã Verde", "🍃 Hortelã"],
-                            fundo: ["🌲 Cedro", "🌿 Musgo de Carvalho", "🪵 Almíscar"]
-                        }
+                        imagens: [fallbackImg],
+                        piramide: { topo: ["🍋 Limão", "🍊 Laranja", "🌿 Bergamota"], coracao: ["🌸 Jasmim", "🍏 Maçã Verde", "🍃 Hortelã"], fundo: ["🌲 Cedro", "🌿 Musgo de Carvalho", "🪵 Almíscar"] }
                     });
                 } else {
                     listaProdutosGlobais.sort((a,b) => (b.criadoEm || 0) - (a.criadoEm || 0));
@@ -797,7 +798,7 @@
                 let delay = idx * 0.05; let tagOcasiao = p.ocasiao ? `<span class="tag-micro">${p.ocasiao.split('/')[0].trim()}</span>` : '';
                 ct.innerHTML += `
                     <article class="produto-card" onclick="abrirModal('${p.id}')" style="animation: fadeInDown 0.6s ease ${delay}s both;">
-                        <div class="produto-img-wrapper"><img src="${p.imagens[0]}" class="produto-img" loading="lazy"></div>
+                        <div class="produto-img-wrapper"><img src="${p.imagens[0]}" class="produto-img" loading="lazy" onerror="this.src='${fallbackImg}'"></div>
                         <div class="produto-info">
                             <div class="produto-tags"><span class="tag-micro" style="background:#111; color:#fff;">${p.categoria}</span>${tagOcasiao}</div>
                             <h3 class="produto-nome">${p.nome}</h3>
@@ -826,22 +827,17 @@
             badge.style.display = totalItens > 0 ? 'flex' : 'none';
 
             if (carrinho.length === 0) {
-                container.innerHTML = '';
-                footer.style.display = 'none';
-                emptyMsg.style.display = 'flex';
-                return;
+                container.innerHTML = ''; footer.style.display = 'none'; emptyMsg.style.display = 'flex'; return;
             }
 
-            emptyMsg.style.display = 'none';
-            footer.style.display = 'block';
-            container.innerHTML = '';
+            emptyMsg.style.display = 'none'; footer.style.display = 'block'; container.innerHTML = '';
 
             let totalPreco = 0;
             carrinho.forEach(item => {
                 totalPreco += item.preco * item.qtd;
                 container.innerHTML += `
                     <div class="cart-item">
-                        <img src="${item.img}" class="cart-item-img">
+                        <img src="${item.img}" class="cart-item-img" onerror="this.src='${fallbackImg}'">
                         <div class="cart-item-info">
                             <h4 class="cart-item-title">${item.nome}</h4>
                             <div class="cart-item-price">R$ ${item.preco.toFixed(2).replace('.', ',')}</div>
@@ -857,86 +853,48 @@
                     </div>
                 `;
             });
-            
             totalEl.innerText = `R$ ${totalPreco.toFixed(2).replace('.', ',')}`;
             if(window.lucide) lucide.createIcons();
         };
 
-        window.abrirCarrinho = () => {
-            document.getElementById('cart-sidebar').classList.add('open');
-            document.getElementById('cart-overlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            atualizarCarrinhoUI();
-        };
-        
-        window.fecharCarrinho = () => {
-            document.getElementById('cart-sidebar').classList.remove('open');
-            document.getElementById('cart-overlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        };
+        window.abrirCarrinho = () => { document.getElementById('cart-sidebar').classList.add('open'); document.getElementById('cart-overlay').classList.add('active'); document.body.style.overflow = 'hidden'; atualizarCarrinhoUI(); };
+        window.fecharCarrinho = () => { document.getElementById('cart-sidebar').classList.remove('open'); document.getElementById('cart-overlay').classList.remove('active'); document.body.style.overflow = 'auto'; };
 
         window.adicionarAoCarrinho = (id) => {
-            const produto = listaProdutosGlobais.find(p => p.id === id);
-            if(!produto) return;
-
+            const produto = listaProdutosGlobais.find(p => p.id === id); if(!produto) return;
             const index = carrinho.findIndex(item => item.id === id);
-            if (index !== -1) {
-                carrinho[index].qtd += 1;
-            } else {
-                carrinho.push({ id: produto.id, nome: produto.nome, preco: produto.preco, img: produto.imagens[0], qtd: 1 });
-            }
-            
-            atualizarCarrinhoUI();
-            showToast(`${produto.nome} adicionado ao pedido!`);
-            fecharModalProduto();
-            abrirCarrinho();
+            if (index !== -1) { carrinho[index].qtd += 1; } else { carrinho.push({ id: produto.id, nome: produto.nome, preco: produto.preco, img: produto.imagens[0], qtd: 1 }); }
+            atualizarCarrinhoUI(); showToast(`${produto.nome} adicionado ao pedido!`); fecharModalProduto(); abrirCarrinho();
         };
 
         window.alterarQtdCarrinho = (id, delta) => {
-            const index = carrinho.findIndex(item => item.id === id);
-            if(index === -1) return;
-            carrinho[index].qtd += delta;
-            if(carrinho[index].qtd <= 0) carrinho.splice(index, 1);
-            atualizarCarrinhoUI();
+            const index = carrinho.findIndex(item => item.id === id); if(index === -1) return;
+            carrinho[index].qtd += delta; if(carrinho[index].qtd <= 0) carrinho.splice(index, 1); atualizarCarrinhoUI();
         };
 
-        window.removerDoCarrinho = (id) => {
-            carrinho = carrinho.filter(item => item.id !== id);
-            atualizarCarrinhoUI();
-        };
+        window.removerDoCarrinho = (id) => { carrinho = carrinho.filter(item => item.id !== id); atualizarCarrinhoUI(); };
 
         window.finalizarPedidoWhatsApp = () => {
             if(carrinho.length === 0) return;
-            
             let dataHora = new Date().toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
-            let mensagem = `*NOVO PEDIDO - LUXY PARFUMS* 👑%0AData: ${dataHora}%0A%0A`;
-            mensagem += `Olá! Montei meu carrinho no site e gostaria de finalizar a compra:%0A%0A`;
-            
+            let mensagem = `*NOVO PEDIDO - LUXY PARFUMS* 👑%0AData: ${dataHora}%0A%0AOlá! Montei meu carrinho no site e gostaria de finalizar a compra:%0A%0A`;
             let total = 0;
             carrinho.forEach((item, index) => {
-                let subtotal = item.preco * item.qtd;
-                total += subtotal;
-                mensagem += `*Item ${index + 1}:* ${item.nome}%0A`;
-                mensagem += `Qtd: ${item.qtd}x de R$ ${item.preco.toFixed(2).replace('.', ',')}%0A`;
-                mensagem += `Subtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}%0A%0A`;
+                let subtotal = item.preco * item.qtd; total += subtotal;
+                mensagem += `*Item ${index + 1}:* ${item.nome}%0AQtd: ${item.qtd}x de R$ ${item.preco.toFixed(2).replace('.', ',')}%0ASubtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}%0A%0A`;
             });
-            
-            mensagem += `--------------------------%0A`;
-            mensagem += `*TOTAL DA COMPRA: R$ ${total.toFixed(2).replace('.', ',')}*%0A`;
-            mensagem += `--------------------------%0A%0A`;
-            mensagem += `Por favor, me informe as opções de pagamento e como funciona o envio! Aguardo o retorno.`;
-            
+            mensagem += `--------------------------%0A*TOTAL DA COMPRA: R$ ${total.toFixed(2).replace('.', ',')}*%0A--------------------------%0A%0APor favor, me informe as opções de pagamento e como funciona o envio! Aguardo o retorno.`;
             window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensagem}`, '_blank');
         };
 
-        // MODAL PUBLICO
+        // MODAL PUBLICO DE PRODUTO
         window.mudarImagemModal = (url, el) => { document.getElementById('modal-img-main').src = url; document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active')); el.classList.add('active'); };
         window.toggleDescricao = () => { let d = document.getElementById('modal-desc'), b = document.getElementById('btn-toggle-desc'); if(d.classList.contains('desc-collapsed')) { d.classList.remove('desc-collapsed'); b.innerHTML = 'Ocultar história <i data-lucide="chevron-up" style="width:14px;"></i>'; } else { d.classList.add('desc-collapsed'); b.innerHTML = 'Ler história completa <i data-lucide="chevron-down" style="width:14px;"></i>'; } if(window.lucide) lucide.createIcons(); };
 
         window.abrirModal = (id) => {
             let p = listaProdutosGlobais.find(x => x.id === id); if(!p) return;
             document.getElementById('modal-img-main').src = p.imagens[0];
-            document.getElementById('modal-thumbnails').innerHTML = p.imagens.length > 1 ? p.imagens.map((img, i) => `<img src="${img}" class="modal-thumb ${i===0?'active':''}" onclick="mudarImagemModal('${img}',this)">`).join('') : '';
+            document.getElementById('modal-thumbnails').innerHTML = p.imagens.length > 1 ? p.imagens.map((img, i) => `<img src="${img}" class="modal-thumb ${i===0?'active':''}" onclick="mudarImagemModal('${img}',this)" onerror="this.src='${fallbackImg}'">`).join('') : '';
             document.getElementById('modal-categoria').innerText = p.categoria;
             let tagOca = document.getElementById('modal-ocasiao-tag'); if(p.ocasiao){ tagOca.innerText = p.ocasiao; tagOca.classList.remove('hidden'); } else { tagOca.classList.add('hidden'); }
             document.getElementById('modal-nome').innerText = p.nome;
@@ -951,14 +909,14 @@
                 const shw = (idB, idT, arr) => { let b = document.getElementById(idB); if(arr?.length > 0){ b.classList.remove('hidden'); document.getElementById(idT).innerHTML = arr.join(' • '); } else { b.classList.add('hidden'); } };
                 shw('bar-topo', 'txt-bar-topo', p.piramide?.topo); shw('bar-coracao', 'txt-bar-coracao', p.piramide?.coracao); shw('bar-fundo', 'txt-bar-fundo', p.piramide?.fundo);
             } else { pirBox.classList.add('hidden'); }
-            document.getElementById('product-modal').classList.add('active'); document.body.style.overflow = 'hidden';
+            
+            document.getElementById('product-modal').classList.add('active'); 
+            document.body.style.overflow = 'hidden';
             if(window.lucide) lucide.createIcons();
         };
         window.fecharModalProduto = () => { document.getElementById('product-modal').classList.remove('active'); document.body.style.overflow = 'auto'; };
 
-        // ==========================================
         // SCRIPT DE IMPORTAÇÃO EM MASSA
-        // ==========================================
         const dataImport = [
             {n:"9AM CITRICO (AFNAN)",d:"9AM CITRICO é uma celebração da frescura e energia das manhãs ensolaradas. Com sua vibrante composição cítrica, esta fragrância desperta os sentidos e inspira confiança. Ideal para uso diário em climas quentes.",pt:["🍋 Limão","🍊 Laranja","🌿 Bergamota"],pc:["🌸 Jasmim","🍏 Maçã Verde","🍃 Hortelã"],pf:["🌲 Cedro","🌿 Musgo de Carvalho","🪵 Almíscar"]},
             {n:"9AM DIVA (MAISON ALHAMBRA)",d:"9AM DIVA da MAISON ALHAMBRA é uma fragrância sofisticada e irresistível que captura a essência da mulher moderna. Explosão fresca e vibrante das frutas cítricas que evolui para um coração floral elegante.",pt:["🍋 Limão siciliano","🍊 Bergamota","🍏 Maçã verde"],pc:["🌹 Rosa","🌺 Jasmim","🍃 Muguet"],pf:["🌳 Cedro","🪵 Sândalo","🍦 Baunilha","🧴 Almíscar"]},
@@ -1016,8 +974,6 @@
             const originalText = btn.innerHTML;
             btn.innerHTML = `<i data-lucide="loader" class="spin"></i> Importando Instantaneamente...`;
             btn.disabled = true;
-
-            const genericImg = "https://i.postimg.cc/mD0v7mKq/placeholder-perfume.jpg"; 
             
             try {
                 const batch = writeBatch(db);
@@ -1038,7 +994,7 @@
                         preco: 299.90,
                         estoque: 10, 
                         descricao: item.d,
-                        imagens: [genericImg], 
+                        imagens: [fallbackImg], 
                         piramide: { topo: item.pt, coracao: item.pc, fundo: item.pf },
                         criadoEm: new Date().getTime() + successCount
                     });
