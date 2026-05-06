@@ -343,7 +343,8 @@
             <div class="login-box">
                 <h2>Admin Luxy</h2>
                 <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Área restrita à gestão do catálogo.</p>
-                <input type="password" id="password" placeholder="Senha de Acesso (Ex: luxy2026)" style="width:100%; padding:14px; margin-bottom:20px; border:1px solid #ddd; border-radius:6px; text-align: center; font-size: 16px;">
+                <input type="email" id="email" value="gabreldesign@gmail.com" placeholder="E-mail" style="width:100%; padding:14px; margin-bottom:15px; border:1px solid #ddd; border-radius:6px; text-align: center; font-size: 14px;">
+                <input type="password" id="password" placeholder="Senha do Firebase" style="width:100%; padding:14px; margin-bottom:20px; border:1px solid #ddd; border-radius:6px; text-align: center; font-size: 14px;">
                 <button id="login-btn" class="btn-admin" style="width:100%;">Acessar Painel</button>
                 <button onclick="window.location.hash=''" style="background:none; border:none; color:#666; font-size:12px; margin-top:20px; cursor:pointer; text-decoration:underline;">Voltar ao Catálogo</button>
                 <p id="login-error" style="color:#ef4444; font-size:13px; margin-top:15px; font-weight:600;"></p>
@@ -459,7 +460,7 @@
     <!-- FIREBASE & LÓGICA CORE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, updateDoc, getDocs, deleteDoc, doc, onSnapshot, query, writeBatch } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         const userConfig = { apiKey: "AIzaSyCIFtKNI5vD9HucWX5c8fNcAkSOSoHQm-M", authDomain: "luxyparfums-46c59.firebaseapp.com", projectId: "luxyparfums-46c59", storageBucket: "luxyparfums-46c59.firebasestorage.app", messagingSenderId: "211881648987", appId: "1:211881648987:web:e3635cc04168237bad307e" };
@@ -468,9 +469,13 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
         
+        // Deteta se está no ambiente de testes ou no seu servidor real (Produção)
+        const isProd = typeof __app_id === 'undefined';
         const appIdStr = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const getProdutosCollection = () => collection(db, 'artifacts', appIdStr, 'public', 'data', 'produtos');
-        const getProdutoDoc = (id) => doc(db, 'artifacts', appIdStr, 'public', 'data', 'produtos', id);
+        
+        // Resolve dinamicamente as permissões: usa raiz 'produtos' no seu Firebase, ou a rota isolada nos testes.
+        const getProdutosCollection = () => isProd ? collection(db, 'produtos') : collection(db, 'artifacts', appIdStr, 'public', 'data', 'produtos');
+        const getProdutoDoc = (id) => isProd ? doc(db, 'produtos', id) : doc(db, 'artifacts', appIdStr, 'public', 'data', 'produtos', id);
 
         const NUMERO_WHATSAPP = "5511999999999"; 
         let listaProdutosGlobais = [];
@@ -534,16 +539,15 @@
         };
         window.addCustomNota = function(cat, idE, idN) { let e = document.getElementById(idE).value||"✨", n = document.getElementById(idN).value; if(!n) return; let obj = {nome:n, emoji:e}; gNotas[cat].push(obj); nSalvas[cat].push(obj); localStorage.setItem('luxy_notas', JSON.stringify(nSalvas)); renderizarFiltrosNotas(); document.getElementById(idE).value=""; document.getElementById(idN).value=""; };
 
-        // AUTH SEGURO (CORREÇÃO DE PERMISSÕES)
+        // AUTH SEGURO
         const initAuth = async () => { 
             try {
-                // Removemos o signOut() forçado. Ele estava a invalidar o token de segurança.
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) { 
                     await signInWithCustomToken(auth, __initial_auth_token); 
                 } else { 
                     await signInAnonymously(auth); 
                 }
-            } catch(e) { console.error("Erro de Auth:", e); }
+            } catch(e) { console.error("Auth error:", e); }
         };
 
         function checarRota() {
@@ -553,7 +557,8 @@
                 document.getElementById('app-admin').classList.remove('hidden'); 
                 document.body.classList.add('admin-body');
                 
-                if(localStorage.getItem('luxy_admin') === 'true'){ 
+                // Valida o Email de Admin baseado na sua Regra de Segurança do Firebase
+                if(currentUser && currentUser.email === "gabreldesign@gmail.com"){ 
                     document.getElementById('login-section').classList.add('hidden'); 
                     document.getElementById('dashboard-section').classList.remove('hidden'); 
                     carregarDashboard(); 
@@ -576,20 +581,26 @@
         initAuth().then(() => { onAuthStateChanged(auth, (user) => { currentUser = user; checarRota(); }); });
 
         document.getElementById('login-btn').addEventListener('click', () => { 
+            const email = document.getElementById('email').value;
             const pwd = document.getElementById('password').value;
-            if(pwd === 'luxy2026') {
-                localStorage.setItem('luxy_admin', 'true');
-                document.getElementById('password').value = '';
+            const btn = document.getElementById('login-btn');
+            
+            btn.innerText = "Autenticando...";
+            
+            signInWithEmailAndPassword(auth, email, pwd).then(() => {
+                btn.innerText = "Acessar Painel";
+                document.getElementById('login-error').innerText = "";
                 checarRota();
-            } else {
-                document.getElementById('login-error').innerText = "Senha incorreta. (Dica: luxy2026)";
-            }
+            }).catch((error) => {
+                btn.innerText = "Acessar Painel";
+                document.getElementById('login-error').innerText = "Erro: E-mail/Senha incorretos ou sem permissão.";
+            });
         });
         
         document.getElementById('logout-btn').addEventListener('click', () => { 
-            localStorage.removeItem('luxy_admin');
-            window.location.hash = '';
-            checarRota();
+            signOut(auth).then(() => {
+                signInAnonymously(auth).then(() => window.location.hash = '');
+            });
         });
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -597,13 +608,10 @@
             atualizarCarrinhoUI();
         });
 
-        // CREATE (PUBLICAR NOVO PRODUTO)
+        // CREATE
         document.getElementById('form-add-produto').addEventListener('submit', async(e) => {
             e.preventDefault(); 
-            if(!currentUser) {
-                showToast("Sessão expirada. Recarregue a página.", "error");
-                return;
-            }
+            if(!currentUser) { showToast("Sessão expirada. Recarregue a página.", "error"); return; }
             
             let btn = document.getElementById('btn-submit-produto'); 
             btn.disabled = true; 
@@ -612,12 +620,15 @@
             const getSel = (n) => Array.from(document.querySelectorAll(`input[name="${n}"]:checked`)).map(c=>c.value);
             const imgs = [document.getElementById('add-img1').value, document.getElementById('add-img2').value, document.getElementById('add-img3').value, document.getElementById('add-img4').value, document.getElementById('add-img5').value].filter(i=>i);
             
+            // Garantir que não envia erro caso se use vírgula no preço em PT-BR
+            let precoValido = document.getElementById('add-preco').value.toString().replace(',', '.');
+            
             try {
                 await addDoc(getProdutosCollection(), {
                     nome: document.getElementById('add-nome').value || "Produto Sem Nome", 
                     categoria: document.getElementById('add-categoria').value || "Compartilháveis",
                     ocasiao: document.getElementById('add-ocasiao').value || "", 
-                    preco: parseFloat(document.getElementById('add-preco').value) || 0,
+                    preco: parseFloat(precoValido) || 0,
                     estoque: parseInt(document.getElementById('add-estoque').value) || 0, 
                     descricao: document.getElementById('add-desc').value || "",
                     imagens: imgs.length > 0 ? imgs : ["https://i.postimg.cc/mD0v7mKq/placeholder-perfume.jpg"], 
@@ -627,8 +638,8 @@
                 showToast("Fragrância publicada com sucesso!"); 
                 document.getElementById('form-add-produto').reset();
             } catch(err) { 
-                console.error("Erro ao publicar:", err); 
-                showToast("Erro: Permissão negada ou dados inválidos.", "error"); 
+                console.error("Erro ao publicar:", err);
+                showToast("Erro ao publicar: " + err.message, "error"); 
             } finally { 
                 btn.disabled = false; 
                 btn.innerText = "Publicar Fragrância"; 
@@ -672,10 +683,7 @@
 
         document.getElementById('form-edit-produto').addEventListener('submit', async(e) => {
             e.preventDefault(); 
-            if(!currentUser) {
-                showToast("Sessão expirada. Recarregue a página.", "error");
-                return;
-            }
+            if(!currentUser) { showToast("Sessão expirada.", "error"); return; }
             
             const btn = document.getElementById('btn-salvar-edicao'); 
             btn.disabled = true; 
@@ -685,12 +693,14 @@
             const getEditSel = (n) => Array.from(document.querySelectorAll(`input[name="${n}"]:checked`)).map(c=>c.value);
             const imgs = [document.getElementById('edit-img1').value, document.getElementById('edit-img2').value, document.getElementById('edit-img3').value, document.getElementById('edit-img4').value, document.getElementById('edit-img5').value].filter(i=>i);
             
+            let precoValido = document.getElementById('edit-preco').value.toString().replace(',', '.');
+
             try {
                 await updateDoc(getProdutoDoc(id), {
                     nome: document.getElementById('edit-nome').value || "Produto Sem Nome", 
                     categoria: document.getElementById('edit-categoria').value || "Compartilháveis",
                     ocasiao: document.getElementById('edit-ocasiao').value || "", 
-                    preco: parseFloat(document.getElementById('edit-preco').value) || 0,
+                    preco: parseFloat(precoValido) || 0,
                     estoque: parseInt(document.getElementById('edit-estoque').value) || 0, 
                     descricao: document.getElementById('edit-desc').value || "",
                     imagens: imgs.length > 0 ? imgs : ["https://i.postimg.cc/mD0v7mKq/placeholder-perfume.jpg"],
@@ -700,7 +710,7 @@
                 fecharModalEdicao();
             } catch(err) { 
                 console.error("Erro ao editar:", err); 
-                showToast("Erro: Permissão negada ou dados inválidos.", "error"); 
+                showToast("Erro ao editar: " + err.message, "error"); 
             } finally { 
                 btn.disabled = false; 
                 btn.innerText = "Salvar Alterações"; 
@@ -714,7 +724,7 @@
                     await deleteDoc(getProdutoDoc(id)); 
                     showToast("Produto removido."); 
                 } catch(err) { 
-                    showToast("Erro ao excluir. Falta de permissão.", "error"); 
+                    showToast("Erro ao excluir: " + err.message, "error"); 
                 }
             }
         };
