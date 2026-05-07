@@ -30,6 +30,13 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         
+        /* --- EFEITO DE BRILHO (GLOW) PARA BOTÕES --- */
+        @keyframes luxuryGlow {
+            0% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.2), 0 0 10px rgba(212, 175, 55, 0.2); }
+            50% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.6), 0 0 25px rgba(212, 175, 55, 0.4); }
+            100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.2), 0 0 10px rgba(212, 175, 55, 0.2); }
+        }
+
         /* --- TOAST NOTIFICATIONS --- */
         .toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
         .toast { background: #111; color: #fff; padding: 14px 28px; border-radius: 30px; font-size: 13px; font-weight: 500; opacity: 0; transform: translateY(20px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-md); border: 1px solid #333; }
@@ -79,16 +86,17 @@
         .btn-close-modal-card { position: absolute; top: 15px; right: 15px; width: 40px; height: 40px; background: #f0f0f0; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: 0.3s; color: #111; }
         .btn-close-modal-card:hover { background: #111; color: #fff; }
         
-        .modal-gallery-wrapper { padding: 40px; background: #fdfdfd; display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1px solid var(--border-color); }
-        .modal-img-main { width: 100%; max-width: 380px; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); background: #fff; }
+        /* GALERIA E CARROSSEL */
+        .modal-gallery-wrapper { padding: 40px 20px; background: #fdfdfd; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; border-right: 1px solid var(--border-color); }
+        .modal-img-main { width: 100%; max-width: 320px; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); background: #fff; margin-bottom: 20px; }
         
-        .marquee-container { width: 100%; max-width: 100%; box-sizing: border-box; background: #0a0a0a; color: var(--gold); padding: 14px 0; border-radius: 8px; margin-top: -25px; position: relative; z-index: 2; overflow: hidden; white-space: nowrap; box-shadow: 0 15px 30px rgba(0,0,0,0.2); display: flex; align-items: center; }
-        .marquee-content { display: inline-block; animation: marquee 20s linear infinite; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; }
-        .marquee-content span { margin: 0 20px; }
+        .marquee-container { width: 100%; background: transparent; color: var(--accent-color); padding: 12px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; z-index: 2; overflow: hidden; white-space: nowrap; display: flex; align-items: center; }
+        .marquee-content { display: inline-block; animation: marquee 15s linear infinite; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
+        .marquee-content span { margin: 0 20px; display: inline-flex; align-items: center; gap: 6px; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         
-        .modal-thumbnails { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: thin; margin-top: 20px; }
-        .modal-thumb { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; opacity: 0.6; }
+        .modal-thumbnails { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: thin; margin-top: 20px; width: 100%; justify-content: center; }
+        .modal-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; opacity: 0.6; }
         .modal-thumb:hover, .modal-thumb.active { border-color: var(--gold); opacity: 1; transform: translateY(-2px); }
         
         /* Centralizando Detalhes do Produto */
@@ -109,18 +117,14 @@
         .desc-collapsed { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         .btn-ler-mais { background: none; border: none; color: var(--gold); font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-top: 12px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
         
+        /* NOVO GRÁFICO DE ACORDES (PIRÂMIDE) */
         .piramide-grafica { background: #fff; border: 1px solid var(--border-color); padding: 30px; border-radius: 12px; margin-bottom: 40px; width: 100%; box-sizing: border-box; }
         .piramide-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--accent-color); margin-bottom: 25px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .bar-row { margin-bottom: 20px; }
-        .bar-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; }
-        .bar-label { font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-light); }
-        .bar-notes { font-size: 13px; font-weight: 500; color: var(--accent-color); text-align: right; max-width: 70%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .bar-track { width: 100%; height: 6px; background: #f0f0f0; border-radius: 10px; overflow: hidden; }
-        .bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold-light), var(--gold)); border-radius: 10px; }
-        .w-topo { width: 35%; } .w-coracao { width: 65%; } .w-fundo { width: 100%; }
+        .accord-chart-container { display: flex; flex-direction: column; gap: 8px; width: 100%; align-items: flex-end; }
+        .accord-bar { height: 26px; border-radius: 4px; display: flex; align-items: center; justify-content: flex-end; padding-right: 15px; color: #fff; font-size: 12px; font-weight: 700; text-transform: lowercase; text-shadow: 0 1px 2px rgba(0,0,0,0.4); transition: width 1s ease-out; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         
-        .btn-comprar-modal { background: var(--accent-color); color: #fff; padding: 22px; width: 100%; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; transition: 0.3s; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); }
-        .btn-comprar-modal:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35); }
+        .btn-comprar-modal { background: #111; color: var(--gold); padding: 22px; width: 100%; border: 1px solid var(--gold); border-radius: 8px; font-size: 15px; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; transition: 0.3s; animation: luxuryGlow 2.5s infinite alternate; }
+        .btn-comprar-modal:hover { background: var(--gold); color: #111; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4); }
 
         /* --- CARRINHO DE COMPRAS --- */
         .cart-fab { position: fixed; bottom: 30px; right: 30px; background: var(--accent-color); color: #fff; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 15px 30px rgba(0,0,0,0.3); z-index: 100; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: none; }
@@ -148,8 +152,8 @@
         .btn-remove-item { background: none; border: none; cursor: pointer; color: #ef4444; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 4px; padding: 5px; }
         .cart-footer { padding: 25px 20px; border-top: 1px solid var(--border-color); background: #fafafa; }
         .cart-total-row { display: flex; justify-content: space-between; align-items: center; font-size: 20px; font-weight: 800; color: var(--accent-color); margin-bottom: 20px; font-family: 'Montserrat', sans-serif; }
-        .btn-checkout { background: var(--whatsapp-green); color: #fff; width: 100%; padding: 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.25); transition: 0.3s; }
-        .btn-checkout:hover { background: #1ebe57; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.35); }
+        .btn-checkout { background: #111; color: var(--gold); width: 100%; padding: 20px; border: 1px solid var(--gold); border-radius: 8px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; transition: 0.3s; animation: luxuryGlow 2.5s infinite alternate; }
+        .btn-checkout:hover { background: var(--gold); color: #111; transform: translateY(-3px); }
         .cart-empty { text-align: center; padding: 60px 20px; color: var(--text-light); display: none; flex-direction: column; align-items: center; }
         
         /* --- ADMIN PANEL --- */
@@ -172,8 +176,8 @@
         
         .notas-wrapper { border: 1px solid #ddd; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; }
         .notas-header { background: #f9f9f9; padding: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #ddd; text-align: center; }
-        .notas-lista { max-height: 180px; overflow-y: auto; padding: 12px; }
-        .nota-checkbox-item { display: flex; align-items: center; gap: 10px; font-size: 13px; margin-bottom: 8px; cursor: pointer; }
+        .notas-lista { max-height: 250px; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 5px; }
+        .nota-checkbox-item { display: flex; align-items: center; gap: 10px; font-size: 12px; padding: 4px 0; cursor: pointer; }
         .nota-checkbox-item input { width: auto; margin: 0; }
         .notas-add-custom { display: flex; gap: 8px; padding: 12px; border-top: 1px solid #ddd; background: #fafafa; }
         .notas-add-custom input { padding: 8px !important; font-size: 12px !important; }
@@ -217,18 +221,18 @@
             .filtro-btn { padding: 10px 16px; font-size: 11px; }
             
             /* Modal Produto (Mobile App Layout) */
-            .modal-overlay { padding: 20px 15px; align-items: flex-start; } /* Permite scroll perfeito no mobile */
+            .modal-overlay { padding: 20px 15px; align-items: flex-start; }
             .btn-close-modal-card { top: 15px; right: 15px; width: 35px; height: 35px; }
             .modal-content { margin: 0 auto; width: 100%; border-radius: 16px; }
             
-            /* Ajuste da galeria (Economiza espaço vertical) */
-            .modal-gallery-wrapper { padding: 30px 20px; }
-            .modal-img-main { aspect-ratio: 1 / 1; border-radius: 12px; max-width: 100%; }
-            .marquee-container { margin-top: -15px; font-size: 10px; padding: 10px 0; border-radius: 6px; width: 90%; }
+            /* Ajuste da galeria e do carrossel no mobile */
+            .modal-gallery-wrapper { padding: 30px 20px 20px; }
+            .modal-img-main { max-width: 240px; aspect-ratio: 1 / 1; border-radius: 12px; }
+            .marquee-container { margin-top: 15px; font-size: 11px; padding: 12px 0; border: none; background: transparent; }
             
             /* Detalhes Centralizados no Mobile */
-            .modal-details { padding: 30px 20px; }
-            .modal-title { font-size: 26px; margin-bottom: 8px; }
+            .modal-details { padding: 20px 20px 40px; }
+            .modal-title { font-size: 28px; margin-bottom: 8px; }
             .modal-price { font-size: 24px; margin-bottom: 25px; flex-wrap: wrap; gap: 10px; }
             
             /* Features em 3 colunas perfeitas */
@@ -239,11 +243,10 @@
             .modal-desc { font-size: 14px; line-height: 1.7; }
             .piramide-grafica { padding: 20px 15px; margin-bottom: 30px; }
             .piramide-title { font-size: 18px; margin-bottom: 15px; }
-            .bar-label { font-size: 10px; }
-            .bar-notes { font-size: 11px; max-width: 60%; }
+            .accord-bar { font-size: 10px; height: 22px; padding-right: 10px; }
             
             /* Botão CTA Fixo na tela para conversão máxima */
-            .btn-comprar-modal { font-size: 14px; padding: 18px; position: sticky; bottom: 0; margin-top: 10px; }
+            .btn-comprar-modal { font-size: 13px; padding: 16px; position: sticky; bottom: 0; margin-top: 10px; z-index: 100; }
             
             /* Carrinho Sidebar Responsivo */
             .cart-sidebar { max-width: 85vw; }
@@ -282,7 +285,7 @@
                     <button class="filtro-btn ativo" onclick="filtrarCatalogo('Todos')">Coleção Completa</button>
                     <button class="filtro-btn" onclick="filtrarCatalogo('Feminino')"><i data-lucide="sparkles" style="width:16px;"></i> Feminino</button>
                     <button class="filtro-btn" onclick="filtrarCatalogo('Masculino')"><i data-lucide="briefcase" style="width:16px;"></i> Masculino</button>
-                    <button class="filtro-btn" onclick="filtrarCatalogo('Compartilháveis')"><i data-lucide="infinity" style="width:16px;"></i> Compartilháveis</button>
+                    <button class="filtro-btn" onclick="filtrarCatalogo('Compartilháveis')"><i data-lucide="infinity" style="width:16px;"></i> Unissex</button>
                     <div style="width: 1px; height: 20px; background: #ddd; margin: auto 10px;"></div>
                     <button class="filtro-btn" onclick="filtrarPorOcasiao('Noite / Balada')"><i data-lucide="moon" style="width:16px;"></i> Noite & Festa</button>
                     <button class="filtro-btn" onclick="filtrarPorOcasiao('Dia / Frescor')"><i data-lucide="sun" style="width:16px;"></i> Dia a Dia</button>
@@ -342,10 +345,13 @@
             
             <div class="modal-gallery-wrapper">
                 <img id="modal-img-main" src="" class="modal-img-main" alt="Produto" onerror="this.src='https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=800&auto=format&fit=crop'">
+                
+                <!-- Letreiro Animado (Marquee) Abaixo da Foto -->
                 <div id="modal-marquee-box" class="marquee-container hidden">
                     <div class="marquee-content" id="modal-marquee-text"></div>
                     <div class="marquee-content" id="modal-marquee-clone"></div>
                 </div>
+
                 <div id="modal-thumbnails" class="modal-thumbnails"></div>
             </div>
             
@@ -371,14 +377,15 @@
                     <button id="btn-toggle-desc" class="btn-ler-mais" onclick="toggleDescricao()">Ler história completa <i data-lucide="chevron-down" style="width:14px;"></i></button>
                 </div>
                 
+                <!-- Novo Gráfico Dinâmico de Acordes -->
                 <div id="modal-piramide" class="piramide-grafica hidden">
-                    <h3 class="piramide-title"><i data-lucide="flask-conical" style="color: var(--gold); width:20px;"></i> Evolução Olfativa</h3>
-                    <div id="bar-topo" class="bar-row hidden"><div class="bar-header"><span class="bar-label">Notas de Saída</span><span id="txt-bar-topo" class="bar-notes"></span></div><div class="bar-track"><div class="bar-fill w-topo"></div></div></div>
-                    <div id="bar-coracao" class="bar-row hidden"><div class="bar-header"><span class="bar-label">Notas de Corpo</span><span id="txt-bar-coracao" class="bar-notes"></span></div><div class="bar-track"><div class="bar-fill w-coracao"></div></div></div>
-                    <div id="bar-fundo" class="bar-row hidden"><div class="bar-header"><span class="bar-label">Notas de Fundo</span><span id="txt-bar-fundo" class="bar-notes"></span></div><div class="bar-track"><div class="bar-fill w-fundo"></div></div></div>
+                    <h3 class="piramide-title"><i data-lucide="flask-conical" style="color: var(--gold); width:20px;"></i> Acordes Principais</h3>
+                    <div id="modal-piramide-chart" class="accord-chart-container">
+                        <!-- Barras injetadas via JavaScript -->
+                    </div>
                 </div>
                 
-                <button id="btn-modal-comprar" class="btn-comprar-modal" style="background: var(--accent-color);">
+                <button id="btn-modal-comprar" class="btn-comprar-modal">
                     <i data-lucide="shopping-cart"></i> Adicionar ao Carrinho
                 </button>
             </div>
@@ -403,7 +410,6 @@
             <nav class="admin-navbar">
                 <div class="admin-navbar-logo"><img src="https://i.postimg.cc/dtwRJfK3/luxyparfumspng-(1).png"> Painel Executivo</div>
                 <div>
-                    <button id="btn-importar-massa" class="btn-admin gold"><i data-lucide="database"></i> Importar Catálogo</button>
                     <button id="logout-btn" class="btn-admin" style="background:#cc0000; margin-left: 10px;">Sair</button>
                 </div>
             </nav>
@@ -514,13 +520,11 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
         
-        const isProd = typeof __app_id === 'undefined';
-        const appIdStr = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        
-        const getProdutosCollection = () => isProd ? collection(db, 'produtos') : collection(db, 'artifacts', appIdStr, 'public', 'data', 'produtos');
-        const getProdutoDoc = (id) => isProd ? doc(db, 'produtos', id) : doc(db, 'artifacts', appIdStr, 'public', 'data', 'produtos', id);
+        // CORREÇÃO: Lê sempre da coleção 'produtos' para buscar os perfumes já cadastrados
+        const getProdutosCollection = () => collection(db, 'produtos');
+        const getProdutoDoc = (id) => doc(db, 'produtos', id);
 
-        const NUMERO_WHATSAPP = "559284215022"; 
+        const NUMERO_WHATSAPP = "5511999999999"; 
         
         // Imagem de segurança caso o link de alguma foto falhe
         const fallbackImg = "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=800&auto=format&fit=crop";
@@ -541,34 +545,37 @@
             setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 3500);
         };
 
+        // =========================================================
+        // GIGANTESCO BANCO DE NOTAS (MAIS DE 80 NOTAS ÁRABES)
+        // =========================================================
         let nSalvas = JSON.parse(localStorage.getItem('luxy_notas')) || { topo:[], coracao:[], fundo:[] };
         let gNotas = {
             topo: [...[
-                {nome:"Limão",emoji:"🍋"}, {nome:"Laranja",emoji:"🍊"}, {nome:"Bergamota",emoji:"🌿"}, 
-                {nome:"Limão Siciliano",emoji:"🍋"}, {nome:"Maçã Verde",emoji:"🍏"}, {nome:"Hortelã",emoji:"🌿"},
-                {nome:"Menta",emoji:"🌿"}, {nome:"Côco",emoji:"🥥"}, {nome:"Bagas Vermelhas",emoji:"🫐"},
-                {nome:"Folha de Violeta",emoji:"🍃"}, {nome:"Ervas Aromáticas",emoji:"🌿"}, {nome:"Rosa",emoji:"🌹"},
-                {nome:"Pera",emoji:"🍐"}, {nome:"Manga",emoji:"🥭"}, {nome:"Groselha Negra",emoji:"🫐"},
-                {nome:"Morango",emoji:"🍓"}, {nome:"Melancia",emoji:"🍉"}, {nome:"Notas Aquáticas",emoji:"💧"},
-                {nome:"Laranja Sanguínea",emoji:"🍊"}, {nome:"Aldeídos",emoji:"🫧"}, {nome:"Erva-cidreira",emoji:"🍃"}
+                {nome:"Limão Siciliano",emoji:"🍋"}, {nome:"Bergamota",emoji:"🌿"}, {nome:"Laranja",emoji:"🍊"}, {nome:"Laranja Sanguínea",emoji:"🍊"},
+                {nome:"Tangerina",emoji:"🍊"}, {nome:"Maçã Verde",emoji:"🍏"}, {nome:"Maçã",emoji:"🍎"}, {nome:"Pera",emoji:"🍐"},
+                {nome:"Pêssego",emoji:"🍑"}, {nome:"Morango",emoji:"🍓"}, {nome:"Framboesa",emoji:"🍓"}, {nome:"Cereja",emoji:"🍒"},
+                {nome:"Melancia",emoji:"🍉"}, {nome:"Melão",emoji:"🍈"}, {nome:"Abacaxi",emoji:"🍍"}, {nome:"Manga",emoji:"🥭"},
+                {nome:"Côco",emoji:"🥥"}, {nome:"Bagas Vermelhas",emoji:"🫐"}, {nome:"Groselha Negra",emoji:"🫐"}, {nome:"Hortelã",emoji:"🌿"},
+                {nome:"Menta",emoji:"🌿"}, {nome:"Lavanda",emoji:"🧊"}, {nome:"Sálvia",emoji:"🍃"}, {nome:"Alecrim",emoji:"🌿"},
+                {nome:"Manjericão",emoji:"🍃"}, {nome:"Pimenta Rosa",emoji:"🌶️"}, {nome:"Pimenta Preta",emoji:"🌶️"}, {nome:"Açafrão",emoji:"🧶"},
+                {nome:"Cardamomo",emoji:"🫘"}, {nome:"Notas Aquáticas",emoji:"💧"}, {nome:"Aldeídos",emoji:"🫧"}, {nome:"Folha de Violeta",emoji:"🍃"}
             ], ...nSalvas.topo],
             coracao: [...[
-                {nome:"Jasmim",emoji:"🌸"}, {nome:"Rosa",emoji:"🌹"}, {nome:"Muguet",emoji:"🍃"}, 
-                {nome:"Abacaxi",emoji:"🍍"}, {nome:"Bambu",emoji:"🎋"}, {nome:"Flor de Laranjeira",emoji:"🌸"},
-                {nome:"Pêssego",emoji:"🍑"}, {nome:"Ylang-ylang",emoji:"🌺"}, {nome:"Frutas Vermelhas",emoji:"🍓"},
-                {nome:"Incenso",emoji:"🪔"}, {nome:"Pimenta Preta",emoji:"🍃"}, {nome:"Canela",emoji:"🍂"},
-                {nome:"Lavanda",emoji:"🧊"}, {nome:"Jacinto",emoji:"👃"}, {nome:"Coentro",emoji:"🌿"},
-                {nome:"Folhas Verdes",emoji:"🌿"}, {nome:"Violeta",emoji:"💜"}, {nome:"Frésia",emoji:"🌺"},
-                {nome:"Lírio-do-vale",emoji:"🌺"}, {nome:"Íris",emoji:"🌺"}, {nome:"Cereja",emoji:"🍒"},
-                {nome:"Gardênia",emoji:"🌼"}, {nome:"Chá Verde",emoji:"🌿"}, {nome:"Peônia",emoji:"🌷"},
-                {nome:"Mel",emoji:"🍯"}, {nome:"Gerânio",emoji:"🌾"}, {nome:"Água de Coco",emoji:"💧"}, {nome:"Sálvia",emoji:"🍃"}
+                {nome:"Rosa Damascena",emoji:"🌹"}, {nome:"Rosa",emoji:"🌹"}, {nome:"Jasmim",emoji:"🌸"}, {nome:"Flor de Laranjeira",emoji:"🌸"},
+                {nome:"Ylang-ylang",emoji:"🌺"}, {nome:"Frésia",emoji:"🌺"}, {nome:"Peônia",emoji:"🌷"}, {nome:"Lírio-do-vale",emoji:"🌺"},
+                {nome:"Muguet",emoji:"🍃"}, {nome:"Gardênia",emoji:"🌼"}, {nome:"Íris",emoji:"🌺"}, {nome:"Violeta",emoji:"💜"},
+                {nome:"Orquídea",emoji:"🌺"}, {nome:"Jacinto",emoji:"👃"}, {nome:"Magnólia",emoji:"🌸"}, {nome:"Camélia",emoji:"🌺"},
+                {nome:"Gerânio",emoji:"🌾"}, {nome:"Néroli",emoji:"🌼"}, {nome:"Canela",emoji:"🍂"}, {nome:"Cravo",emoji:"🌰"},
+                {nome:"Noz-moscada",emoji:"🌰"}, {nome:"Folhas Verdes",emoji:"🌿"}, {nome:"Chá Verde",emoji:"🌿"}, {nome:"Bambu",emoji:"🎋"},
+                {nome:"Mel",emoji:"🍯"}, {nome:"Caramelo",emoji:"🍬"}, {nome:"Pralinê",emoji:"🍬"}, {nome:"Água de Coco",emoji:"💧"}
             ], ...nSalvas.coracao],
             fundo: [...[
-                {nome:"Cedro",emoji:"🌲"}, {nome:"Musgo de Carvalho",emoji:"🌿"}, {nome:"Almíscar",emoji:"🪵"}, 
-                {nome:"Sândalo",emoji:"🪵"}, {nome:"Baunilha",emoji:"🍦"}, {nome:"Âmbar",emoji:"🍂"},
-                {nome:"Patchouli",emoji:"🍂"}, {nome:"Vetiver",emoji:"🌿"}, {nome:"Benjoim",emoji:"🕯️"},
-                {nome:"Musk",emoji:"🌿"}, {nome:"Oud",emoji:"🌳"}, {nome:"Amêndoas",emoji:"🌰"},
-                {nome:"Chocolate",emoji:"🍫"}, {nome:"Noz-moscada",emoji:"🌰"}, {nome:"Madeira Branca",emoji:"🌲"}
+                {nome:"Oud",emoji:"🌳"}, {nome:"Cedro",emoji:"🌲"}, {nome:"Sândalo",emoji:"🪵"}, {nome:"Patchouli",emoji:"🍂"},
+                {nome:"Vetiver",emoji:"🌿"}, {nome:"Musgo de Carvalho",emoji:"🌿"}, {nome:"Madeira Branca",emoji:"🌲"}, {nome:"Madeira de Guaiaco",emoji:"🪵"},
+                {nome:"Almíscar",emoji:"🤍"}, {nome:"Almíscar Branco",emoji:"🤍"}, {nome:"Musk",emoji:"🤍"}, {nome:"Âmbar",emoji:"🍂"},
+                {nome:"Benjoim",emoji:"🕯️"}, {nome:"Mirra",emoji:"⚱️"}, {nome:"Incenso",emoji:"🪔"}, {nome:"Baunilha",emoji:"🍦"},
+                {nome:"Fava Tonka",emoji:"🍂"}, {nome:"Couro",emoji:"🟤"}, {nome:"Tabaco",emoji:"🚬"}, {nome:"Chocolate",emoji:"🍫"},
+                {nome:"Açúcar Mascavo",emoji:"🟤"}, {nome:"Café",emoji:"☕"}
             ], ...nSalvas.fundo]
         };
 
@@ -582,6 +589,65 @@
             }); 
         };
         window.addCustomNota = function(cat, idE, idN) { let e = document.getElementById(idE).value||"✨", n = document.getElementById(idN).value; if(!n) return; let obj = {nome:n, emoji:e}; gNotas[cat].push(obj); nSalvas[cat].push(obj); localStorage.setItem('luxy_notas', JSON.stringify(nSalvas)); renderizarFiltrosNotas(); document.getElementById(idE).value=""; document.getElementById(idN).value=""; };
+
+        // =========================================================
+        // LÓGICA DO GRÁFICO DE ACORDES PRINCIPAIS (CORES)
+        // =========================================================
+        function gerarGraficoAcordes(piramide) {
+            if(!piramide) return '';
+            let allNotes = [...(piramide.topo||[]), ...(piramide.coracao||[]), ...(piramide.fundo||[])];
+            if(allNotes.length === 0) return '<p style="text-align:center; font-size:12px; color:#999;">Notas não cadastradas.</p>';
+            
+            let accordWeights = {};
+            
+            // Dicionário de Cores e Classificação Baseado no Fragrantica
+            const categorias = {
+                "Âmbar": { color: "#C66B27", chaves: ["âmbar", "ambar"] },
+                "Especiado Quente": { color: "#C64B27", chaves: ["pimenta", "açafrão", "canela", "cravo", "noz", "especiado", "cardamomo"] },
+                "Amadeirado": { color: "#96714D", chaves: ["cedro", "sândalo", "patchouli", "vetiver", "musgo", "madeira"] },
+                "Oud": { color: "#827A71", chaves: ["oud", "guaiaco"] },
+                "Rosa": { color: "#F44292", chaves: ["rosa"] },
+                "Doce / Gourmand": { color: "#DEB887", chaves: ["baunilha", "caramelo", "pralinê", "mel", "chocolate", "açúcar", "fava"] },
+                "Especiado Fresco": { color: "#98D05C", chaves: ["lavanda", "sálvia", "alecrim", "manjericão", "coentro", "gerânio", "chá", "bambu", "hortelã", "menta"] },
+                "Floral": { color: "#F4A4B4", chaves: ["jasmim", "flor", "ylang", "frésia", "peônia", "lírio", "muguet", "gardênia", "íris", "violeta", "orquídea", "jacinto", "magnólia", "camélia", "néroli"] },
+                "Esfumaçado": { color: "#A8A0B1", chaves: ["incenso", "couro", "tabaco", "esfumaçado"] },
+                "Balsâmico": { color: "#C2B29F", chaves: ["benjoim", "mirra", "balsâmico"] },
+                "Cítrico": { color: "#E8D33F", chaves: ["limão", "laranja", "bergamota", "tangerina", "citrico"] },
+                "Fresco / Aquático": { color: "#A8D8EA", chaves: ["aquática", "água", "aldeídos"] },
+                "Frutado": { color: "#FF9A8B", chaves: ["maçã", "pera", "pêssego", "morango", "framboesa", "cereja", "ameixa", "abacaxi", "manga", "côco", "frutas", "groselha", "melancia", "melão"] },
+                "Almíscar": { color: "#EAE7DC", chaves: ["almíscar", "musk"] }
+            };
+
+            // Contagem de pesos baseada nas notas do perfume
+            allNotes.forEach(noteStr => {
+                if(!noteStr) return;
+                let noteName = noteStr.toLowerCase();
+                let found = false;
+                for(let acc in categorias) {
+                    if(categorias[acc].chaves.some(k => noteName.includes(k))) {
+                        accordWeights[acc] = (accordWeights[acc] || 0) + 1;
+                        found = true;
+                    }
+                }
+                if(!found) accordWeights["Fresco / Aquático"] = (accordWeights["Fresco / Aquático"] || 0) + 1;
+            });
+
+            // Ordenar do maior para o menor
+            let sortedAccords = Object.keys(accordWeights).map(key => {
+                return { name: key, color: categorias[key].color, count: accordWeights[key] };
+            }).sort((a,b) => b.count - a.count).slice(0, 7); // Exibe no máx 7 barras
+
+            // Gerar HTML das Barras
+            let chartHtml = '';
+            let startWidth = 100;
+            sortedAccords.forEach((acc, i) => {
+                // Diminui o tamanho visualmente em degraus (estética de luxo)
+                let width = startWidth - (i * 10); 
+                chartHtml += `<div class="accord-bar" style="background-color: ${acc.color}; width: ${width}%;">${acc.name}</div>`;
+            });
+            
+            return chartHtml;
+        }
 
         const initAuth = async () => { 
             try {
@@ -760,12 +826,13 @@
                         </tr>`; 
                 }); 
                 if(window.lucide) lucide.createIcons(); 
+            }, (error) => {
+                console.error("Erro snapshot admin:", error);
             }); 
         }
 
         // VITRINE & PLACEHOLDER
         async function carregarCatalogoPublico() {
-            if(!currentUser) return;
             const loader = document.getElementById('loader'); loader.style.display = 'flex'; loader.style.opacity = '1';
             try {
                 let qs = await getDocs(getProdutosCollection()); listaProdutosGlobais = [];
@@ -788,7 +855,10 @@
                 }
                 
                 renderizarGrade(listaProdutosGlobais); 
-            } catch(e) {} finally { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); }
+            } catch(e) {
+                console.error("Erro ao carregar catálogo:", e);
+                showToast("Erro ao carregar o catálogo. Verifique sua conexão.", "error");
+            } finally { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); }
         }
 
         function renderizarGrade(arr) {
@@ -884,7 +954,7 @@
                 mensagem += `*Item ${index + 1}:* ${item.nome}%0AQtd: ${item.qtd}x de R$ ${item.preco.toFixed(2).replace('.', ',')}%0ASubtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}%0A%0A`;
             });
             mensagem += `--------------------------%0A*TOTAL DA COMPRA: R$ ${total.toFixed(2).replace('.', ',')}*%0A--------------------------%0A%0APor favor, me informe as opções de pagamento e como funciona o envio! Aguardo o retorno.`;
-            window.open(`https://wa.me/${+5509284215022}?text=${mensagem}`, '_blank');
+            window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensagem}`, '_blank');
         };
 
         // MODAL PUBLICO DE PRODUTO
@@ -893,8 +963,20 @@
 
         window.abrirModal = (id) => {
             let p = listaProdutosGlobais.find(x => x.id === id); if(!p) return;
+            
+            // Renderiza Imagem e Galeria
             document.getElementById('modal-img-main').src = p.imagens[0];
             document.getElementById('modal-thumbnails').innerHTML = p.imagens.length > 1 ? p.imagens.map((img, i) => `<img src="${img}" class="modal-thumb ${i===0?'active':''}" onclick="mudarImagemModal('${img}',this)" onerror="this.src='${fallbackImg}'">`).join('') : '';
+            
+            // Letreiro das Notas de Topo Abaixo da Imagem (Marquee)
+            let boxMarquee = document.getElementById('modal-marquee-box');
+            if(p.piramide && p.piramide.topo && p.piramide.topo.length > 0){
+                let txtTopo = p.piramide.topo.join(' &nbsp;&nbsp;&bull;&nbsp;&nbsp; ') + ' &nbsp;&nbsp;&bull;&nbsp;&nbsp; ';
+                document.getElementById('modal-marquee-text').innerHTML = txtTopo; document.getElementById('modal-marquee-clone').innerHTML = txtTopo;
+                boxMarquee.classList.remove('hidden');
+            } else { boxMarquee.classList.add('hidden'); }
+
+            // Detalhes do Produto
             document.getElementById('modal-categoria').innerText = p.categoria;
             let tagOca = document.getElementById('modal-ocasiao-tag'); if(p.ocasiao){ tagOca.innerText = p.ocasiao; tagOca.classList.remove('hidden'); } else { tagOca.classList.add('hidden'); }
             document.getElementById('modal-nome').innerText = p.nome;
@@ -903,12 +985,15 @@
             
             document.getElementById('btn-modal-comprar').onclick = () => adicionarAoCarrinho(p.id);
             
+            // Gera o novo gráfico de Acordes (Pirâmide Olfativa Colorida)
             let pirBox = document.getElementById('modal-piramide');
+            let chartContainer = document.getElementById('modal-piramide-chart');
             if((p.piramide?.topo?.length > 0) || (p.piramide?.coracao?.length > 0) || (p.piramide?.fundo?.length > 0)){
                 pirBox.classList.remove('hidden');
-                const shw = (idB, idT, arr) => { let b = document.getElementById(idB); if(arr?.length > 0){ b.classList.remove('hidden'); document.getElementById(idT).innerHTML = arr.join(' • '); } else { b.classList.add('hidden'); } };
-                shw('bar-topo', 'txt-bar-topo', p.piramide?.topo); shw('bar-coracao', 'txt-bar-coracao', p.piramide?.coracao); shw('bar-fundo', 'txt-bar-fundo', p.piramide?.fundo);
-            } else { pirBox.classList.add('hidden'); }
+                chartContainer.innerHTML = gerarGraficoAcordes(p.piramide);
+            } else { 
+                pirBox.classList.add('hidden'); 
+            }
             
             document.getElementById('product-modal').classList.add('active'); 
             document.body.style.overflow = 'hidden';
@@ -916,103 +1001,6 @@
         };
         window.fecharModalProduto = () => { document.getElementById('product-modal').classList.remove('active'); document.body.style.overflow = 'auto'; };
 
-        // SCRIPT DE IMPORTAÇÃO EM MASSA
-        const dataImport = [
-            {n:"9AM CITRICO (AFNAN)",d:"9AM CITRICO é uma celebração da frescura e energia das manhãs ensolaradas. Com sua vibrante composição cítrica, esta fragrância desperta os sentidos e inspira confiança. Ideal para uso diário em climas quentes.",pt:["🍋 Limão","🍊 Laranja","🌿 Bergamota"],pc:["🌸 Jasmim","🍏 Maçã Verde","🍃 Hortelã"],pf:["🌲 Cedro","🌿 Musgo de Carvalho","🪵 Almíscar"]},
-            {n:"9AM DIVA (MAISON ALHAMBRA)",d:"9AM DIVA da MAISON ALHAMBRA é uma fragrância sofisticada e irresistível que captura a essência da mulher moderna. Explosão fresca e vibrante das frutas cítricas que evolui para um coração floral elegante.",pt:["🍋 Limão siciliano","🍊 Bergamota","🍏 Maçã verde"],pc:["🌹 Rosa","🌺 Jasmim","🍃 Muguet"],pf:["🌳 Cedro","🪵 Sândalo","🍦 Baunilha","🧴 Almíscar"]},
-            {n:"9AM POUR FEMME (AFNAN)",d:"Fragrância vibrante e elegante que captura a energia fresca e revigorante das primeiras horas do dia. Notas frutadas combinadas a um coração floral sofisticado.",pt:["🍊 Laranja","🌿 Manjericão","🍏 Maçã Verde"],pc:["🌸 Jasmim","🌹 Rosa","🍍 Abacaxi"],pf:["🌳 Cedro","🪵 Sândalo","🍯 Baunilha"]},
-            {n:"9PM BLACK (AFINAN)",d:"Fragrância intensa e sofisticada, perfeita para noites inesquecíveis. Notas frescas despertam os sentidos com um toque de elegância e mistério.",pt:["🍋 Limão Siciliano","🍎 Maçã Verde","🌿 Hortelã"],pc:["🌹 Rosa","🥀 Jasmim","🎋 Bambu"],pf:["🌲 Cedro","🖤 Âmbar Negro","🪵 Sândalo"]},
-            {n:"9PM NIGHT OUT (AFNAN)",d:"A fragrância perfeita para a noite, combinando frescor cítrico com um coração floral e base amadeirada. Deixa uma impressão marcante em festas.",pt:["🍋 Limão","🍊 Bergamota","🌿 Menta"],pc:["🌹 Rosa","🌸 Jasmim","🍎 Maçã"],pf:["🌲 Cedro","🍂 Patchouli","🪵 Almíscar"]},
-            {n:"AETHER EXTRAIT - VERDE (FRENCH AVENUE)",d:"Refrescante e sofisticada que evoca a energia da natureza. Fundo amadeirado conferindo presença duradoura e envolvente.",pt:["🍋 Limão Siciliano","🍃 Hortelã","🍏 Maçã Verde"],pc:["🌿 Chá Verde","🌼 Jasmim","🌸 Flor de Laranjeira"],pf:["🌲 Cedro","🌿 Musgo","🪵 Almíscar Branco"]},
-            {n:"AFEEF PERFFUME PAVAO (LATTAFA)",d:"Combina frescor cítrico com toque floral e fundo amadeirado. Transmite elegância e personalidade única para momentos marcantes.",pt:["🍊 Laranja","🍋 Limão","🥥 Côco"],pc:["🌸 Jasmim","🌹 Rosa","🍑 Pêssego"],pf:["🌳 Sândalo","🪵 Cedro","🧴 Almíscar","🍫 Baunilha"]},
-            {n:"AJMAL EHSAAS (ARDAL ZAAFARAN)",d:"Essência da emoção. Abertura cítrica que evolui para coração floral, ideal para uso diário ou ocasiões de celebração.",pt:["🍊 Laranja","🍋 Limão","🍏 Maçã Verde"],pc:["🌹 Rosa","🌺 Jasmim","🌼 Flor de Laranjeira"],pf:["🌳 Cedro","🌿 Almíscar","🍂 Âmbar"]},
-            {n:"AJWAD PINK (LATTAFA)",d:"Vibrante e envolvente, captura a feminilidade moderna. Notas frutadas no topo com elegância apaixonante.",pt:["🍋 Limão","🍏 Maçã verde","🫐 Bagas vermelhas"],pc:["🌸 Jasmim","🌹 Rosa","🍉 Melancia"],pf:["🌳 Madeira de cedro","🐝 Almíscar","🍦 Baunilha"]},
-            {n:"AL DAIEM ELIXIR (AL WATANIAH)",d:"Experiência sofisticada e envolvente. Harmonia cítrica inicial com base ambarada que proporciona fixação longa e misteriosa.",pt:["🍋 Limão","🍊 Bergamota","🍏 Maçã verde"],pc:["🌹 Rosa","🌸 Jasmim","🍃 Folhas verdes"],pf:["🌳 Cedro","🌿 Almíscar","🍂 Âmbar"]},
-            {n:"ALIVE NOW (MAISON ALHAMBRA)",d:"Celebração vibrante de energia. Ideal para quem deseja marcar presença com personalidade intensa.",pt:["🍋 Limão Siciliano","🍊 Laranja","🍃 Hortelã"],pc:["🌹 Rosa","🌼 Jasmim","🍏 Maçã Verde"],pf:["🌿 Cedro","🌰 Almíscar","🍂 Âmbar"]},
-            {n:"ALKAWN (MAWWAL)",d:"Cativante, harmoniza frescor vibrante com toque amadeirado. Assinatura olfativa contemporânea e marcante.",pt:["🍋 Limão Siciliano","🍊 Bergamota","🍏 Maçã Verde"],pc:["🌹 Rosa","🌿 Lavanda","🍃 Sálvia"],pf:["🌳 Cedro","🪵 Sândalo","🕯️ Âmbar"]},
-            {n:"ALLURE (WORLD)",d:"Sofisticada, ideal para transmitir elegância e frescor. Deixa uma impressão inesquecível.",pt:["🍋 Limão Siciliano","🍏 Maçã Verde","🍃 Hortelã"],pc:["🌸 Jasmim","🌹 Rosa","🍐 Pera"],pf:["🌲 Cedro","🪵 Sândalo","ℹ️ Almíscar"]},
-            {n:"ALORA (L AFFAIR)",d:"Transcende o ordinário, harmonizando frescor e coração floral. Perfeito para mulheres confiantes.",pt:["🍋 Limão Siciliano","🍃 Folha de Violeta","🍎 Maçã Verde"],pc:["🌸 Jasmim","🌹 Rosa","🍐 Pera"],pf:["🌲 Madeira de Cedro","🍫 Baunilha","🟤 Âmbar"]},
-            {n:"AMBER NOIR LUXURY COLLECTION (ORIENTICA)",d:"Une a frescura com a delicadeza frutada e finaliza quente e sensual. Mistério e luxo.",pt:["🍊 Bergamota","🍋 Limão","🌿 Ervas aromáticas"],pc:["🌸 Jasmim","🌹 Rosa","🍇 Frutas vermelhas"],pf:["🌲 Âmbar","🌳 Madeira de cedro","🌰 Baunilha"]},
-            {n:"AMEERAT (ASDAAF)",d:"Expressão luxuosa perfeita para quem busca intensidade. Fundo amadeirado duradouro.",pt:["🍋 Limão","🌿 Hortelã","🍏 Maçã Verde"],pc:["🌸 Jasmim","🌷 Rosa","🍑 Pêssego"],pf:["🌳 Madeira de Cedro","🪵 Almíscar","🍂 Âmbar"]},
-            {n:"AMEERAT ROSE (PRINCESA) (ASDAAF)",d:"Celebra a feminilidade com frescor radiante de rosa e bergamota. Sensual e elegante.",pt:["🌹 Rosa","🍋 Bergamota","🍊 Laranja"],pc:["🌸 Jasmim","🌺 Ylang-ylang","🍓 Frutas vermelhas"],pf:["🌳 Madeira de cedro","🍂 Âmbar","🌿 Almíscar"]},
-            {n:"AMEERATI (AL WATANIAH)",d:"Desperta os sentidos com harmonia cítrica e coração floral incensado.",pt:["🍋 Limão","🍊 Laranja","🌿 Hortelã"],pc:["🌸 Jasmim","🪔 Incenso","🌹 Rosa"],pf:["🌲 Madeira de Cedro","🪵 Âmbar","🐚 Almíscar"]},
-            {n:"AMNIA (AL WATANIAH)",d:"Refrescante e verde. Combinação harmoniosa para aroma marcante contemporâneo.",pt:["🍋 Limão","🍏 Maçã Verde","🌿 Hortelã"],pc:["🌸 Jasmim","🌹 Rosa","🍃 Folhas Verdes"],pf:["🌳 Cedro","🌿 Vetiver","🍂 Âmbar"]},
-            {n:"ANGHAM SONG (LATTAFA)",d:"Cativante, envolve com cítricos frescos e floral delicado. Atemporal.",pt:["🍋 Bergamota","🍊 Laranja","🌿 Hortelã"],pc:["🌹 Rosa","🌸 Jasmim","🍏 Maçã Verde"],pf:["🌳 Almíscar","🌲 Cedro","🍂 Patchouli"]},
-            {n:"ANGHAM TRADIC (LATTAFA)",d:"Combina elementos frescos com toque oriental e amadeirado. Mistério e requinte.",pt:["🍊 Laranja","🍋 Limão","🌿 Hortelã"],pc:["🌹 Rosa","🌸 Jasmim","🍃 Pimenta Preta"],pf:["🌲 Cedro","🪵 Almíscar","🌰 Âmbar"]},
-            {n:"ASAD BOURBON (LATTAFA)",d:"Intensa, coração picante e fundo quente amadeirado para homens confiantes.",pt:["🍊 Laranja","🍋 Limão","🌿 Hortelã"],pc:["🍂 Canela","🌹 Rosa","🧊 Lavanda"],pf:["🌳 Cedro","🪵 Bourbon","🪔 Almíscar"]},
-            {n:"ASSAD (LATTAFA)",d:"Vibrante, floral exuberante com aura de mistério para encontros românticos.",pt:["🍋 Limão","🍊 Laranja Sanguínea","🍏 Maçã Verde"],pc:["🌹 Rosa","👃 Jacinto","🌼 Jasmim"],pf:["🌳 Cedro","🌿 Patchouli","🪵 Musk Amadeirado"]},
-            {n:"ATHEERI (ABELHA) (LATTAFA)",d:"Floral fresco e sofisticado que energiza o espírito. Perfeito para uso diurno.",pt:["🍋 Limão","🍊 Laranja","🍏 Maçã Verde"],pc:["🌹 Rosa","🌼 Jasmim","🌿 Coentro"],pf:["🌳 Cedro","🌰 Almíscar","🍂 Âmbar"]},
-            {n:"ATTAR ALWESAL PERF GUSTAVO LIMA",d:"Vibrante, une frescura frutada à profundidade amadeirada. Confiança moderna.",pt:["🍋 Limão","🍐 Pera","🥭 Manga"],pc:["🌹 Rosa","🌺 Jasmim","🌿 Folhas verdes"],pf:["🌳 Madeira de cedro","🌰 Âmbar","🍂 Almíscar"]},
-            {n:"AURA (AURA)",d:"Traduz a energia vibrante em perfume luxuoso. A expressão da personalidade.",pt:["🍋 Limão","🌿 Manjericão","🍊 Laranja"],pc:["🌸 Jasmim","🌹 Rosa","🍐 Pera"],pf:["🌳 Cedro","🍂 Patchouli","🍯 Baunilha"]},
-            {n:"AZM (PARIS CORNER)",d:"Frutal delicado e feminino. Ideal para charme diurno.",pt:["🍋 Limão Siciliano","🍏 Maçã Verde","🍊 Bergamota"],pc:["🌹 Rosa","🌸 Jasmim","🍑 Pêssego"],pf:["🌲 Cedro","🌰 Almíscar","🍫 Baunilha"]},
-            {n:"BADEE AL OUD ROSA (LATTAFA)",d:"Requinte floral com profundidade amadeirada de oud. Inesquecível.",pt:["🍋 Limão","🍊 Laranja","🌿 Hortelã"],pc:["🌹 Rosa","🌸 Flor de Laranjeira","🍏 Maçã Verde"],pf:["🌳 Oud","🌿 Almíscar","🪵 Sândalo"]},
-            {n:"BADEE AMETHYST (LATTAFA)",d:"Sofisticada com coração envolvente de jasmim e violeta. Destaque de mistério.",pt:["🍋 Limão","🍏 Maçã Verde","🫐 Groselha Negra"],pc:["🌸 Jasmim","🌹 Rosa","💜 Violeta"],pf:["🌳 Cedro","🌿 Patchouli","🪵 Almíscar"]},
-            {n:"BASIR (MAWWAL)",d:"Fresco e floral para uso elegante no dia a dia.",pt:["🍋 Limão Siciliano","🍊 Bergamota","🍃 Hortelã"],pc:["🌸 Jasmim","🌹 Rosa Damascena","🍏 Maçã Verde"],pf:["🌳 Cedro","🍂 Patchouli","🟤 Almíscar"]},
-            {n:"BATEIG AZUL (ANFAR)",d:"Evoca a leveza do amanhecer à beira-mar com energia cítrica.",pt:["🍋 Limão Siciliano","🍏 Maçã Verde","🍃 Hortelã"],pc:["🌸 Jasmim","🌿 Lavanda","🍑 Pêssego"],pf:["🌳 Cedro","🪵 Vetiver","🌰 Almíscar"]},
-            {n:"BODY CREAM DELILAH (AFEER)",d:"Experiência olfativa que envolve sentidos com explosão frutada. Conforto de luxo.",pt:["🍋 Limão Siciliano","🍓 Morango","🍐 Pêra"],pc:["🌹 Rosa","🌸 Jasmim","🌺 Frésia"],pf:["🌳 Madeira de Sândalo","🍫 Baunilha","🧴 Almíscar"]},
-            {n:"BODY CREAM SABAH AL WARD",d:"Experiência única vibrante e marcante para a pele, garantindo feminilidade.",pt:["🍋 Bergamota","🍊 Laranja","🍏 Maçã Verde"],pc:["🌹 Rosa","🌸 Jasmim","🌺 Lírio-do-vale"],pf:["🌿 Almíscar","🌳 Cedro","🍦 Baunilha"]},
-            {n:"BODY HAIR YARA (AFEER)",d:"Combina frescor cítrico com flores e toque amadeirado marcante para cabelos e pele.",pt:["🍊 Bergamota","🍋 Limão Siciliano","🍏 Maçã Verde"],pc:["🌹 Rosa","🥀 Jasmim","🌺 Íris"],pf:["🌳 Cedro","🪵 Sândalo","🕯️ Benjoim"]},
-            {n:"BODY SPLASH COMO MOISELE",d:"Frescor vibrante de juventude, flores delicadas para dias de verão.",pt:["🍉 Melancia","🍋 Limão","🍓 Morango"],pc:["🌸 Jasmim","🌹 Rosa","🍒 Cereja"],pf:["🌿 Musk","🌳 Cedro","🍯 Baunilha"]},
-            {n:"BODY SPLASH DIORE",d:"Desperta frescor e elegância para acompanhar o dia a dia.",pt:["🍋 Limão","🍊 Laranja","🍏 Maçã Verde"],pc:["🌹 Rosa","🌸 Jasmim","🍍 Abacaxi"],pf:["🌳 Madeira de Cedro","🍦 Baunilha","🌿 Almíscar"]},
-            {n:"BODY SPLASH ECLAIRE (LATTAFA)",d:"Sensação revigorante floral com base quente baunilha e almíscar.",pt:["🍋 Limão","🍏 Maçã Verde","💧 Notas Aquáticas"],pc:["🌸 Jasmim","🌹 Rosa","🍃 Folhas Verdes"],pf:["🌲 Madeira de Cedro","🍦 Baunilha","🌿 Almíscar"]},
-            {n:"BODY SPLASH ERBA PURA",d:"Fresca e revigorante, remete à pureza da natureza.",pt:["🍋 Limão","🍊 Bergamota","🍃 Erva-cidreira"],pc:["🌸 Jasmim","🌿 Chá verde","🌼 Gardênia"],pf:["🌳 Madeira de cedro","🌰 Almíscar","🍯 Âmbar"]},
-            {n:"BODY SPLASH LA BOMBA",d:"Vibrante e sensual, celebra a doçura e atrai a atenção no verão.",pt:["🍋 Limão Siciliano","🍓 Morango","🍉 Melancia"],pc:["🌹 Rosa","🍒 Cereja","🍬 Açúcar Mascavo"],pf:["🌳 Almíscar","🍂 Baunilha","🪵 Cedro"]},
-            {n:"BODY SPLASH LA VOIE",d:"Viagem fresca e aquática com atmosfera leve e marcante.",pt:["🍋 Limão Siciliano","🍏 Maçã Verde","💧 Notas Aquáticas"],pc:["🌸 Jasmim","🌹 Rosa","🍃 Folhas Verdes"],pf:["🌿 Almíscar Branco","🌲 Madeira Branca","🍯 Baunilha Suave"]},
-            {n:"BODY SPLASH PINK ECLIPSE",d:"Explosão de morango e flores delicadas para energia vibrante.",pt:["🍓 Morango","🍊 Bergamota","🍏 Maçã Verde"],pc:["🌸 Jasmim","🌷 Rosa","🍑 Pêssego"],pf:["🌿 Almíscar","🌳 Madeira de cedro","🍯 Baunilha"]},
-            {n:"BOROUJ GRAVITY (BOROUJ)",d:"Captura a elegância moderna. Perfeito para criar aura de charme irresistível.",pt:["🍋 Limão","🍊 Bergamota","🌿 Manjericão"],pc:["🌹 Rosa","🌸 Jasmim","🍎 Maçã"],pf:["🌳 Cedro","🪵 Almíscar","🔥 Âmbar"]},
-            {n:"CLUB DE NUIR INTENSE LIMITED (ARMAF)",d:"Explosão marcante para o homem moderno que deseja presença intensa e sofisticada.",pt:["🍋 Limão","🍏 Maçã Verde","🌿 Hortelã","🍊 Laranja Sanguínea"],pc:["🌹 Rosa","🌾 Gerânio","🍐 Pera"],pf:["🌳 Cedro","🌿 Musgo de Carvalho","🪵 Âmbar","🪔 Almíscar"]},
-            {n:"CLUB DE NUIT IMPERIALE (ARMAF)",d:"Presença fresca e imperial. Para eventos de alto padrão que exigem requinte.",pt:["🍋 Limão","🍐 Pêra","🍊 Bergamota","🍎 Maçã Verde"],pc:["🌹 Rosa","🌺 Jasmim","🍏 Groselha Vermelha","🌿 Abacaxi"],pf:["🌳 Almíscar","🌲 Patchouli","🪵 Baunilha","🪵 Cedro"]},
-            {n:"CLUB DE NUIT INTENSE (ARMAF)",d:"Elegância e confiança extrema para o homem. Assinatura de noites memoráveis.",pt:["🍋 Limão Siciliano","🍏 Maçã Verde","🍇 Groselha Preta","🍊 Bergamota"],pc:["🌹 Jasmim","🌸 Rosa","🌿 Patchouli","🍐 Abacaxi"],pf:["🌲 Almíscar","🌳 Cedro","🌿 Baunilha","🪵 Âmbar"]},
-            {n:"CLUB DE NUIT MALEKA (ARMAF)",d:"Aura de frescor carismático para homens modernos. Blend de cítricos incrível.",pt:["🍋 Limão Siciliano","🍏 Maçã Verde","🌿 Manjericão"],pc:["🌸 Jasmim","🌹 Rosa","🍐 Pera"],pf:["🌳 Cedro","🪵 Patchouli","🧴 Almíscar"]}
-        ];
-
-        document.getElementById('btn-importar-massa').addEventListener('click', async () => {
-            if(!currentUser) return;
-            if(!confirm("Deseja importar as 46 fragrâncias agora? (Estoque 10, Preço: R$ 299,90).")) return;
-            
-            const btn = document.getElementById('btn-importar-massa');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = `<i data-lucide="loader" class="spin"></i> Importando Instantaneamente...`;
-            btn.disabled = true;
-            
-            try {
-                const batch = writeBatch(db);
-                let successCount = 0;
-                
-                for(let item of dataImport) {
-                    let cat = item.n.toLowerCase().includes("femme") || item.n.toLowerCase().includes("mulher") || item.n.toLowerCase().includes("pink") || item.n.toLowerCase().includes("diva") ? "Feminino" : 
-                              item.n.toLowerCase().includes("male") || item.n.toLowerCase().includes("homem") || item.n.toLowerCase().includes("intense") || item.n.toLowerCase().includes("black") ? "Masculino" : "Compartilháveis";
-                    
-                    if(item.n.toLowerCase().includes("splash")) cat = "Body splash";
-                    if(item.n.toLowerCase().includes("cream")) cat = "Pastas Hidratantes";
-
-                    const docRef = doc(getProdutosCollection());
-                    batch.set(docRef, {
-                        nome: item.n,
-                        categoria: cat,
-                        ocasiao: "", 
-                        preco: 299.90,
-                        estoque: 10, 
-                        descricao: item.d,
-                        imagens: [fallbackImg], 
-                        piramide: { topo: item.pt, coracao: item.pc, fundo: item.pf },
-                        criadoEm: new Date().getTime() + successCount
-                    });
-                    
-                    successCount++;
-                }
-                
-                await batch.commit(); 
-                showToast(`${successCount} Produtos importados com sucesso!`, "success");
-            } catch(e) {
-                console.error("Erro no Firebase Batch:", e);
-                showToast(`Falha na importação. Motivo: ${e.message}`, "error");
-            } finally {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                if(window.lucide) lucide.createIcons();
-            }
-        });
     </script>
 </body>
 </html>
