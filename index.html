@@ -81,19 +81,19 @@
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(6px); z-index: 2000; overflow-y: auto; display: none; padding: 40px 20px; align-items: center; justify-content: center; }
         .modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
         
-        .modal-content { background: #fff; width: 100%; max-width: 1100px; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); position: relative; margin: auto; animation: fadeInDown 0.4s ease; overflow: hidden; align-items: stretch; }
+        .modal-content { background: #fff; width: 100%; max-width: 1050px; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); position: relative; margin: auto; animation: fadeInDown 0.4s ease; overflow: hidden; align-items: stretch; }
         
         .btn-close-modal-card { position: absolute; top: 15px; right: 15px; width: 40px; height: 40px; background: #f0f0f0; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20; transition: 0.3s; color: #111; }
         .btn-close-modal-card:hover { background: #111; color: #fff; }
         
-        /* GALERIA E CARROSSEL - CENTRALIZADOS PARA OCUPAR O ESPAÇO COM HARMONIA */
-        .modal-gallery-wrapper { padding: 40px; background: #fdfdfd; display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1px solid var(--border-color); overflow: hidden; }
-        .modal-img-main { width: 100%; max-width: 400px; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); background: #fff; margin-bottom: 25px; transition: transform 0.4s ease; }
+        /* GALERIA E CARROSSEL */
+        .modal-gallery-wrapper { padding: 40px 20px; background: #fdfdfd; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; border-right: 1px solid var(--border-color); overflow: hidden; }
+        .modal-img-main { width: 100%; max-width: 320px; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); background: #fff; margin-bottom: 20px; transition: transform 0.4s ease; }
         .modal-img-main:hover { transform: scale(1.02); }
         
-        /* MARQUEE CORRIGIDO PARA LOOP INFINITO PERFEITO */
-        .marquee-container { width: 100%; background: transparent; color: var(--accent-color); padding: 12px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; z-index: 2; overflow: hidden; display: flex; align-items: center; }
-        .marquee-content { display: flex; animation: marquee 30s linear infinite; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; flex-shrink: 0; white-space: nowrap; }
+        /* MARQUEE CORRIGIDO: LENTO, PEQUENO E SUTIL (WHISPER COPY) */
+        .marquee-container { width: 100%; background: transparent; color: var(--text-light); padding: 8px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; z-index: 2; overflow: hidden; display: flex; align-items: center; }
+        .marquee-content { display: flex; animation: marquee 70s linear infinite; font-size: 9.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 3px; flex-shrink: 0; white-space: nowrap; }
         .marquee-content span { margin: 0 15px; display: inline-flex; align-items: center; gap: 6px; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         
@@ -102,7 +102,7 @@
         .modal-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; opacity: 0.6; }
         .modal-thumb:hover, .modal-thumb.active { border-color: var(--gold); opacity: 1; transform: translateY(-2px); }
         
-        /* Detalhes do Produto */
+        /* Centralizando Detalhes do Produto */
         .modal-details { padding: 50px 40px; display: flex; flex-direction: column; align-items: center; text-align: center; overflow: hidden; justify-content: center; }
         .modal-tags { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; width: 100%; }
         .tag-modal { font-size: 10px; color: #fff; background: var(--accent-color); text-transform: uppercase; padding: 6px 14px; border-radius: 4px; font-weight: 600; letter-spacing: 1px; }
@@ -229,14 +229,17 @@
             .btn-close-modal-card { top: 15px; right: 15px; width: 35px; height: 35px; z-index: 20; }
             .modal-content { display: flex; flex-direction: column; margin: 0 auto; width: 100%; border-radius: 16px; padding: 0; overflow: hidden; background: #fff; }
             
-            .modal-gallery-wrapper { padding: 30px 20px 10px; border-right: none; border-bottom: 1px solid var(--border-color); width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
-            .modal-img-main { max-width: 260px; aspect-ratio: 1 / 1; border-radius: 12px; }
-            .marquee-container { margin-top: 15px; font-size: 11px; padding: 12px 0; border: none; background: transparent; width: 100%; box-sizing: border-box; }
+            /* Ajuste da galeria e do carrossel sutil no mobile */
+            .modal-gallery-wrapper { padding: 30px 20px 10px; border-right: none; border-bottom: none; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+            .modal-img-main { max-width: 260px; aspect-ratio: 1 / 1; border-radius: 12px; margin-bottom: 15px; }
+            .marquee-container { margin-top: 10px; padding: 8px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); background: transparent; width: 100%; box-sizing: border-box; }
+            .marquee-content { font-size: 8.5px; letter-spacing: 2px; animation: marquee 60s linear infinite; font-weight: 500; }
             
             .modal-details { padding: 15px 20px 40px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
             .modal-title { font-size: 28px; margin-bottom: 8px; text-align: center; }
             .modal-price { font-size: 24px; margin-bottom: 25px; flex-wrap: wrap; gap: 10px; justify-content: center; }
             
+            /* Features em 3 colunas perfeitas */
             .sensory-features { grid-template-columns: repeat(3, 1fr); padding: 15px 5px; gap: 5px; margin-bottom: 25px; width: 100%; box-sizing: border-box; }
             .feature-icon { width: 30px; height: 30px; padding: 6px; }
             .feature-text { font-size: 8px; letter-spacing: 0.5px; line-height: 1.2; }
@@ -246,6 +249,7 @@
             .piramide-title { font-size: 18px; margin-bottom: 15px; }
             .accord-bar { font-size: 10px; height: 22px; padding-left: 10px; }
             
+            /* Botão CTA Fixo na tela para conversão máxima */
             .btn-comprar-modal { font-size: 13px; padding: 16px; position: sticky; bottom: 0; margin-top: 10px; z-index: 100; }
             
             /* Carrinho Sidebar Responsivo */
@@ -523,9 +527,10 @@
         const isProd = typeof __app_id === 'undefined';
         const appIdStr = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         
-        // CORREÇÃO: Lê sempre da coleção 'produtos' para buscar os perfumes já cadastrados no Firebase real
-        const getProdutosCollection = () => collection(db, 'produtos');
-        const getProdutoDoc = (id) => doc(db, 'produtos', id);
+        // CORREÇÃO: No ambiente de testes interativo, a coleção raiz 'produtos' é bloqueada por questões de segurança (origina o erro de permissões).
+        // O código abaixo garante que usamos o caminho seguro aqui, e o caminho 'produtos' quando o site for exportado.
+        const getProdutosCollection = () => isProd ? collection(db, 'produtos') : collection(db, 'artifacts', appIdStr, 'public', 'data', 'produtos');
+        const getProdutoDoc = (id) => isProd ? doc(db, 'produtos', id) : doc(db, 'artifacts', appIdStr, 'public', 'data', 'produtos', id);
 
         const NUMERO_WHATSAPP = "5511999999999"; 
         
@@ -963,7 +968,7 @@
             if(p.piramide && p.piramide.topo && p.piramide.topo.length > 0){
                 let notasTopoArray = p.piramide.topo;
                 let repeticoesArray = [];
-                // Multiplica as notas até formar uma corrente longa e inquebrável (Ex: 25 vezes para garantir preenchimento total de qualquer ecrã)
+                // Multiplica as notas até formar uma corrente longa e inquebrável
                 while(repeticoesArray.length < 25) {
                     repeticoesArray = repeticoesArray.concat(notasTopoArray);
                 }
