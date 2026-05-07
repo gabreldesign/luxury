@@ -90,8 +90,9 @@
         .modal-gallery-wrapper { padding: 40px 20px; background: #fdfdfd; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; border-right: 1px solid var(--border-color); }
         .modal-img-main { width: 100%; max-width: 320px; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); background: #fff; margin-bottom: 20px; }
         
+        /* MARQUEE CORRIGIDO PARA LOOP INFINITO PERFEITO */
         .marquee-container { width: 100%; background: transparent; color: var(--accent-color); padding: 12px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; z-index: 2; overflow: hidden; white-space: nowrap; display: flex; align-items: center; }
-        .marquee-content { display: inline-block; animation: marquee 15s linear infinite; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
+        .marquee-content { display: inline-block; animation: marquee 30s linear infinite; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; flex-shrink: 0; }
         .marquee-content span { margin: 0 20px; display: inline-flex; align-items: center; gap: 6px; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         
@@ -117,11 +118,11 @@
         .desc-collapsed { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         .btn-ler-mais { background: none; border: none; color: var(--gold); font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-top: 12px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
         
-        /* NOVO GRÁFICO DE ACORDES (PIRÂMIDE) */
+        /* NOVO GRÁFICO DE ACORDES (PIRÂMIDE) ALINHADO À ESQUERDA */
         .piramide-grafica { background: #fff; border: 1px solid var(--border-color); padding: 30px; border-radius: 12px; margin-bottom: 40px; width: 100%; box-sizing: border-box; }
         .piramide-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--accent-color); margin-bottom: 25px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .accord-chart-container { display: flex; flex-direction: column; gap: 8px; width: 100%; align-items: flex-end; }
-        .accord-bar { height: 26px; border-radius: 4px; display: flex; align-items: center; justify-content: flex-end; padding-right: 15px; color: #fff; font-size: 12px; font-weight: 700; text-transform: lowercase; text-shadow: 0 1px 2px rgba(0,0,0,0.4); transition: width 1s ease-out; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .accord-chart-container { display: flex; flex-direction: column; gap: 8px; width: 100%; align-items: flex-start; }
+        .accord-bar { height: 26px; border-radius: 4px; display: flex; align-items: center; justify-content: flex-start; padding-left: 15px; font-size: 12px; font-weight: 700; text-transform: lowercase; transition: width 1s ease-out; box-shadow: 0 2px 5px rgba(0,0,0,0.1); white-space: nowrap; overflow: hidden; }
         
         .btn-comprar-modal { background: #111; color: var(--gold); padding: 22px; width: 100%; border: 1px solid var(--gold); border-radius: 8px; font-size: 15px; font-weight: 700; text-transform: uppercase; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 12px; transition: 0.3s; animation: luxuryGlow 2.5s infinite alternate; }
         .btn-comprar-modal:hover { background: var(--gold); color: #111; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4); }
@@ -220,30 +221,30 @@
             .filtros-wrapper { padding: 20px 10px 10px; }
             .filtro-btn { padding: 10px 16px; font-size: 11px; }
             
-            /* Modal Produto (Mobile App Layout) */
-            .modal-overlay { padding: 20px 15px; align-items: flex-start; }
-            .btn-close-modal-card { top: 15px; right: 15px; width: 35px; height: 35px; }
-            .modal-content { margin: 0 auto; width: 100%; border-radius: 16px; }
+            /* Modal Produto (Mobile App Layout PERFEITO EM COLUNA ÚNICA) */
+            .modal-overlay { padding: 20px 10px; align-items: flex-start; }
+            .btn-close-modal-card { top: 15px; right: 15px; width: 35px; height: 35px; z-index: 20; }
+            .modal-content { display: flex; flex-direction: column; margin: 0 auto; width: 100%; border-radius: 16px; padding: 0; overflow: hidden; background: #fff; }
             
             /* Ajuste da galeria e do carrossel no mobile */
-            .modal-gallery-wrapper { padding: 30px 20px 20px; }
-            .modal-img-main { max-width: 240px; aspect-ratio: 1 / 1; border-radius: 12px; }
-            .marquee-container { margin-top: 15px; font-size: 11px; padding: 12px 0; border: none; background: transparent; }
+            .modal-gallery-wrapper { padding: 40px 20px 20px; border-right: none; border-bottom: 1px solid var(--border-color); width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
+            .modal-img-main { max-width: 260px; aspect-ratio: 1 / 1; border-radius: 12px; }
+            .marquee-container { margin-top: 15px; font-size: 11px; padding: 12px 0; border: none; background: transparent; width: 100%; box-sizing: border-box; }
             
-            /* Detalhes Centralizados no Mobile */
-            .modal-details { padding: 20px 20px 40px; }
-            .modal-title { font-size: 28px; margin-bottom: 8px; }
-            .modal-price { font-size: 24px; margin-bottom: 25px; flex-wrap: wrap; gap: 10px; }
+            /* Detalhes Centralizados no Mobile (Mesmo Espaço Vertical) */
+            .modal-details { padding: 25px 20px 40px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; }
+            .modal-title { font-size: 28px; margin-bottom: 8px; text-align: center; }
+            .modal-price { font-size: 24px; margin-bottom: 25px; flex-wrap: wrap; gap: 10px; justify-content: center; }
             
             /* Features em 3 colunas perfeitas */
-            .sensory-features { grid-template-columns: repeat(3, 1fr); padding: 15px 5px; gap: 5px; margin-bottom: 25px; }
+            .sensory-features { grid-template-columns: repeat(3, 1fr); padding: 15px 5px; gap: 5px; margin-bottom: 25px; width: 100%; box-sizing: border-box; }
             .feature-icon { width: 30px; height: 30px; padding: 6px; }
             .feature-text { font-size: 8px; letter-spacing: 0.5px; line-height: 1.2; }
             
-            .modal-desc { font-size: 14px; line-height: 1.7; }
-            .piramide-grafica { padding: 20px 15px; margin-bottom: 30px; }
+            .modal-desc { font-size: 14px; line-height: 1.7; text-align: center; }
+            .piramide-grafica { padding: 20px 15px; margin-bottom: 30px; width: 100%; box-sizing: border-box; }
             .piramide-title { font-size: 18px; margin-bottom: 15px; }
-            .accord-bar { font-size: 10px; height: 22px; padding-right: 10px; }
+            .accord-bar { font-size: 10px; height: 22px; padding-left: 10px; }
             
             /* Botão CTA Fixo na tela para conversão máxima */
             .btn-comprar-modal { font-size: 13px; padding: 16px; position: sticky; bottom: 0; margin-top: 10px; z-index: 100; }
@@ -591,7 +592,7 @@
         window.addCustomNota = function(cat, idE, idN) { let e = document.getElementById(idE).value||"✨", n = document.getElementById(idN).value; if(!n) return; let obj = {nome:n, emoji:e}; gNotas[cat].push(obj); nSalvas[cat].push(obj); localStorage.setItem('luxy_notas', JSON.stringify(nSalvas)); renderizarFiltrosNotas(); document.getElementById(idE).value=""; document.getElementById(idN).value=""; };
 
         // =========================================================
-        // LÓGICA DO GRÁFICO DE ACORDES PRINCIPAIS (CORES)
+        // LÓGICA DO GRÁFICO DE ACORDES PRINCIPAIS (CORES E CONTRASTE)
         // =========================================================
         function gerarGraficoAcordes(piramide) {
             if(!piramide) return '';
@@ -600,22 +601,22 @@
             
             let accordWeights = {};
             
-            // Dicionário de Cores e Classificação Baseado no Fragrantica
+            // Dicionário de Cores e Classificação (Contraste Inteligente Adicionado)
             const categorias = {
-                "Âmbar": { color: "#C66B27", chaves: ["âmbar", "ambar"] },
-                "Especiado Quente": { color: "#C64B27", chaves: ["pimenta", "açafrão", "canela", "cravo", "noz", "especiado", "cardamomo"] },
-                "Amadeirado": { color: "#96714D", chaves: ["cedro", "sândalo", "patchouli", "vetiver", "musgo", "madeira"] },
-                "Oud": { color: "#827A71", chaves: ["oud", "guaiaco"] },
-                "Rosa": { color: "#F44292", chaves: ["rosa"] },
-                "Doce / Gourmand": { color: "#DEB887", chaves: ["baunilha", "caramelo", "pralinê", "mel", "chocolate", "açúcar", "fava"] },
-                "Especiado Fresco": { color: "#98D05C", chaves: ["lavanda", "sálvia", "alecrim", "manjericão", "coentro", "gerânio", "chá", "bambu", "hortelã", "menta"] },
-                "Floral": { color: "#F4A4B4", chaves: ["jasmim", "flor", "ylang", "frésia", "peônia", "lírio", "muguet", "gardênia", "íris", "violeta", "orquídea", "jacinto", "magnólia", "camélia", "néroli"] },
-                "Esfumaçado": { color: "#A8A0B1", chaves: ["incenso", "couro", "tabaco", "esfumaçado"] },
-                "Balsâmico": { color: "#C2B29F", chaves: ["benjoim", "mirra", "balsâmico"] },
-                "Cítrico": { color: "#E8D33F", chaves: ["limão", "laranja", "bergamota", "tangerina", "citrico"] },
-                "Fresco / Aquático": { color: "#A8D8EA", chaves: ["aquática", "água", "aldeídos"] },
-                "Frutado": { color: "#FF9A8B", chaves: ["maçã", "pera", "pêssego", "morango", "framboesa", "cereja", "ameixa", "abacaxi", "manga", "côco", "frutas", "groselha", "melancia", "melão"] },
-                "Almíscar": { color: "#EAE7DC", chaves: ["almíscar", "musk"] }
+                "Âmbar": { color: "#C66B27", textColor: "#fff", chaves: ["âmbar", "ambar"] },
+                "Especiado Quente": { color: "#C64B27", textColor: "#fff", chaves: ["pimenta", "açafrão", "canela", "cravo", "noz", "especiado", "cardamomo"] },
+                "Amadeirado": { color: "#96714D", textColor: "#fff", chaves: ["cedro", "sândalo", "patchouli", "vetiver", "musgo", "madeira"] },
+                "Oud": { color: "#827A71", textColor: "#fff", chaves: ["oud", "guaiaco"] },
+                "Rosa": { color: "#F44292", textColor: "#fff", chaves: ["rosa"] },
+                "Doce / Gourmand": { color: "#DEB887", textColor: "#000", chaves: ["baunilha", "caramelo", "pralinê", "mel", "chocolate", "açúcar", "fava"] },
+                "Especiado Fresco": { color: "#98D05C", textColor: "#000", chaves: ["lavanda", "sálvia", "alecrim", "manjericão", "coentro", "gerânio", "chá", "bambu", "hortelã", "menta"] },
+                "Floral": { color: "#F4A4B4", textColor: "#000", chaves: ["jasmim", "flor", "ylang", "frésia", "peônia", "lírio", "muguet", "gardênia", "íris", "violeta", "orquídea", "jacinto", "magnólia", "camélia", "néroli"] },
+                "Esfumaçado": { color: "#A8A0B1", textColor: "#000", chaves: ["incenso", "couro", "tabaco", "esfumaçado"] },
+                "Balsâmico": { color: "#C2B29F", textColor: "#000", chaves: ["benjoim", "mirra", "balsâmico"] },
+                "Cítrico": { color: "#E8D33F", textColor: "#000", chaves: ["limão", "laranja", "bergamota", "tangerina", "citrico"] },
+                "Fresco / Aquático": { color: "#A8D8EA", textColor: "#000", chaves: ["aquática", "água", "aldeídos"] },
+                "Frutado": { color: "#FF9A8B", textColor: "#000", chaves: ["maçã", "pera", "pêssego", "morango", "framboesa", "cereja", "ameixa", "abacaxi", "manga", "côco", "frutas", "groselha", "melancia", "melão"] },
+                "Almíscar": { color: "#EAE7DC", textColor: "#000", chaves: ["almíscar", "musk"] }
             };
 
             // Contagem de pesos baseada nas notas do perfume
@@ -632,10 +633,10 @@
                 if(!found) accordWeights["Fresco / Aquático"] = (accordWeights["Fresco / Aquático"] || 0) + 1;
             });
 
-            // Ordenar do maior para o menor
+            // Ordenar do maior para o menor com atribuição de cor de texto
             let sortedAccords = Object.keys(accordWeights).map(key => {
-                return { name: key, color: categorias[key].color, count: accordWeights[key] };
-            }).sort((a,b) => b.count - a.count).slice(0, 7); // Exibe no máx 7 barras
+                return { name: key, color: categorias[key].color, textColor: categorias[key].textColor, count: accordWeights[key] };
+            }).sort((a,b) => b.count - a.count).slice(0, 7);
 
             // Gerar HTML das Barras
             let chartHtml = '';
@@ -643,7 +644,10 @@
             sortedAccords.forEach((acc, i) => {
                 // Diminui o tamanho visualmente em degraus (estética de luxo)
                 let width = startWidth - (i * 10); 
-                chartHtml += `<div class="accord-bar" style="background-color: ${acc.color}; width: ${width}%;">${acc.name}</div>`;
+                // Adiciona sombra robusta APENAS se o texto for branco para contraste total
+                let shadow = acc.textColor === '#fff' ? 'text-shadow: 0 1px 3px rgba(0,0,0,0.8);' : 'text-shadow: none;';
+                
+                chartHtml += `<div class="accord-bar" style="background-color: ${acc.color}; color: ${acc.textColor}; ${shadow} width: ${width}%;">${acc.name}</div>`;
             });
             
             return chartHtml;
@@ -968,11 +972,18 @@
             document.getElementById('modal-img-main').src = p.imagens[0];
             document.getElementById('modal-thumbnails').innerHTML = p.imagens.length > 1 ? p.imagens.map((img, i) => `<img src="${img}" class="modal-thumb ${i===0?'active':''}" onclick="mudarImagemModal('${img}',this)" onerror="this.src='${fallbackImg}'">`).join('') : '';
             
-            // Letreiro das Notas de Topo Abaixo da Imagem (Marquee)
+            // Letreiro das Notas de Topo Abaixo da Imagem (Marquee Infinito sem espaços)
             let boxMarquee = document.getElementById('modal-marquee-box');
             if(p.piramide && p.piramide.topo && p.piramide.topo.length > 0){
-                let txtTopo = p.piramide.topo.join(' &nbsp;&nbsp;&bull;&nbsp;&nbsp; ') + ' &nbsp;&nbsp;&bull;&nbsp;&nbsp; ';
-                document.getElementById('modal-marquee-text').innerHTML = txtTopo; document.getElementById('modal-marquee-clone').innerHTML = txtTopo;
+                let notasTopoArray = p.piramide.topo;
+                let repeticoesArray = [];
+                // Multiplica as notas até formar uma corrente longa e contínua (evita buraco branco no fim)
+                while(repeticoesArray.length < 25) {
+                    repeticoesArray = repeticoesArray.concat(notasTopoArray);
+                }
+                let txtTopo = repeticoesArray.join(' &nbsp;&nbsp;&bull;&nbsp;&nbsp; ') + ' &nbsp;&nbsp;&bull;&nbsp;&nbsp; ';
+                document.getElementById('modal-marquee-text').innerHTML = txtTopo; 
+                document.getElementById('modal-marquee-clone').innerHTML = txtTopo;
                 boxMarquee.classList.remove('hidden');
             } else { boxMarquee.classList.add('hidden'); }
 
