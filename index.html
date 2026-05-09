@@ -45,16 +45,19 @@
         .toast.error { border-bottom: 2px solid #ef4444; }
 
         /* --- VITRINE / HEADER --- */
-        .banner { width: 100%; height: 55vh; min-height: 480px; background-image: url('https://i.postimg.cc/x17bNxBT/48eb0833-f870-41d8-a450-bede6de66c66-e7309365-4454-4aba-9a61-20cca7baa3a3.webp'); background-size: cover; background-position: center 20%; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; }
-        .banner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.85)); }
+        .banner { width: 100%; height: 55vh; min-height: 480px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; overflow: hidden; }
+        /* Imagem de fundo com 30% de zoom (scale 1.3) para enfatizar os frascos */
+        .banner::before { content: ''; position: absolute; inset: 0; background-image: url('https://i.postimg.cc/x17bNxBT/48eb0833-f870-41d8-a450-bede6de66c66-e7309365-4454-4aba-9a61-20cca7baa3a3.webp'); background-size: cover; background-position: center 20%; transform: scale(1.3); z-index: 0; }
+        /* Gradiente: Escuro no topo e meio (para ler o texto) fundindo para dourado na base */
+        .banner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.65) 60%, rgba(212, 175, 55, 0.8) 100%); z-index: 1; }
         .banner-content { position: relative; z-index: 10; max-width: 800px; color: #fff; display: flex; flex-direction: column; align-items: center; animation: fadeInDown 1s ease-out; }
         .banner-logo { max-height: 120px; width: auto; margin-bottom: 30px; filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.6)); }
-        .banner-title { font-family: 'Playfair Display', serif; font-size: 46px; font-weight: 700; margin-bottom: 15px; text-shadow: 0 4px 12px rgba(0,0,0,0.8); line-height: 1.1; }
+        .banner-title { font-family: 'Playfair Display', serif; font-size: 46px; font-weight: 700; margin-bottom: 15px; text-shadow: 0 4px 12px rgba(0,0,0,0.8); line-height: 1.1; color: #fff; }
         .banner-subtitle { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 300; line-height: 1.7; color: #f0f0f0; text-shadow: 0 2px 6px rgba(0,0,0,0.8); max-width: 600px; }
 
         /* --- FILTROS --- */
-        .filtros-wrapper { background: #fff; padding: 30px 20px 20px; border-bottom: 1px solid var(--border-color); text-align: center; position: sticky; top: 0; z-index: 40; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
-        .filtros-title { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: var(--text-light); margin-bottom: 15px; font-weight: 600; }
+        .filtros-wrapper { background: #fff; padding: 15px 20px; border-bottom: 1px solid var(--border-color); text-align: center; position: sticky; top: 0; z-index: 40; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+        .filtros-title { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: var(--text-light); margin-bottom: 12px; font-weight: 600; }
         .filtros-container { overflow-x: auto; white-space: nowrap; padding-bottom: 5px; scrollbar-width: none; }
         .filtros-container::-webkit-scrollbar { display: none; }
         .filtros { display: inline-flex; justify-content: center; gap: 12px; }
@@ -91,7 +94,7 @@
         .modal-img-main { width: 100%; max-width: 320px; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); background: #fff; margin-bottom: 20px; transition: transform 0.4s ease; }
         .modal-img-main:hover { transform: scale(1.02); }
         
-        /* MARQUEE CORRIGIDO: LENTO, PEQUENO E SUTIL (WHISPER COPY) */
+        /* MARQUEE LENTO E SUTIL */
         .marquee-container { width: 100%; background: transparent; color: var(--text-light); padding: 8px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; z-index: 2; overflow: hidden; display: flex; align-items: center; }
         .marquee-content { display: flex; animation: marquee 70s linear infinite; font-size: 9.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 3px; flex-shrink: 0; white-space: nowrap; }
         .marquee-content span { margin: 0 15px; display: inline-flex; align-items: center; gap: 6px; }
@@ -116,12 +119,11 @@
         .feature-text { font-size: 10px; text-transform: uppercase; font-weight: 700; color: var(--text-color); }
         
         .copy-container { margin-bottom: 40px; display: flex; flex-direction: column; align-items: center; width: 100%; }
-        /* JUSTIFICADO CONFORME SOLICITADO */
         .modal-desc { font-size: 14px; color: #444; line-height: 1.9; transition: max-height 0.4s ease; text-align: justify; width: 100%; }
         .desc-collapsed { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         .btn-ler-mais { background: none; border: none; color: var(--gold); font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-top: 12px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
         
-        /* GRÁFICO DE ACORDES (PIRÂMIDE) ALINHADO À ESQUERDA */
+        /* GRÁFICO DE ACORDES (PIRÂMIDE) */
         .piramide-grafica { background: #fff; border: 1px solid var(--border-color); padding: 30px; border-radius: 12px; margin-bottom: 40px; width: 100%; box-sizing: border-box; }
         .piramide-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--accent-color); margin-bottom: 25px; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .accord-chart-container { display: flex; flex-direction: column; gap: 8px; width: 100%; align-items: flex-start; }
@@ -178,11 +180,20 @@
         .grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .grid-3-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
         
-        .notas-wrapper { border: 1px solid #ddd; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; }
+        /* ESTILO "TASK" PARA AS NOTAS NO ADMIN */
+        .notas-wrapper { border: 1px solid #ddd; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; background: #fff; }
         .notas-header { background: #f9f9f9; padding: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #ddd; text-align: center; }
-        .notas-lista { max-height: 250px; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 5px; }
-        .nota-checkbox-item { display: flex; align-items: center; gap: 10px; font-size: 12px; padding: 4px 0; cursor: pointer; }
-        .nota-checkbox-item input { width: auto; margin: 0; }
+        .notas-lista { padding: 15px; display: flex; flex-wrap: wrap; gap: 8px; max-height: 350px; overflow-y: auto; }
+        
+        .nota-checkbox-item { 
+            display: inline-flex; align-items: center; gap: 6px; 
+            background: #fdfdfd; border: 1px solid var(--border-color); 
+            padding: 6px 12px; border-radius: 6px; font-size: 11px; 
+            font-weight: 600; cursor: pointer; color: #444; transition: 0.2s; 
+        }
+        .nota-checkbox-item:hover { border-color: var(--gold); background: var(--gold-light); color: #000; }
+        .nota-checkbox-item input { accent-color: var(--gold); cursor: pointer; margin: 0; }
+        
         .notas-add-custom { display: flex; gap: 8px; padding: 12px; border-top: 1px solid #ddd; background: #fafafa; }
         .notas-add-custom input { padding: 8px !important; font-size: 12px !important; }
         .btn-add-nota { background: var(--accent-color); color: #fff; border: none; border-radius: 4px; width: 36px; cursor: pointer; font-weight: bold; font-size: 16px; }
@@ -212,7 +223,6 @@
         }
         
         @media (max-width: 600px) { 
-            /* Vitrine - Grid 2 colunas */
             .banner { min-height: 380px; padding: 30px 15px; } 
             .banner-title { font-size: 32px; } 
             .catalogo-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 25px 15px; } 
@@ -224,12 +234,10 @@
             .filtros-wrapper { padding: 20px 10px 10px; }
             .filtro-btn { padding: 10px 16px; font-size: 11px; }
             
-            /* Modal Produto Mobile: Forçando coluna vertical estrita para não quebrar lateralmente */
             .modal-overlay { padding: 20px 10px; align-items: flex-start; }
             .btn-close-modal-card { top: 15px; right: 15px; width: 35px; height: 35px; z-index: 20; }
             .modal-content { display: flex; flex-direction: column; margin: 0 auto; width: 100%; border-radius: 16px; padding: 0; overflow: hidden; background: #fff; }
             
-            /* Ajuste da galeria e do carrossel sutil no mobile */
             .modal-gallery-wrapper { padding: 30px 20px 10px; border-right: none; border-bottom: none; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
             .modal-img-main { max-width: 260px; aspect-ratio: 1 / 1; border-radius: 12px; margin-bottom: 15px; }
             .marquee-container { margin-top: 10px; padding: 8px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); background: transparent; width: 100%; box-sizing: border-box; }
@@ -239,17 +247,15 @@
             .modal-title { font-size: 28px; margin-bottom: 8px; text-align: center; }
             .modal-price { font-size: 24px; margin-bottom: 25px; flex-wrap: wrap; gap: 10px; justify-content: center; }
             
-            /* Features em 3 colunas perfeitas */
             .sensory-features { grid-template-columns: repeat(3, 1fr); padding: 15px 5px; gap: 5px; margin-bottom: 25px; width: 100%; box-sizing: border-box; }
             .feature-icon { width: 30px; height: 30px; padding: 6px; }
             .feature-text { font-size: 8px; letter-spacing: 0.5px; line-height: 1.2; }
             
-            .modal-desc { font-size: 14px; line-height: 1.7; text-align: justify; } /* Mantém justificado também no mobile */
+            .modal-desc { font-size: 14px; line-height: 1.7; text-align: justify; } 
             .piramide-grafica { padding: 20px 15px; margin-bottom: 30px; width: 100%; box-sizing: border-box; }
             .piramide-title { font-size: 18px; margin-bottom: 15px; }
             .accord-bar { font-size: 10px; height: 22px; padding-left: 10px; }
             
-            /* Botão CTA Fixo na tela para conversão máxima */
             .btn-comprar-modal { font-size: 13px; padding: 16px; position: sticky; bottom: 0; margin-top: 10px; z-index: 100; }
             
             /* Carrinho Sidebar Responsivo */
@@ -289,10 +295,9 @@
                     <button class="filtro-btn ativo" onclick="filtrarCatalogo('Todos')">Coleção Completa</button>
                     <button class="filtro-btn" onclick="filtrarCatalogo('Feminino')"><i data-lucide="sparkles" style="width:16px;"></i> Feminino</button>
                     <button class="filtro-btn" onclick="filtrarCatalogo('Masculino')"><i data-lucide="briefcase" style="width:16px;"></i> Masculino</button>
-                    <button class="filtro-btn" onclick="filtrarCatalogo('Compartilháveis')"><i data-lucide="infinity" style="width:16px;"></i> Unissex</button>
+                    <button class="filtro-btn" onclick="filtrarCatalogo('Compartilháveis')"><i data-lucide="infinity" style="width:16px;"></i> Compartilháveis</button>
                     <div style="width: 1px; height: 20px; background: #ddd; margin: auto 10px;"></div>
                     <button class="filtro-btn" onclick="filtrarPorOcasiao('Noite / Balada')"><i data-lucide="moon" style="width:16px;"></i> Noite & Festa</button>
-                    <button class="filtro-btn" onclick="filtrarPorOcasiao('Dia / Frescor')"><i data-lucide="sun" style="width:16px;"></i> Dia a Dia</button>
                     <button class="filtro-btn" onclick="filtrarPorOcasiao('Encontro')"><i data-lucide="heart" style="width:16px;"></i> Encontro</button>
                 </nav>
             </div>
@@ -316,14 +321,14 @@
         <div class="cart-overlay" id="cart-overlay" onclick="fecharCarrinho()"></div>
         <div class="cart-sidebar" id="cart-sidebar">
             <div class="cart-header">
-                <h2 class="cart-title"><i data-lucide="shopping-cart"></i> Seu Carrinho</h2>
+                <h2 class="cart-title"><i data-lucide="shopping-cart"></i> A Sua Encomenda</h2>
                 <button class="cart-close" onclick="fecharCarrinho()"><i data-lucide="x"></i></button>
             </div>
             
             <div class="cart-empty" id="cart-empty-msg">
                 <i data-lucide="shopping-bag" style="width: 64px; height: 64px; stroke-width: 1; color: #ddd; margin-bottom: 20px;"></i>
                 <h3 style="font-family:'Playfair Display'; color: #000; margin-bottom: 5px; font-size: 22px;">Carrinho Vazio</h3>
-                <p style="font-size: 13px;">Descubra sua nova assinatura olfativa e adicione ao pedido.</p>
+                <p style="font-size: 13px;">Descubra a sua nova assinatura olfativa e adicione ao pedido.</p>
             </div>
 
             <div class="cart-items" id="cart-items-container">
@@ -396,13 +401,13 @@
         </div>
     </div>
 
-    <!-- ÁREA ADMINISTRATIVA -->
+        <!-- ÁREA ADMINISTRATIVA -->
     <div id="app-admin" class="hidden admin-body">
         <div id="login-section" class="hidden">
             <div class="login-box">
                 <h2>Admin Luxy</h2>
                 <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Área restrita à gestão do catálogo.</p>
-                <input type="email" id="email" value="gabreldesign@gmail.com" placeholder="E-mail" style="width:100%; padding:14px; margin-bottom:15px; border:1px solid #ddd; border-radius:6px; text-align: center; font-size: 14px;">
+                <input type="email" id="email" placeholder="E-mail de Acesso" style="width:100%; padding:14px; margin-bottom:15px; border:1px solid #ddd; border-radius:6px; text-align: center; font-size: 14px;">
                 <input type="password" id="password" placeholder="Senha do Firebase" style="width:100%; padding:14px; margin-bottom:20px; border:1px solid #ddd; border-radius:6px; text-align: center; font-size: 14px;">
                 <button id="login-btn" class="btn-admin" style="width:100%;">Acessar Painel</button>
                 <button onclick="window.location.hash=''" style="background:none; border:none; color:#666; font-size:12px; margin-top:20px; cursor:pointer; text-decoration:underline;">Voltar ao Catálogo</button>
@@ -426,7 +431,7 @@
                             <div class="form-group"><label>Perfil (Gênero) *</label><select id="add-categoria" required><option value="Feminino">Feminino</option><option value="Masculino">Masculino</option><option value="Compartilháveis">Compartilháveis</option><option value="Pastas Hidratantes">Pastas Hidratantes</option><option value="Body splash">Body splash</option></select></div>
                         </div>
                         <div class="grid-2-col">
-                            <div class="form-group"><label>Ocasião Principal</label><select id="add-ocasiao"><option value="">Selecione...</option><option value="Noite / Balada">Noite / Festa / Sedução</option><option value="Dia / Frescor">Dia a Dia / Frescor</option><option value="Encontro">Encontro Romântico</option><option value="Reunião">Reunião / Poder</option></select></div>
+                            <div class="form-group"><label>Ocasião Principal</label><select id="add-ocasiao"><option value="">Selecione...</option><option value="Noite / Balada">Noite / Festa / Sedução</option><option value="Encontro">Encontro Romântico</option><option value="Reunião">Reunião / Poder</option></select></div>
                             <div class="grid-2-col">
                                 <div class="form-group"><label>Valor (R$) *</label><input type="number" id="add-preco" step="0.01" min="0" required></div>
                                 <div class="form-group"><label>Estoque *</label><input type="number" id="add-estoque" min="0" required></div>
@@ -527,14 +532,12 @@
         const isProd = typeof __app_id === 'undefined';
         const appIdStr = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         
-        // CORREÇÃO: No ambiente de testes interativo, a coleção raiz 'produtos' é bloqueada por questões de segurança (origina o erro de permissões).
-        // O código abaixo garante que usamos o caminho seguro aqui, e o caminho 'produtos' quando o site for exportado.
+        // CORREÇÃO: Lê sempre da coleção 'produtos' para buscar os perfumes já cadastrados no Firebase real
         const getProdutosCollection = () => isProd ? collection(db, 'produtos') : collection(db, 'artifacts', appIdStr, 'public', 'data', 'produtos');
         const getProdutoDoc = (id) => isProd ? doc(db, 'produtos', id) : doc(db, 'artifacts', appIdStr, 'public', 'data', 'produtos', id);
 
-        const NUMERO_WHATSAPP = "5511999999999"; 
+        const NUMERO_WHATSAPP = "5592984215022"; 
         
-        // Imagem de segurança caso o link de alguma foto falhe
         const fallbackImg = "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=800&auto=format&fit=crop";
 
         let listaProdutosGlobais = [];
@@ -677,7 +680,8 @@
                 document.getElementById('app-admin').classList.remove('hidden'); 
                 document.body.classList.add('admin-body');
                 
-                if(currentUser && currentUser.email === "gabreldesign@gmail.com"){ 
+                // Valida se o utilizador está logado com e-mail e senha (e não como visitante anónimo)
+                if(currentUser && !currentUser.isAnonymous){ 
                     document.getElementById('login-section').classList.add('hidden'); 
                     document.getElementById('dashboard-section').classList.remove('hidden'); 
                     carregarDashboard(); 
@@ -811,7 +815,6 @@
             }
         };
 
-        // ADMIN DASHBOARD
         let unsubscribeAdmin = null;
         function carregarDashboard() { 
             if(!currentUser) return;
@@ -842,7 +845,6 @@
             }); 
         }
 
-        // VITRINE
         async function carregarCatalogoPublico() {
             const loader = document.getElementById('loader'); loader.style.display = 'flex'; loader.style.opacity = '1';
             try {
@@ -853,7 +855,7 @@
                 renderizarGrade(listaProdutosGlobais); 
             } catch(e) {
                 console.error("Erro ao carregar catálogo:", e);
-                showToast("Erro ao carregar o catálogo. Verifique sua conexão.", "error");
+                showToast("Erro ao carregar o catálogo. Verifique a ligação à internet.", "error");
             } finally { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); }
         }
 
@@ -878,7 +880,6 @@
         window.filtrarCatalogo = (cat) => { document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo')); event.currentTarget.classList.add('ativo'); renderizarGrade(cat === 'Todos' ? listaProdutosGlobais : listaProdutosGlobais.filter(p => p.categoria === cat)); };
         window.filtrarPorOcasiao = (oca) => { document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo')); event.currentTarget.classList.add('ativo'); renderizarGrade(listaProdutosGlobais.filter(p => p.ocasiao && p.ocasiao.includes(oca))); };
 
-        // LÓGICA DO CARRINHO DE COMPRAS
         window.atualizarCarrinhoUI = () => {
             const badge = document.getElementById('cart-badge');
             const container = document.getElementById('cart-items-container');
@@ -930,7 +931,7 @@
             const produto = listaProdutosGlobais.find(p => p.id === id); if(!produto) return;
             const index = carrinho.findIndex(item => item.id === id);
             if (index !== -1) { carrinho[index].qtd += 1; } else { carrinho.push({ id: produto.id, nome: produto.nome, preco: produto.preco, img: produto.imagens[0], qtd: 1 }); }
-            atualizarCarrinhoUI(); showToast(`${produto.nome} adicionado ao pedido!`); fecharModalProduto(); abrirCarrinho();
+            atualizarCarrinhoUI(); showToast(`${produto.nome} adicionado à encomenda!`); fecharModalProduto(); abrirCarrinho();
         };
 
         window.alterarQtdCarrinho = (id, delta) => {
@@ -940,20 +941,36 @@
 
         window.removerDoCarrinho = (id) => { carrinho = carrinho.filter(item => item.id !== id); atualizarCarrinhoUI(); };
 
+        // =========================================================
+        // MENSAGEM DE WHATSAPP SOFISTICADA E DETALHADA
+        // =========================================================
         window.finalizarPedidoWhatsApp = () => {
             if(carrinho.length === 0) return;
-            let dataHora = new Date().toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
-            let mensagem = `*NOVO PEDIDO - LUXY PARFUMS* 👑%0AData: ${dataHora}%0A%0AOlá! Montei meu carrinho no site e gostaria de finalizar a compra:%0A%0A`;
+            
+            let numeroPedido = Math.floor(Math.random() * 90000) + 10000;
+            let dataHora = new Date().toLocaleString('pt-PT', { dateStyle: 'short', timeStyle: 'short' });
+            
+            let mensagem = `👑 *LUXY PARFUMS - ALTA PERFUMARIA* 👑%0A`;
+            mensagem += `*Encomenda #LX-${numeroPedido}*%0A`;
+            mensagem += `Data: ${dataHora}%0A%0A`;
+            mensagem += `Olá! Gostaria de finalizar a minha encomenda com os seguintes artigos exclusivos:%0A%0A`;
+            
             let total = 0;
             carrinho.forEach((item, index) => {
                 let subtotal = item.preco * item.qtd; total += subtotal;
-                mensagem += `*Item ${index + 1}:* ${item.nome}%0AQtd: ${item.qtd}x de R$ ${item.preco.toFixed(2).replace('.', ',')}%0ASubtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}%0A%0A`;
+                mensagem += `🔸 *${item.nome}*%0A`;
+                mensagem += `   Quantidade: ${item.qtd}x%0A`;
+                mensagem += `   Subtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}%0A%0A`;
             });
-            mensagem += `--------------------------%0A*TOTAL DA COMPRA: R$ ${total.toFixed(2).replace('.', ',')}*%0A--------------------------%0A%0APor favor, me informe as opções de pagamento e como funciona o envio! Aguardo o retorno.`;
+            
+            mensagem += `════════════════════════%0A`;
+            mensagem += `💎 *TOTAL ESTIMADO: R$ ${total.toFixed(2).replace('.', ',')}*%0A`;
+            mensagem += `════════════════════════%0A%0A`;
+            mensagem += `Por favor, informem-me sobre os métodos de pagamento e as condições de envio. Aguardo o vosso contacto! ✨`;
+            
             window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensagem}`, '_blank');
         };
 
-        // MODAL PUBLICO DE PRODUTO
         window.mudarImagemModal = (url, el) => { document.getElementById('modal-img-main').src = url; document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active')); el.classList.add('active'); };
         window.toggleDescricao = () => { let d = document.getElementById('modal-desc'), b = document.getElementById('btn-toggle-desc'); if(d.classList.contains('desc-collapsed')) { d.classList.remove('desc-collapsed'); b.innerHTML = 'Ocultar história <i data-lucide="chevron-up" style="width:14px;"></i>'; } else { d.classList.add('desc-collapsed'); b.innerHTML = 'Ler história completa <i data-lucide="chevron-down" style="width:14px;"></i>'; } if(window.lucide) lucide.createIcons(); };
 
@@ -963,12 +980,10 @@
             document.getElementById('modal-img-main').src = p.imagens[0];
             document.getElementById('modal-thumbnails').innerHTML = p.imagens.length > 1 ? p.imagens.map((img, i) => `<img src="${img}" class="modal-thumb ${i===0?'active':''}" onclick="mudarImagemModal('${img}',this)" onerror="this.src='${fallbackImg}'">`).join('') : '';
             
-            // Letreiro das Notas de Topo (Marquee Infinito com repetição blindada)
             let boxMarquee = document.getElementById('modal-marquee-box');
             if(p.piramide && p.piramide.topo && p.piramide.topo.length > 0){
                 let notasTopoArray = p.piramide.topo;
                 let repeticoesArray = [];
-                // Multiplica as notas até formar uma corrente longa e inquebrável
                 while(repeticoesArray.length < 25) {
                     repeticoesArray = repeticoesArray.concat(notasTopoArray);
                 }
@@ -986,7 +1001,6 @@
             
             document.getElementById('btn-modal-comprar').onclick = () => adicionarAoCarrinho(p.id);
             
-            // Gráfico de Acordes Colorido
             let pirBox = document.getElementById('modal-piramide');
             let chartContainer = document.getElementById('modal-piramide-chart');
             if((p.piramide?.topo?.length > 0) || (p.piramide?.coracao?.length > 0) || (p.piramide?.fundo?.length > 0)){
