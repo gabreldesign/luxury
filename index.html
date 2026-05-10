@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -44,12 +44,18 @@
         .toast.success { border-bottom: 2px solid var(--gold); }
         .toast.error { border-bottom: 2px solid #ef4444; }
 
-        /* --- VITRINE / HEADER --- */
-        .banner { width: 100%; height: 55vh; min-height: 480px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; overflow: hidden; }
-        /* Imagem de fundo com 30% de zoom (scale 1.3) para enfatizar os frascos */
-        .banner::before { content: ''; position: absolute; inset: 0; background-image: url('https://i.postimg.cc/x17bNxBT/48eb0833-f870-41d8-a450-bede6de66c66-e7309365-4454-4aba-9a61-20cca7baa3a3.webp'); background-size: cover; background-position: center 20%; transform: scale(1.3); z-index: 0; }
-        /* Gradiente: Escuro no topo e meio (para ler o texto) fundindo para dourado na base */
-        .banner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.65) 60%, rgba(212, 175, 55, 0.8) 100%); z-index: 1; }
+        /* --- VITRINE / HEADER CARROSSEL --- */
+        .banner { width: 100%; height: 55vh; min-height: 480px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; overflow: hidden; background-color: #0a0a0a; }
+        
+        /* Container do Carrossel animado */
+        .banner-carousel { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+        .banner-slide { position: absolute; inset: 0; background-size: cover; background-position: center 20%; opacity: 0; transition: opacity 1.5s ease-in-out; transform: scale(1.05); }
+        .banner-slide.active { opacity: 1; animation: subtleZoom 8s linear infinite alternate; }
+        @keyframes subtleZoom { from { transform: scale(1.05); } to { transform: scale(1.15); } }
+
+        /* Película escura a 60% em frente às imagens e finalizando com dourado */
+        .banner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(212, 175, 55, 0.7) 0%, rgba(0, 0, 0, 0.6) 35%, rgba(0, 0, 0, 0.6) 100%); z-index: 1; pointer-events: none; }
+        
         .banner-content { position: relative; z-index: 10; max-width: 800px; color: #fff; display: flex; flex-direction: column; align-items: center; animation: fadeInDown 1s ease-out; }
         .banner-logo { max-height: 120px; width: auto; margin-bottom: 30px; filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.6)); }
         .banner-title { font-family: 'Playfair Display', serif; font-size: 46px; font-weight: 700; margin-bottom: 15px; text-shadow: 0 4px 12px rgba(0,0,0,0.8); line-height: 1.1; color: #fff; }
@@ -119,11 +125,12 @@
         .feature-text { font-size: 10px; text-transform: uppercase; font-weight: 700; color: var(--text-color); }
         
         .copy-container { margin-bottom: 40px; display: flex; flex-direction: column; align-items: center; width: 100%; }
+        /* JUSTIFICADO CONFORME SOLICITADO */
         .modal-desc { font-size: 14px; color: #444; line-height: 1.9; transition: max-height 0.4s ease; text-align: justify; width: 100%; }
         .desc-collapsed { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         .btn-ler-mais { background: none; border: none; color: var(--gold); font-size: 12px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-top: 12px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
         
-        /* GRÁFICO DE ACORDES (PIRÂMIDE) */
+        /* GRÁFICO DE ACORDES (PIRÂMIDE) ALINHADO À ESQUERDA */
         .piramide-grafica { background: #fff; border: 1px solid var(--border-color); padding: 30px; border-radius: 12px; margin-bottom: 40px; width: 100%; box-sizing: border-box; }
         .piramide-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--accent-color); margin-bottom: 25px; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .accord-chart-container { display: flex; flex-direction: column; gap: 8px; width: 100%; align-items: flex-start; }
@@ -281,6 +288,9 @@
     <!-- ÁREA PÚBLICA (VITRINE) -->
     <div id="app-public" class="hidden">
         <header class="banner">
+            <!-- Container do Carrossel Dinâmico -->
+            <div id="banner-carousel" class="banner-carousel"></div>
+            
             <div class="banner-content">
                 <img src="https://i.postimg.cc/dtwRJfK3/luxyparfumspng-(1).png" class="banner-logo" alt="Luxy Parfums Logo">
                 <h1 class="banner-title">A Essência da Realeza em Cada Gota</h1>
@@ -401,7 +411,7 @@
         </div>
     </div>
 
-        <!-- ÁREA ADMINISTRATIVA -->
+    <!-- ÁREA ADMINISTRATIVA -->
     <div id="app-admin" class="hidden admin-body">
         <div id="login-section" class="hidden">
             <div class="login-box">
@@ -423,6 +433,24 @@
                 </div>
             </nav>
             <div class="admin-container">
+
+                <!-- NOVA SECÇÃO: GESTÃO DO CARROSSEL DE BANNER -->
+                <div class="admin-card">
+                    <h3 style="margin-bottom:25px; font-family:'Playfair Display', serif; font-size:26px;">Carrossel de Imagens (Banner Topo)</h3>
+                    <form id="form-edit-banner">
+                        <div class="grid-2-col">
+                            <div class="form-group"><label>Imagem 1 (Obrigatória)</label><input type="url" id="banner-img1" required></div>
+                            <div class="form-group"><label>Imagem 2</label><input type="url" id="banner-img2"></div>
+                            <div class="form-group"><label>Imagem 3</label><input type="url" id="banner-img3"></div>
+                            <div class="form-group"><label>Imagem 4</label><input type="url" id="banner-img4"></div>
+                            <div class="form-group"><label>Imagem 5</label><input type="url" id="banner-img5"></div>
+                            <div class="form-group"><label>Imagem 6</label><input type="url" id="banner-img6"></div>
+                        </div>
+                        <div class="form-group"><label>Imagem 7</label><input type="url" id="banner-img7"></div>
+                        <button type="submit" class="btn-admin" id="btn-submit-banner" style="width:100%; margin-top:10px;">Atualizar Carrossel</button>
+                    </form>
+                </div>
+
                 <div class="admin-card">
                     <h3 style="margin-bottom:25px; font-family:'Playfair Display', serif; font-size:26px;">Adicionar Nova Fragrância</h3>
                     <form id="form-add-produto">
@@ -431,7 +459,7 @@
                             <div class="form-group"><label>Perfil (Gênero) *</label><select id="add-categoria" required><option value="Feminino">Feminino</option><option value="Masculino">Masculino</option><option value="Compartilháveis">Compartilháveis</option><option value="Pastas Hidratantes">Pastas Hidratantes</option><option value="Body splash">Body splash</option></select></div>
                         </div>
                         <div class="grid-2-col">
-                            <div class="form-group"><label>Ocasião Principal</label><select id="add-ocasiao"><option value="">Selecione...</option><option value="Noite / Balada">Noite / Festa / Sedução</option><option value="Encontro">Encontro Romântico</option><option value="Reunião">Reunião / Poder</option></select></div>
+                            <div class="form-group"><label>Ocasião Principal</label><select id="add-ocasiao"><option value="">Selecione...</option><option value="Noite / Balada">Noite / Festa / Sedução</option><option value="Dia / Frescor">Dia a Dia / Frescor</option><option value="Encontro">Encontro Romântico</option><option value="Reunião">Reunião / Poder</option></select></div>
                             <div class="grid-2-col">
                                 <div class="form-group"><label>Valor (R$) *</label><input type="number" id="add-preco" step="0.01" min="0" required></div>
                                 <div class="form-group"><label>Estoque *</label><input type="number" id="add-estoque" min="0" required></div>
@@ -521,7 +549,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, updateDoc, getDocs, deleteDoc, doc, onSnapshot, query, writeBatch } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, updateDoc, getDocs, deleteDoc, doc, onSnapshot, query, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
         const userConfig = { apiKey: "AIzaSyCIFtKNI5vD9HucWX5c8fNcAkSOSoHQm-M", authDomain: "luxyparfums-46c59.firebaseapp.com", projectId: "luxyparfums-46c59", storageBucket: "luxyparfums-46c59.firebasestorage.app", messagingSenderId: "211881648987", appId: "1:211881648987:web:e3635cc04168237bad307e" };
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : userConfig;
@@ -532,18 +560,24 @@
         const isProd = typeof __app_id === 'undefined';
         const appIdStr = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         
-        // CORREÇÃO: Lê sempre da coleção 'produtos' para buscar os perfumes já cadastrados no Firebase real
         const getProdutosCollection = () => isProd ? collection(db, 'produtos') : collection(db, 'artifacts', appIdStr, 'public', 'data', 'produtos');
         const getProdutoDoc = (id) => isProd ? doc(db, 'produtos', id) : doc(db, 'artifacts', appIdStr, 'public', 'data', 'produtos', id);
+        
+        // Caminho Firebase para salvar as imagens rotativas do Banner
+        const getBannerDoc = () => isProd ? doc(db, 'configuracoes', 'banner') : doc(db, 'artifacts', appIdStr, 'public', 'data', 'configuracoes', 'banner');
 
         const NUMERO_WHATSAPP = "5592984215022"; 
-        
         const fallbackImg = "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=800&auto=format&fit=crop";
 
         let listaProdutosGlobais = [];
         let listaProdutosAdmin = []; 
         let currentUser = null;
         let carrinho = JSON.parse(localStorage.getItem('luxy_carrinho')) || []; 
+
+        // FORMATAÇÃO DE MOEDA PREMIUM (Com . nos milhares e , nos cêntimos)
+        const formatMoeda = (valor) => {
+            return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        };
 
         window.showToast = (msg, type='success') => {
             const container = document.getElementById('toast-container');
@@ -556,37 +590,28 @@
             setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 3500);
         };
 
-        // =========================================================
-        // GIGANTESCO BANCO DE NOTAS (MAIS DE 80 NOTAS ÁRABES)
-        // =========================================================
+        // GIGANTESCO BANCO DE NOTAS OLFATIVAS (Extraídas do Catálogo Oficial Top 100)
         let nSalvas = JSON.parse(localStorage.getItem('luxy_notas')) || { topo:[], coracao:[], fundo:[] };
         let gNotas = {
             topo: [...[
-                {nome:"Limão Siciliano",emoji:"🍋"}, {nome:"Bergamota",emoji:"🌿"}, {nome:"Laranja",emoji:"🍊"}, {nome:"Laranja Sanguínea",emoji:"🍊"},
-                {nome:"Tangerina",emoji:"🍊"}, {nome:"Maçã Verde",emoji:"🍏"}, {nome:"Maçã",emoji:"🍎"}, {nome:"Pera",emoji:"🍐"},
+                {nome:"Limão",emoji:"🍋"}, {nome:"Limão Siciliano",emoji:"🍋"}, {nome:"Bergamota",emoji:"🌿"}, {nome:"Laranja",emoji:"🍊"}, {nome:"Laranja Sanguínea",emoji:"🍊"}, {nome:"Tangerina",emoji:"🍊"},
+                {nome:"Maçã",emoji:"🍎"}, {nome:"Maçã Verde",emoji:"🍏"}, {nome:"Pera",emoji:"🍐"}, {nome:"Pêra",emoji:"🍐"},
                 {nome:"Pêssego",emoji:"🍑"}, {nome:"Morango",emoji:"🍓"}, {nome:"Framboesa",emoji:"🍓"}, {nome:"Cereja",emoji:"🍒"},
                 {nome:"Melancia",emoji:"🍉"}, {nome:"Melão",emoji:"🍈"}, {nome:"Abacaxi",emoji:"🍍"}, {nome:"Manga",emoji:"🥭"},
-                {nome:"Côco",emoji:"🥥"}, {nome:"Bagas Vermelhas",emoji:"🫐"}, {nome:"Groselha Negra",emoji:"🫐"}, {nome:"Hortelã",emoji:"🌿"},
-                {nome:"Menta",emoji:"🌿"}, {nome:"Lavanda",emoji:"🧊"}, {nome:"Sálvia",emoji:"🍃"}, {nome:"Alecrim",emoji:"🌿"},
-                {nome:"Manjericão",emoji:"🍃"}, {nome:"Pimenta Rosa",emoji:"🌶️"}, {nome:"Pimenta Preta",emoji:"🌶️"}, {nome:"Açafrão",emoji:"🧶"},
-                {nome:"Cardamomo",emoji:"🫘"}, {nome:"Notas Aquáticas",emoji:"💧"}, {nome:"Aldeídos",emoji:"🫧"}, {nome:"Folha de Violeta",emoji:"🍃"}
+                {nome:"Côco",emoji:"🥥"}, {nome:"Coco",emoji:"🥥"}, {nome:"Bagas Vermelhas",emoji:"🫐"}, {nome:"Groselha Negra",emoji:"🫐"}, {nome:"Groselha Preta",emoji:"🫐"}, {nome:"Groselha Vermelha",emoji:"🍒"}, {nome:"Mirtilo",emoji:"🫐"}, {nome:"Frutas Vermelhas",emoji:"🍓"},
+                {nome:"Hortelã",emoji:"🌿"}, {nome:"Menta",emoji:"🌿"}, {nome:"Lavanda",emoji:"🧊"}, {nome:"Sálvia",emoji:"🍃"}, {nome:"Alecrim",emoji:"🌿"}, {nome:"Manjericão",emoji:"🍃"}, {nome:"Erva-doce",emoji:"🌿"}, {nome:"Erva-cidreira",emoji:"🌿"}, {nome:"Ervas Aromáticas",emoji:"🌿"},
+                {nome:"Pimenta Rosa",emoji:"🌶️"}, {nome:"Pimenta Preta",emoji:"🌶️"}, {nome:"Açafrão",emoji:"🧶"}, {nome:"Cardamomo",emoji:"🫘"},
+                {nome:"Notas Aquáticas",emoji:"💧"}, {nome:"Aldeídos",emoji:"🫧"}, {nome:"Folha de Violeta",emoji:"🍃"}, {nome:"Folhas Verdes",emoji:"🌿"}
             ], ...nSalvas.topo],
             coracao: [...[
-                {nome:"Rosa Damascena",emoji:"🌹"}, {nome:"Rosa",emoji:"🌹"}, {nome:"Jasmim",emoji:"🌸"}, {nome:"Flor de Laranjeira",emoji:"🌸"},
-                {nome:"Ylang-ylang",emoji:"🌺"}, {nome:"Frésia",emoji:"🌺"}, {nome:"Peônia",emoji:"🌷"}, {nome:"Lírio-do-vale",emoji:"🌺"},
-                {nome:"Muguet",emoji:"🍃"}, {nome:"Gardênia",emoji:"🌼"}, {nome:"Íris",emoji:"🌺"}, {nome:"Violeta",emoji:"💜"},
-                {nome:"Orquídea",emoji:"🌺"}, {nome:"Jacinto",emoji:"👃"}, {nome:"Magnólia",emoji:"🌸"}, {nome:"Camélia",emoji:"🌺"},
-                {nome:"Gerânio",emoji:"🌾"}, {nome:"Néroli",emoji:"🌼"}, {nome:"Canela",emoji:"🍂"}, {nome:"Cravo",emoji:"🌰"},
-                {nome:"Noz-moscada",emoji:"🌰"}, {nome:"Folhas Verdes",emoji:"🌿"}, {nome:"Chá Verde",emoji:"🌿"}, {nome:"Bambu",emoji:"🎋"},
-                {nome:"Mel",emoji:"🍯"}, {nome:"Caramelo",emoji:"🍬"}, {nome:"Pralinê",emoji:"🍬"}, {nome:"Água de Coco",emoji:"💧"}
+                {nome:"Rosa Damascena",emoji:"🌹"}, {nome:"Rosa Branca",emoji:"🤍"}, {nome:"Rosa",emoji:"🌹"}, {nome:"Jasmim",emoji:"🌸"}, {nome:"Flor de Laranjeira",emoji:"🌸"}, {nome:"Ylang-ylang",emoji:"🌺"}, {nome:"Ylang-Ylang",emoji:"🌺"}, {nome:"Frésia",emoji:"🌺"}, {nome:"Peônia",emoji:"🌷"}, {nome:"Lírio-do-vale",emoji:"🌺"}, {nome:"Muguet",emoji:"🍃"}, {nome:"Gardênia",emoji:"🌼"}, {nome:"Íris",emoji:"🌺"}, {nome:"Violeta",emoji:"💜"}, {nome:"Orquídea",emoji:"🌺"}, {nome:"Jacinto",emoji:"👃"}, {nome:"Magnólia",emoji:"🌸"}, {nome:"Camélia",emoji:"🌺"}, {nome:"Gerânio",emoji:"🌾"}, {nome:"Néroli",emoji:"🌼"}, {nome:"Flor",emoji:"🌸"},
+                {nome:"Canela",emoji:"🍂"}, {nome:"Cravo",emoji:"🌰"}, {nome:"Noz-moscada",emoji:"🌰"}, {nome:"Coentro",emoji:"🌿"}, {nome:"Folhas Verdes",emoji:"🌿"}, {nome:"Folha de Oliveira",emoji:"🫒"}, {nome:"Chá Verde",emoji:"🌿"}, {nome:"Bambu",emoji:"🎋"},
+                {nome:"Mel",emoji:"🍯"}, {nome:"Caramelo",emoji:"🍬"}, {nome:"Pralinê",emoji:"🍬"}, {nome:"Açúcar",emoji:"🍬"}, {nome:"Açúcar Mascavo",emoji:"🟤"}, {nome:"Água de Coco",emoji:"💧"}, {nome:"Bourbon",emoji:"🥃"}, {nome:"Incenso",emoji:"🪔"}, {nome:"Pimenta Preta",emoji:"🌶️"}
             ], ...nSalvas.coracao],
             fundo: [...[
-                {nome:"Oud",emoji:"🌳"}, {nome:"Cedro",emoji:"🌲"}, {nome:"Sândalo",emoji:"🪵"}, {nome:"Patchouli",emoji:"🍂"},
-                {nome:"Vetiver",emoji:"🌿"}, {nome:"Musgo de Carvalho",emoji:"🌿"}, {nome:"Madeira Branca",emoji:"🌲"}, {nome:"Madeira de Guaiaco",emoji:"🪵"},
-                {nome:"Almíscar",emoji:"🤍"}, {nome:"Almíscar Branco",emoji:"🤍"}, {nome:"Musk",emoji:"🤍"}, {nome:"Âmbar",emoji:"🍂"},
-                {nome:"Benjoim",emoji:"🕯️"}, {nome:"Mirra",emoji:"⚱️"}, {nome:"Incenso",emoji:"🪔"}, {nome:"Baunilha",emoji:"🍦"},
-                {nome:"Fava Tonka",emoji:"🍂"}, {nome:"Couro",emoji:"🟤"}, {nome:"Tabaco",emoji:"🚬"}, {nome:"Chocolate",emoji:"🍫"},
-                {nome:"Açúcar Mascavo",emoji:"🟤"}, {nome:"Café",emoji:"☕"}
+                {nome:"Oud",emoji:"🌳"}, {nome:"Cedro",emoji:"🌲"}, {nome:"Madeira de Cedro",emoji:"🌲"}, {nome:"Sândalo",emoji:"🪵"}, {nome:"Patchouli",emoji:"🍂"}, {nome:"Patchuli",emoji:"🍂"}, {nome:"Vetiver",emoji:"🌿"}, {nome:"Musgo",emoji:"🌿"}, {nome:"Musgo de Carvalho",emoji:"🌿"}, {nome:"Madeira Branca",emoji:"🌲"}, {nome:"Madeira de Guaiaco",emoji:"🪵"}, {nome:"Notas Amadeiradas",emoji:"🪵"}, {nome:"Notas doces amadeiradas",emoji:"🪵"},
+                {nome:"Almíscar",emoji:"🤍"}, {nome:"Almíscar Branco",emoji:"🤍"}, {nome:"Musk",emoji:"🤍"}, {nome:"Musk Amadeirado",emoji:"🪵"}, {nome:"Âmbar",emoji:"🍂"}, {nome:"Âmbar Negro",emoji:"🖤"}, {nome:"Benjoim",emoji:"🕯️"}, {nome:"Mirra",emoji:"⚱️"}, {nome:"Incenso",emoji:"🪔"},
+                {nome:"Baunilha",emoji:"🍦"}, {nome:"Baunilha Suave",emoji:"🍦"}, {nome:"Fava Tonka",emoji:"🍂"}, {nome:"Couro",emoji:"🟤"}, {nome:"Tabaco",emoji:"🚬"}, {nome:"Chocolate",emoji:"🍫"}, {nome:"Amêndoas",emoji:"🌰"}, {nome:"Amêndoa",emoji:"🌰"}, {nome:"Açúcar Mascavo",emoji:"🟤"}, {nome:"Café",emoji:"☕"}
             ], ...nSalvas.fundo]
         };
 
@@ -601,9 +626,41 @@
         };
         window.addCustomNota = function(cat, idE, idN) { let e = document.getElementById(idE).value||"✨", n = document.getElementById(idN).value; if(!n) return; let obj = {nome:n, emoji:e}; gNotas[cat].push(obj); nSalvas[cat].push(obj); localStorage.setItem('luxy_notas', JSON.stringify(nSalvas)); renderizarFiltrosNotas(); document.getElementById(idE).value=""; document.getElementById(idN).value=""; };
 
-        // =========================================================
-        // LÓGICA DO GRÁFICO DE ACORDES PRINCIPAIS (CORES E CONTRASTE)
-        // =========================================================
+        // SISTEMA DE CARROSSEL ROTATIVO
+        let carouselImages = [
+            "https://i.postimg.cc/RVq5JHnL/51kon6Gn-FML-AC-SY879.jpg",
+            "https://i.postimg.cc/MKg4crSm/Luxury-Collection-Amber-Rouge-Orientica-Eau-de-Parfum-02.webp",
+            "https://i.postimg.cc/wTR4dcmt/image-2.png",
+            "https://i.postimg.cc/WpBCzHjG/french-avenue-spectre-ghost-eau-de-parfum-perfume-masculino-6290360372723-bnp-01-768x768.webp",
+            "https://i.postimg.cc/bJGVNQ5N/blomblom-frasco-b29a35973b0405f79317736150331201-1024-1024.webp",
+            "https://i.postimg.cc/brcgy4b3/D-NQ-NP-770827-MLB110331194101-042026-O.webp",
+            "https://i.postimg.cc/cL9cgvw4/photoroom-20251103-132646-92408d0bad67d4d34e17621872276780-1024-1024.webp"
+        ];
+        let currentSlide = 0;
+        let slideIntervalId = null;
+
+        function renderCarousel() {
+            const container = document.getElementById('banner-carousel');
+            if(!container) return;
+            const validImages = carouselImages.filter(url => url && url.trim() !== '');
+            if(validImages.length === 0) validImages.push(fallbackImg);
+
+            container.innerHTML = validImages.map((img, i) => 
+                `<div class="banner-slide ${i === 0 ? 'active' : ''}" style="background-image: url('${img}')"></div>`
+            ).join('');
+
+            if(slideIntervalId) clearInterval(slideIntervalId);
+            if(validImages.length > 1) {
+                slideIntervalId = setInterval(() => {
+                    const slides = document.querySelectorAll('.banner-slide');
+                    if(slides.length <= 1) return;
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }, 5000); // Troca a cada 5 segundos
+            }
+        }
+
         function gerarGraficoAcordes(piramide) {
             if(!piramide) return '';
             let allNotes = [...(piramide.topo||[]), ...(piramide.coracao||[]), ...(piramide.fundo||[])];
@@ -611,7 +668,6 @@
             
             let accordWeights = {};
             
-            // Dicionário de Cores e Classificação (Contraste Inteligente Adicionado)
             const categorias = {
                 "Âmbar": { color: "#C66B27", textColor: "#fff", chaves: ["âmbar", "ambar"] },
                 "Especiado Quente": { color: "#C64B27", textColor: "#fff", chaves: ["pimenta", "açafrão", "canela", "cravo", "noz", "especiado", "cardamomo"] },
@@ -629,7 +685,6 @@
                 "Almíscar": { color: "#EAE7DC", textColor: "#000", chaves: ["almíscar", "musk"] }
             };
 
-            // Contagem de pesos baseada nas notas do perfume
             allNotes.forEach(noteStr => {
                 if(!noteStr) return;
                 let noteName = noteStr.toLowerCase();
@@ -643,20 +698,15 @@
                 if(!found) accordWeights["Fresco / Aquático"] = (accordWeights["Fresco / Aquático"] || 0) + 1;
             });
 
-            // Ordenar do maior para o menor com atribuição de cor de texto
             let sortedAccords = Object.keys(accordWeights).map(key => {
                 return { name: key, color: categorias[key].color, textColor: categorias[key].textColor, count: accordWeights[key] };
             }).sort((a,b) => b.count - a.count).slice(0, 7);
 
-            // Gerar HTML das Barras
             let chartHtml = '';
             let startWidth = 100;
             sortedAccords.forEach((acc, i) => {
-                // Diminui o tamanho visualmente em degraus (estética de luxo)
                 let width = startWidth - (i * 10); 
-                // Adiciona sombra robusta APENAS se o texto for branco para contraste total
                 let shadow = acc.textColor === '#fff' ? 'text-shadow: 0 1px 3px rgba(0,0,0,0.8);' : 'text-shadow: none;';
-                
                 chartHtml += `<div class="accord-bar" style="background-color: ${acc.color}; color: ${acc.textColor}; ${shadow} width: ${width}%;">${acc.name}</div>`;
             });
             
@@ -670,6 +720,23 @@
                 } else { 
                     await signInAnonymously(auth); 
                 }
+                
+                // Ouve as configurações do Carrossel de Banner em tempo real
+                onSnapshot(getBannerDoc(), (docSnap) => {
+                    if(docSnap.exists() && docSnap.data().imagens && docSnap.data().imagens.length > 0) {
+                        carouselImages = docSnap.data().imagens;
+                    }
+                    renderCarousel();
+                    
+                    // Se o painel admin estiver aberto, preenche os inputs
+                    if(document.getElementById('banner-img1')) {
+                        for(let i=0; i<7; i++) {
+                            let input = document.getElementById(`banner-img${i+1}`);
+                            if(input) input.value = carouselImages[i] || '';
+                        }
+                    }
+                });
+
             } catch(e) { console.error("Auth error:", e); }
         };
 
@@ -680,7 +747,6 @@
                 document.getElementById('app-admin').classList.remove('hidden'); 
                 document.body.classList.add('admin-body');
                 
-                // Valida se o utilizador está logado com e-mail e senha (e não como visitante anónimo)
                 if(currentUser && !currentUser.isAnonymous){ 
                     document.getElementById('login-section').classList.add('hidden'); 
                     document.getElementById('dashboard-section').classList.remove('hidden'); 
@@ -721,6 +787,29 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             renderizarFiltrosNotas(); atualizarCarrinhoUI();
+        });
+
+        // FORMULÁRIO DE ATUALIZAÇÃO DO CARROSSEL
+        document.getElementById('form-edit-banner').addEventListener('submit', async(e) => {
+            e.preventDefault();
+            if(!currentUser) { showToast("Sessão expirada.", "error"); return; }
+            let btn = document.getElementById('btn-submit-banner');
+            btn.disabled = true; btn.innerText = "Atualizando...";
+            
+            let imgs = [];
+            for(let i=1; i<=7; i++) {
+                let val = document.getElementById(`banner-img${i}`).value;
+                if(val && val.trim() !== '') imgs.push(val);
+            }
+            
+            try {
+                await setDoc(getBannerDoc(), { imagens: imgs });
+                showToast("Carrossel atualizado com sucesso!");
+            } catch(err) { 
+                showToast("Erro ao atualizar carrossel: " + err.message, "error"); 
+            } finally { 
+                btn.disabled = false; btn.innerText = "Atualizar Carrossel"; 
+            }
         });
 
         document.getElementById('form-add-produto').addEventListener('submit', async(e) => {
@@ -831,7 +920,7 @@
                                 <img src="${dt.imagens[0]}" style="width:40px; height:40px; object-fit:cover; border-radius:6px; border:1px solid #eee;" onerror="this.src='${fallbackImg}'">
                                 <b>${dt.nome}</b>
                             </td> 
-                            <td style="padding:15px 10px; font-weight:600;">R$ ${dt.preco.toFixed(2).replace('.',',')}</td> 
+                            <td style="padding:15px 10px; font-weight:600;">R$ ${formatMoeda(dt.preco)}</td> 
                             <td style="padding:15px 10px;"><span style="background:${dt.estoque>0?'#e8f5e9':'#ffebee'}; color:${dt.estoque>0?'#2e7d32':'#c62828'}; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700;">${dt.estoque} un.</span></td>
                             <td style="padding:15px 10px; text-align:right;">
                                 <button onclick="abrirModalEdicao('${d.id}')" title="Editar" style="color:#000; background:#f0f0f0; border:none; cursor:pointer; width:32px; height:32px; border-radius:4px; margin-right:5px;"><i data-lucide="edit" style="width:16px;"></i></button>
@@ -870,7 +959,7 @@
                         <div class="produto-info">
                             <div class="produto-tags"><span class="tag-micro" style="background:#111; color:#fff;">${p.categoria}</span>${tagOcasiao}</div>
                             <h3 class="produto-nome">${p.nome}</h3>
-                            <p class="produto-preco">R$ ${p.preco.toFixed(2).replace('.',',')}</p>
+                            <p class="produto-preco">R$ ${formatMoeda(p.preco)}</p>
                             <button class="btn-ver">Explorar</button>
                         </div>
                     </article>`;
@@ -907,7 +996,7 @@
                         <img src="${item.img}" class="cart-item-img" onerror="this.src='${fallbackImg}'">
                         <div class="cart-item-info">
                             <h4 class="cart-item-title">${item.nome}</h4>
-                            <div class="cart-item-price">R$ ${item.preco.toFixed(2).replace('.', ',')}</div>
+                            <div class="cart-item-price">R$ ${formatMoeda(item.preco)}</div>
                             <div class="cart-item-actions">
                                 <div class="qty-controls">
                                     <button class="qty-btn" onclick="alterarQtdCarrinho('${item.id}', -1)">-</button>
@@ -920,7 +1009,7 @@
                     </div>
                 `;
             });
-            totalEl.innerText = `R$ ${totalPreco.toFixed(2).replace('.', ',')}`;
+            totalEl.innerText = `R$ ${formatMoeda(totalPreco)}`;
             if(window.lucide) lucide.createIcons();
         };
 
@@ -941,14 +1030,12 @@
 
         window.removerDoCarrinho = (id) => { carrinho = carrinho.filter(item => item.id !== id); atualizarCarrinhoUI(); };
 
-        // =========================================================
-        // MENSAGEM DE WHATSAPP SOFISTICADA E DETALHADA
-        // =========================================================
         window.finalizarPedidoWhatsApp = () => {
             if(carrinho.length === 0) return;
             
             let numeroPedido = Math.floor(Math.random() * 90000) + 10000;
-            let dataHora = new Date().toLocaleString('pt-PT', { dateStyle: 'short', timeStyle: 'short' });
+            // O FORMATO " hrs" FOI ADICIONADO AQUI
+            let dataHora = new Date().toLocaleString('pt-PT', { dateStyle: 'short', timeStyle: 'short' }) + ' hrs';
             
             let mensagem = `👑 *LUXY PARFUMS - ALTA PERFUMARIA* 👑%0A`;
             mensagem += `*Encomenda #LX-${numeroPedido}*%0A`;
@@ -960,11 +1047,11 @@
                 let subtotal = item.preco * item.qtd; total += subtotal;
                 mensagem += `🔸 *${item.nome}*%0A`;
                 mensagem += `   Quantidade: ${item.qtd}x%0A`;
-                mensagem += `   Subtotal: R$ ${subtotal.toFixed(2).replace('.', ',')}%0A%0A`;
+                mensagem += `   Subtotal: R$ ${formatMoeda(subtotal)}%0A%0A`;
             });
             
             mensagem += `════════════════════════%0A`;
-            mensagem += `💎 *TOTAL ESTIMADO: R$ ${total.toFixed(2).replace('.', ',')}*%0A`;
+            mensagem += `💎 *TOTAL ESTIMADO: R$ ${formatMoeda(total)}*%0A`;
             mensagem += `════════════════════════%0A%0A`;
             mensagem += `Por favor, informem-me sobre os métodos de pagamento e as condições de envio. Aguardo o vosso contacto! ✨`;
             
@@ -996,7 +1083,7 @@
             document.getElementById('modal-categoria').innerText = p.categoria;
             let tagOca = document.getElementById('modal-ocasiao-tag'); if(p.ocasiao){ tagOca.innerText = p.ocasiao; tagOca.classList.remove('hidden'); } else { tagOca.classList.add('hidden'); }
             document.getElementById('modal-nome').innerText = p.nome;
-            document.getElementById('modal-preco').innerText = `R$ ${p.preco.toFixed(2).replace('.',',')}`;
+            document.getElementById('modal-preco').innerText = `R$ ${formatMoeda(p.preco)}`;
             document.getElementById('modal-desc').innerText = p.descricao || `Obra-prima da perfumaria árabe.`; document.getElementById('modal-desc').classList.add('desc-collapsed');
             
             document.getElementById('btn-modal-comprar').onclick = () => adicionarAoCarrinho(p.id);
