@@ -45,11 +45,11 @@
         .toast.error { border-bottom: 2px solid #ef4444; }
 
         /* --- VITRINE / HEADER CARROSSEL --- */
-        .banner { width: 100%; height: 55vh; min-height: 480px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; overflow: hidden; background-color: #0a0a0a; }
+        .banner { width: 100%; height: 60vh; min-height: 500px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; overflow: hidden; background-color: #0a0a0a; }
         
         /* Container do Carrossel animado */
         .banner-carousel { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-        .banner-slide { position: absolute; inset: 0; background-size: cover; background-position: center 20%; opacity: 0; transition: opacity 1.5s ease-in-out; transform: scale(1.05); }
+        .banner-slide { position: absolute; inset: 0; background-size: cover; background-position: center center; opacity: 0; transition: opacity 1.5s ease-in-out; transform: scale(1.05); }
         .banner-slide.active { opacity: 1; animation: subtleZoom 8s linear infinite alternate; }
         @keyframes subtleZoom { from { transform: scale(1.05); } to { transform: scale(1.15); } }
 
@@ -230,8 +230,10 @@
         }
         
         @media (max-width: 600px) { 
-            .banner { min-height: 380px; padding: 30px 15px; } 
-            .banner-title { font-size: 32px; } 
+            /* Vitrine - Formato Vertical e Imersivo para Mobile */
+            .banner { height: 85vh; min-height: 600px; padding: 40px 15px; justify-content: center; } 
+            .banner-title { font-size: 34px; margin-bottom: 12px; } 
+            .banner-subtitle { font-size: 15px; }
             .catalogo-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 25px 15px; } 
             .produto-info { padding: 15px 10px; }
             .produto-nome { font-size: 13px; margin-bottom: 5px; }
@@ -1053,7 +1055,7 @@
             mensagem += `════════════════════════%0A`;
             mensagem += `💎 *TOTAL ESTIMADO: R$ ${formatMoeda(total)}*%0A`;
             mensagem += `════════════════════════%0A%0A`;
-            mensagem += `Por favor, informem-me sobre os métodos de pagamento e as condições de envio. Aguardo o vosso contacto! ✨`;
+            mensagem += `Por favor, informem-me sobre os métodos de pagamento e as condições de envio. Aguardo o contato! ✨`;
             
             window.open(`https://wa.me/${NUMERO_WHATSAPP}?text=${mensagem}`, '_blank');
         };
